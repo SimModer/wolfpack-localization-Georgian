@@ -1,34 +1,42 @@
 # Wolfpack Localization Installation Guide
 
-## How to Install:
+## 📥 How to Install
 
-1. **Download Your Language File:**
-   - Visit the [Wolfpack Localization GitHub Repository](https://github.com/niclqs/wolfpack-localization).
-   - Download the L10n_Package_0.26.zip file.
+### 1. Download Language Files
+- Visit the [Wolfpack Localization GitHub Repository](https://github.com/niclqs/wolfpack-localization)
+- Download the `L10n_Package_0.26.zip` file
 
-2. **Open Wolfpack:**
-   - Launch the Wolfpack game on your system.
+### 2. Prepare for Installation
+1. Launch **Wolfpack** game
+2. Navigate to:  
+   **Settings** → **Language**
 
-3. **Access Language Settings:**
-   - Navigate to the in-game settings.
-   - Select "Language."
+### 3. Access Game Language Folder
+- In Language settings, select **"Open Languages Folder"**  
+  *(This will open the correct directory automatically)*
 
-4. **Open Languages Folder:**
-   - Within the Language settings, locate and select "Open Languages Folder."
+### 4. Install Language Files
+- Copy the downloaded `.zip` to the opened folder
+- Extract contents using **WinRAR** or **7zip**  
+  *(All necessary files should be extracted here)*
 
-5. **Drop Your Downloaded .lang File:**
-   - Copy or move the downloaded .zip file to the open Languages folder. Unzip the .zip file there using WinRAR or 7zip.
+### 5. Activate Your Language
+1. Return to game settings
+2. Select **"Reload Languages"**
+3. Choose your language using arrow keys  
+   *(Navigate from "Official English" to your preferred language)*
 
-6. **Reload Languages:**
-   - Go back to the game settings.
-   - Select "Reload Languages" to apply the changes.
+⚠️ **Note**  
+For first-time installations, you may need to restart the game for changes to take full effect.
 
-7. **Choose Your Language:**
-   - In the Language settings, use the arrow keys to scroll left or right from the "Official English" option.
-   - Find and select your desired language.
+## 🤝 How to Contribute
 
-## Need Improvements or Want to Contribute?
+We welcome improvements to our translations! Here's how you can help:
 
-If you notice any issues with the translations or want to contribute to the project, please visit the [GitHub Repository](https://github.com/niclqs/wolfpack-localization). Feel free to submit pull requests or open issues to help enhance the localization experience for the Wolfpack community.
+- Report issues or suggest improvements via [GitHub Issues](https://github.com/niclqs/wolfpack-localization/issues)
+- Submit your translations via [Pull Requests](https://github.com/niclqs/wolfpack-localization/pulls)
+- Help test new language packs
 
-Happy gaming!
+🔗 **Repository**: [Wolfpack Localization on GitHub](https://github.com/niclqs/wolfpack-localization)
+
+Happy hunting, Captain! ⚓
