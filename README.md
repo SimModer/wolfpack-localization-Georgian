@@ -15,9 +15,6 @@ With the release of update 0.26, Wolfpack now supports community-driven translat
 ### Current Status
 Currently, we’re focusing on translating the **menu** text. In update 0.27, we’ve added an experimental version where a game file is replaced, but don’t worry—this file will still be available as a backup here. Some translations may be missing or appear late in the menu, so please bear with us as we refine this process.
 
-## How to Install
-We’re working on a video tutorial to guide you through the installation process. Stay tuned!
-
 ## Contributors
 A special thanks to our brave crew members who’ve already contributed:
 
