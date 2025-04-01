@@ -3,7 +3,7 @@
 ## How to Install:
 
 1. **Download Your Language File:**
-   - Visit the [Wolfpack Localization GitHub Repository](https://github.com/NiclqsGER/wolfpack-localization).
+   - Visit the [Wolfpack Localization GitHub Repository](https://github.com/niclqs/wolfpack-localization).
    - Download the L10n_Package_0.26.zip file.
 
 2. **Open Wolfpack:**
@@ -29,6 +29,6 @@
 
 ## Need Improvements or Want to Contribute?
 
-If you notice any issues with the translations or want to contribute to the project, please visit the [GitHub Repository](https://github.com/NiclqsGER/wolfpack-localization). Feel free to submit pull requests or open issues to help enhance the localization experience for the Wolfpack community.
+If you notice any issues with the translations or want to contribute to the project, please visit the [GitHub Repository](https://github.com/niclqs/wolfpack-localization). Feel free to submit pull requests or open issues to help enhance the localization experience for the Wolfpack community.
 
 Happy gaming!

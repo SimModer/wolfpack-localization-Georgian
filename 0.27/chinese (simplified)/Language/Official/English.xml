@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <rudder>操舵装置</rudder>
+  <periscope>潜望镜</periscope>
+  <TDC>鱼雷数据计算机</TDC>
+  <directionFinder>无线电测向仪</directionFinder>
+  <radio>无线电收发信机</radio>
+  <hydrophone>水听器</hydrophone>
+  <enigma>"恩尼格玛"密码机</enigma>
+  <ladder>爬梯</ladder>
+  <morseKey>电键</morseKey>
+  <deckgun>甲板炮</deckgun>
+  <uzo>舰桥望远镜</uzo>
+  <AAgun>防空炮</AAgun>
+  <ballastTank_forwardVent>前压载水舱通海阀</ballastTank_forwardVent>
+  <ballastTank_aftVent>后压载水舱通海阀</ballastTank_aftVent>
+  <EOT>车钟</EOT>
+  <diveControl>水平舵控制台</diveControl>
+  <ballastTankControl>压载水舱阀门组</ballastTankControl>
+  <negativeTankControl>速潜水舱阀门组</negativeTankControl>
+  <recordStation>唱片机</recordStation>
+  <echoRanger>回声测深仪</echoRanger>
+  <mapTable>导航图</mapTable>
+  <trimTanks>配平水舱阀门组</trimTanks>
+  <helmStation>驾驶台</helmStation>
+  <BackupRudder>备用操舵装置</BackupRudder>
+  <Telephone>艇内电话</Telephone>
+  <E_motor_controls>电动机控制</E_motor_controls>
+  <Diesel_Engine>柴油机</Diesel_Engine>
+  <E_Motor_Direction>前进/后退选择开关</E_Motor_Direction>
+  <PortVoltageRegulator>左舷照明电压调节</PortVoltageRegulator>
+  <StbVoltageRegulator>右舷照明电压调节</StbVoltageRegulator>
+  <AuxVoltageRegulator>辅助电压调节</AuxVoltageRegulator>
+</LanguageString>

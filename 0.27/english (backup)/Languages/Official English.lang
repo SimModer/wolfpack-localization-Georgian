@@ -1,9 +1,9 @@
 {
-    "header": "Polski",
+    "header": "Official English",
     "pairs": [
         {
             "key": -1,
-            "value": "NIEWAŻNY"
+            "value": "INVALID"
         },
         {
             "key": 0,
@@ -11,83 +11,83 @@
         },
         {
             "key": 20,
-            "value": "Graj"
+            "value": "Play"
         },
         {
             "key": 21,
-            "value": "Podręcznik"
+            "value": "Manual"
         },
         {
             "key": 22,
-            "value": "Ustawienia"
+            "value": "Options"
         },
         {
             "key": 23,
-            "value": "Edytor"
+            "value": "Editor"
         },
         {
             "key": 24,
-            "value": "Warsztat"
+            "value": "Workshop"
         },
         {
             "key": 25,
-            "value": "Autorzy"
+            "value": "Credits"
         },
         {
             "key": 26,
-            "value": "Opuść"
+            "value": "Quit"
         },
         {
             "key": 4,
-            "value": "Aktualności"
+            "value": "News"
         },
         {
             "key": 3,
-            "value": "Wersja"
+            "value": "Version"
         },
         {
             "key": 5,
-            "value": "Język"
+            "value": "Language"
         },
         {
             "key": 6,
-            "value": "Wł"
+            "value": "On"
         },
         {
             "key": 7,
-            "value": "Wył"
+            "value": "Off"
         },
         {
             "key": 8,
-            "value": "Aktywne"
+            "value": "Enabled"
         },
         {
             "key": 9,
-            "value": "Nieaktywne"
+            "value": "Disabled"
         },
         {
             "key": 10,
-            "value": "Pokaż"
+            "value": "Show"
         },
         {
             "key": 11,
-            "value": "Ukryj"
+            "value": "Hide"
         },
         {
             "key": 12,
-            "value": "Dowolny"
+            "value": "Any"
         },
         {
             "key": 13,
-            "value": "Tak"
+            "value": "Yes"
         },
         {
             "key": 14,
-            "value": "Nie"
+            "value": "No"
         },
         {
             "key": 15,
-            "value": "Czas"
+            "value": "Time"
         },
         {
             "key": 16,
@@ -95,75 +95,75 @@
         },
         {
             "key": 17,
-            "value": "Czas gry"
+            "value": "Playtime"
         },
         {
             "key": 18,
-            "value": "Zgodność"
+            "value": "Random"
         },
         {
             "key": 19,
-            "value": "Publiczny"
+            "value": "Publish"
         },
         {
             "key": 1,
-            "value": "Wstecz"
+            "value": "Back"
         },
         {
             "key": 2,
-            "value": "Opuść"
+            "value": "Leave"
         },
         {
             "key": 27,
-            "value": "Dźwięk"
+            "value": "Audio"
         },
         {
             "key": 28,
-            "value": "Wideo"
+            "value": "Video"
         },
         {
             "key": 29,
-            "value": "Klawiatura"
+            "value": "Keyboard"
         },
         {
             "key": 30,
-            "value": "Mysz"
+            "value": "Mouse"
         },
         {
             "key": 31,
-            "value": "Gracz"
+            "value": "Game"
         },
         {
             "key": 32,
-            "value": "Woda"
+            "value": "Water"
         },
         {
             "key": 33,
-            "value": "Postprocessing"
+            "value": "Post-Processing"
         },
         {
             "key": 34,
-            "value": "Głośność"
+            "value": "Master Volume"
         },
         {
             "key": 35,
-            "value": "Głośność muzyki"
+            "value": "Music Volume"
         },
         {
             "key": 36,
-            "value": "Głośność efektów"
+            "value": "Effects Volume"
         },
         {
             "key": 37,
-            "value": "Głośność czatu głosowego"
+            "value": "VOIP Volume"
         },
         {
             "key": 38,
-            "value": "Głośność interfejsu"
+            "value": "User Interface Volume"
         },
         {
             "key": 39,
-            "value": "Głośność mikrofonu"
+            "value": "Microphone Volume"
         },
         {
             "key": 40,
@@ -171,83 +171,83 @@
         },
         {
             "key": 41,
-            "value": "Pokaż ikonę Push-To-Talk"
+            "value": "Display Push-To-Talk Hint"
         },
         {
             "key": 42,
-            "value": "Odtwarzaj kod Morse'a"
+            "value": "Play morse input"
         },
         {
             "key": 43,
-            "value": "Rozdzielczość"
+            "value": "Game Resolution"
         },
         {
             "key": 44,
-            "value": "Tryb wyświetlania"
+            "value": "Display Mode"
         },
         {
             "key": 45,
-            "value": "Synchronizacja pionowa (VSync)"
+            "value": "Vertical Synchronisation"
         },
         {
             "key": 46,
-            "value": "Ograniczenie FPS"
+            "value": "Frame Rate Limit"
         },
         {
             "key": 47,
-            "value": "Rozdzielczość tekstur"
+            "value": "Texture Resolution"
         },
         {
             "key": 48,
-            "value": "Filtrowanie anizotropowe"
+            "value": "Anisotropic Filtering"
         },
         {
             "key": 49,
-            "value": "Cienie"
+            "value": "Shadows"
         },
         {
             "key": 50,
-            "value": "Pełny ekran"
+            "value": "Exclusive Fullscreen"
         },
         {
             "key": 51,
-            "value": "Pełny ekran bez ramki"
+            "value": "Borderless Window"
         },
         {
             "key": 52,
-            "value": "Pełny ekran bez ramki"
+            "value": "Maximized Window"
         },
         {
             "key": 53,
-            "value": "W oknie"
+            "value": "Window"
         },
         {
             "key": 54,
-            "value": "Każda klatka"
+            "value": "Every Frame"
         },
         {
             "key": 55,
-            "value": "Co druga klatka"
+            "value": "Every Other Frame"
         },
         {
             "key": 56,
-            "value": "Bardzo niski"
+            "value": "Lower"
         },
         {
             "key": 57,
-            "value": "Niski"
+            "value": "Low"
         },
         {
             "key": 58,
-            "value": "Normalny"
+            "value": "Medium"
         },
         {
             "key": 59,
-            "value": "Wysoki"
+            "value": "High"
         },
         {
             "key": 60,
-            "value": "Bardzo wysoki"
+            "value": "Very High"
         },
         {
             "key": 61,
@@ -259,167 +259,167 @@
         },
         {
             "key": 63,
-            "value": "Maksymalny"
+            "value": "Max"
         },
         {
             "key": 64,
-            "value": "Czułość obrotu kamery"
+            "value": "Camera Rotation Sensitivity"
         },
         {
             "key": 65,
-            "value": "Czułość interakcji kursora"
+            "value": "Cursor Interaction Sensitivity"
         },
         {
             "key": 66,
-            "value": "Szybkość przewijania"
+            "value": "Scroll Wheel Intensity"
         },
         {
             "key": 67,
-            "value": "Skalowanie kursora"
+            "value": "Cursor Scale"
         },
         {
             "key": 68,
-            "value": "Odwrócenie myszy"
+            "value": "Invert Mouse"
         },
         {
             "key": 69,
-            "value": "Skala linii mapy"
+            "value": "Map Line Scale"
         },
         {
             "key": 70,
-            "value": "Rozmiar czcionki na mapie"
+            "value": "Map Font Scale"
         },
         {
             "key": 71,
-            "value": "Pokaż nazwy graczy"
+            "value": "Show Nameplates"
         },
         {
             "key": 72,
-            "value": "Pokaż podpowiedzi"
+            "value": "Show Tooltips"
         },
         {
             "key": 73,
-            "value": "Pokaż licznik FPS"
+            "value": "Show Frame Rate Counter"
         },
         {
             "key": 74,
-            "value": "Pokaż samouczek na początku gry"
+            "value": "Show Tutorial At Game Start"
         },
         {
             "key": 75,
-            "value": "Włącz drgania kamery"
+            "value": "Enable Camera Sway"
         },
         {
             "key": 76,
-            "value": "Pole widzenia"
+            "value": "Field Of View"
         },
         {
             "key": 77,
-            "value": "Nieprzezroczyste tło menu"
+            "value": "Menu Background Opacity"
         },
         {
             "key": 78,
-            "value": "Rozdzielczość wody"
+            "value": "Water Resolution"
         },
         {
             "key": 79,
-            "value": "Liczba cząsteczek wody"
+            "value": "Water Spray Particle Count"
         },
         {
             "key": 80,
-            "value": "Dynamiczna jakość piany"
+            "value": "Dynamic Foam Quality"
         },
         {
             "key": 81,
-            "value": "Podgląd wody"
+            "value": "Water Preview"
         },
         {
             "key": 82,
-            "value": "Okluzja otoczenia (SSAO)"
+            "value": "Screen Space Ambient Occlusion"
         },
         {
             "key": 83,
-            "value": "Odbicia (SSR)"
+            "value": "Screen Space Reflection"
         },
         {
             "key": 84,
-            "value": "Wygładzanie krawędzi"
+            "value": "Anti-Aliasing"
         },
         {
             "key": 85,
-            "value": "Oślepienie"
+            "value": "Bloom"
         },
         {
             "key": 86,
-            "value": "Korekta jasności"
+            "value": "Brightness Correction"
         },
         {
             "key": 87,
-            "value": "Dithering"
+            "value": "Dither"
         },
         {
             "key": 88,
-            "value": "Rozmycie w ruchu"
+            "value": "Motion Blur"
         },
         {
             "key": 89,
-            "value": "Głębia pola"
+            "value": "Depth of Field"
         },
         {
             "key": 90,
-            "value": "Aberracja chromatyczna"
+            "value": "Chromatic Aberration"
         },
         {
             "key": 91,
-            "value": "Otwórz folder >Język<"
+            "value": "Open Languages Folder"
         },
         {
             "key": 92,
-            "value": "Wczytaj ponownie języki"
+            "value": "Reload Languages"
         },
         {
             "key": 93,
-            "value": "Wczytaj ustawienia fabryczne"
+            "value": "Reset All Settings"
         },
         {
             "key": 94,
-            "value": "Szukaj lobby"
+            "value": "Find Lobby"
         },
         {
             "key": 95,
-            "value": "Utwórz lobby"
+            "value": "Create Lobby"
         },
         {
             "key": 96,
-            "value": "Filtr"
+            "value": "Filters"
         },
         {
             "key": 97,
-            "value": "Dystans do hosta"
+            "value": "Lobby Distance"
         },
         {
             "key": 98,
-            "value": "Hasło"
+            "value": "Password"
         },
         {
             "key": 99,
-            "value": "Boty"
+            "value": "Bots"
         },
         {
             "key": 100,
-            "value": "Pełne lobby"
+            "value": "Full Lobbies"
         },
         {
             "key": 101,
-            "value": "Styl gry"
+            "value": "Playstyle"
         },
         {
             "key": 102,
-            "value": "Łatwy"
+            "value": "Casual"
         },
         {
             "key": 103,
-            "value": "Trudny"
+            "value": "Hardcore"
         },
         {
             "key": 104,
@@ -427,135 +427,135 @@
         },
         {
             "key": 105,
-            "value": "Bliski"
+            "value": "Close"
         },
         {
             "key": 106,
-            "value": "Średni"
+            "value": "Default"
         },
         {
             "key": 107,
-            "value": "Daleki"
+            "value": "Far"
         },
         {
             "key": 108,
-            "value": "Cały świat"
+            "value": "Worldwide"
         },
         {
             "key": 111,
-            "value": "Nazwa serwera"
+            "value": "Title"
         },
         {
             "key": 112,
-            "value": "Opis"
+            "value": "Description"
         },
         {
             "key": 113,
-            "value": "Widoczność"
+            "value": "Visibility"
         },
         {
             "key": 114,
-            "value": "Do lobby można zaprosić znajomych"
+            "value": "Friends Can Invite To Lobby"
         },
         {
             "key": 115,
-            "value": "Prywatny"
+            "value": "Hidden"
         },
         {
             "key": 116,
-            "value": "Tylko znajomi"
+            "value": "Friends Only"
         },
         {
             "key": 117,
-            "value": "Publiczny"
+            "value": "Public"
         },
         {
             "key": 109,
-            "value": "Przeładuj"
+            "value": "Refresh"
         },
         {
             "key": 110,
-            "value": "Stwórz"
+            "value": "Create"
         },
         {
             "key": 118,
-            "value": "Odprawa"
+            "value": "Mission Briefing"
         },
         {
             "key": 119,
-            "value": "Poziom trudności"
+            "value": "Difficulty Settings"
         },
         {
             "key": 120,
-            "value": "Scenariusz"
+            "value": "Scenario"
         },
         {
             "key": 121,
-            "value": "Komendy"
+            "value": "Orders"
         },
         {
             "key": 122,
-            "value": "Ogólne"
+            "value": "General"
         },
         {
             "key": 123,
-            "value": "Data i godzina"
+            "value": "Time and Date"
         },
         {
             "key": 124,
-            "value": "Pogoda"
+            "value": "Weather"
         },
         {
             "key": 125,
-            "value": "Misja"
+            "value": "Mission"
         },
         {
             "key": 126,
-            "value": "Poziom trudności"
+            "value": "Difficulty"
         },
         {
             "key": 127,
-            "value": "Tryb gry"
+            "value": "Game Mode"
         },
         {
             "key": 128,
-            "value": "Dzień"
+            "value": "Day"
         },
         {
             "key": 129,
-            "value": "Miesiąc"
+            "value": "Month"
         },
         {
             "key": 130,
-            "value": "Rok"
+            "value": "Year"
         },
         {
             "key": 131,
-            "value": "Godzina"
+            "value": "Time of Day"
         },
         {
             "key": 132,
-            "value": "Lokalizacja"
+            "value": "Location"
         },
         {
             "key": 133,
-            "value": "Prędkość wiatru"
+            "value": "Wind Speed"
         },
         {
             "key": 134,
-            "value": "Kierunek wiatru"
+            "value": "Wind Direction"
         },
         {
             "key": 135,
-            "value": "Data"
+            "value": "Date"
         },
         {
             "key": 136,
-            "value": "Mgła"
+            "value": "Fog"
         },
         {
             "key": 137,
-            "value": "Automatyczna nawigacja"
+            "value": "Automatic Navigation"
         },
         {
             "key": 138,
@@ -563,655 +563,655 @@
         },
         {
             "key": 139,
-            "value": "Boty"
+            "value": "Non-Player Crew Members"
         },
         {
             "key": 140,
-            "value": "Uproszczone radio"
+            "value": "Simplified Radio"
         },
         {
             "key": 141,
-            "value": "Realistyczne tłumienie mowy"
+            "value": "Realistic Voice Attenuation"
         },
         {
             "key": 142,
-            "value": "Szybki start"
+            "value": "Quick Encounter"
         },
         {
             "key": 143,
-            "value": "Automatyczny silnik"
+            "value": "Automatic Engine"
         },
         {
             "key": 144,
-            "value": "Konwój okresowo zmienia kierunek"
+            "value": "Convoy Periodically Changes Direction"
         },
         {
             "key": 145,
-            "value": "Okręty eskorty korzystają z aktywnego sonaru"
+            "value": "Escorts Always Use Active Sonar"
         },
         {
             "key": 146,
-            "value": "Czas śledzenia przez eskortę"
+            "value": "Escort Pursuit Time"
         },
         {
             "key": 147,
-            "value": "Rozmiar konwoju"
+            "value": "Convoy Size"
         },
         {
             "key": 148,
-            "value": "Realistyczny czas ładowania torped"
+            "value": "Realistic Torpedo Reload Speed"
         },
         {
             "key": 149,
-            "value": "Wadliwe torpedy"
+            "value": "Faulty Torpedoes"
         },
         {
             "key": 150,
-            "value": "Ograniczona celność torped"
+            "value": "Limited Torpedo Accuracy"
         },
         {
             "key": 151,
-            "value": "Wystrzelenie torpedy zależne od kąta"
+            "value": "Torpedo Trigger Depends On Angle"
         },
         {
             "key": 152,
-            "value": "Zaproś znajomego"
+            "value": "Invite Friends"
         },
         {
             "key": 153,
-            "value": "Rozpocznij grę"
+            "value": "Start Game"
         },
         {
             "key": 154,
-            "value": "Walka"
+            "value": "Skirmish"
         },
         {
             "key": 155,
-            "value": "Samouczek"
+            "value": "Tutorial"
         },
         {
             "key": 156,
-            "value": "Zatoka Biskajska"
+            "value": "Bay of Biscay"
         },
         {
             "key": 157,
-            "value": "Morze Północne"
+            "value": "North Sea"
         },
         {
             "key": 158,
-            "value": "Morze Norweskie"
+            "value": "Norwegian Sea"
         },
         {
             "key": 159,
-            "value": "Morze Bałtyckie"
+            "value": "Baltic Sea"
         },
         {
             "key": 160,
-            "value": "Mały"
+            "value": "Small"
         },
         {
             "key": 161,
-            "value": "Średni"
+            "value": "Normal"
         },
         {
             "key": 162,
-            "value": "Duży"
+            "value": "Large"
         },
         {
             "key": 163,
-            "value": "Krótki"
+            "value": "Short"
         },
         {
             "key": 164,
-            "value": "Długi"
+            "value": "Long"
         },
         {
             "key": 165,
-            "value": "Cele"
+            "value": "Objectives"
         },
         {
             "key": 166,
-            "value": "Kliknij, aby przeglądać misje w Warsztacie Steam"
+            "value": "Click to browse missions on the Steam Workshop!"
         },
         {
             "key": 167,
-            "value": "Eksportuj misję do schowka"
+            "value": "Export mission to clipboard."
         },
         {
             "key": 168,
-            "value": "Importuj misję ze schowka"
+            "value": "Import mission from clipboard."
         },
         {
             "key": 169,
-            "value": "Podgląd"
+            "value": "Overview"
         },
         {
             "key": 170,
-            "value": "Detale"
+            "value": "Details"
         },
         {
             "key": 171,
-            "value": "Odkryte podczas misji"
+            "value": "Detected During Mission"
         },
         {
             "key": 172,
-            "value": "Wystrzelono torpedy"
+            "value": "Torpedoes Fired"
         },
         {
             "key": 173,
-            "value": "Torpedy trafiły"
+            "value": "Torpedoes Hit"
         },
         {
             "key": 174,
-            "value": "Celność torpedami"
+            "value": "Torpedo Hit Ratio"
         },
         {
             "key": 175,
-            "value": "Zniszczone okręty handlowe"
+            "value": "Merchants Destroyed"
         },
         {
             "key": 176,
-            "value": "Zniszczone okręty wojenne"
+            "value": "Warships Destroyed"
         },
         {
             "key": 177,
-            "value": "Zatopiony tonaż"
+            "value": "Tonnage Sunk"
         },
         {
             "key": 178,
-            "value": "Czas operacyjny"
+            "value": "Mission Time"
         },
         {
             "key": 179,
-            "value": "Skopiuj do schowka"
+            "value": "Export To Clipboard"
         },
         {
             "key": 180,
-            "value": "Wróć do lobby"
+            "value": "Return To Lobby"
         },
         {
             "key": 181,
-            "value": "Powtórz misję"
+            "value": "Retry Mission"
         },
         {
             "key": 182,
-            "value": "Następna misja"
+            "value": "Next Mission"
         },
         {
             "key": 183,
-            "value": "Rozłącz się"
+            "value": "Disconnect"
         },
         {
             "key": 184,
-            "value": "Zresetuj przypisania"
+            "value": "Reset Binds"
         },
         {
             "key": 185,
-            "value": "Idź naprzód"
+            "value": "Move Forward"
         },
         {
             "key": 186,
-            "value": "Idź w lewo"
+            "value": "Move Left"
         },
         {
             "key": 187,
-            "value": "Idź do tyłu"
+            "value": "Move Backward"
         },
         {
             "key": 188,
-            "value": "Idź w prawo"
+            "value": "Move Right"
         },
         {
             "key": 189,
-            "value": "Biegnij"
+            "value": "Run"
         },
         {
             "key": 190,
-            "value": "Otwórz/zamknij mapę"
+            "value": "Toggle Map"
         },
         {
             "key": 191,
-            "value": "Wyświetl podłączonych graczy"
+            "value": "Show Connected Clients"
         },
         {
             "key": 192,
-            "value": "Przełącz 1. stoper"
+            "value": "Toggle Stopwatch 1"
         },
         {
             "key": 193,
-            "value": "Przełącz 2. stoper"
+            "value": "Toggle Stopwatch 2"
         },
         {
             "key": 194,
-            "value": "Przełącz 3. stoper"
+            "value": "Toggle Stopwatch 3"
         },
         {
             "key": 195,
-            "value": "Przełącz 4. stoper"
+            "value": "Toggle Stopwatch 4"
         },
         {
             "key": 196,
-            "value": "Resetuj 1. stoper"
+            "value": "Reset Stopwatch 1"
         },
         {
             "key": 197,
-            "value": "Resetuj 2. stoper"
+            "value": "Reset Stopwatch 2"
         },
         {
             "key": 198,
-            "value": "Resetuj 3. stoper"
+            "value": "Reset Stopwatch 3"
         },
         {
             "key": 199,
-            "value": "Resetuj 4. stoper"
+            "value": "Reset Stopwatch 4"
         },
         {
             "key": 200,
-            "value": "Zresetuj wszystkie stopery"
+            "value": "Reset All Stopwatches"
         },
         {
             "key": 201,
-            "value": "Wystrzel torpedę"
+            "value": "Fire Torpedo"
         },
         {
             "key": 202,
-            "value": "Dziobowy ster głębokości w dół"
+            "value": "Lower Forward Diveplanes"
         },
         {
             "key": 203,
-            "value": "Dziobowy ster głębokości w górę"
+            "value": "Raise Forward Diveplanes"
         },
         {
             "key": 204,
-            "value": "Rufowy ster głębokości w dół"
+            "value": "Lower Aft Diveplanes"
         },
         {
             "key": 205,
-            "value": "Rufowy ster głębokości w górę"
+            "value": "Raise Aft Diveplanes"
         },
         {
             "key": 206,
-            "value": "Przełącz latarkę"
+            "value": "Toggle Flashlight"
         },
         {
             "key": 207,
-            "value": "Przełącz wykrywanie ręczne"
+            "value": "Toggle Recognition Manual"
         },
         {
             "key": 208,
-            "value": "Przełącz kolor latarki"
+            "value": "Toggle Flashlight Color"
         },
         {
             "key": 209,
-            "value": "Zobacz cele misji"
+            "value": "Show Mission Objectives"
         },
         {
             "key": 210,
-            "value": "Centruj dziobowy ster głębokości"
+            "value": "Center Forward Diveplane"
         },
         {
             "key": 211,
-            "value": "Centruj rufowy ster głębokości"
+            "value": "Center Aft Diveplane"
         },
         {
             "key": 212,
-            "value": "Klucz Morse'a"
+            "value": "Morse Key"
         },
         {
             "key": 213,
-            "value": "Alfabet Morse’a „Krótki”"
+            "value": "Morse Single Dot"
         },
         {
             "key": 214,
-            "value": "Alfabet Morse'a „Długi”"
+            "value": "Morse Single Dash"
         },
         {
             "key": 215,
-            "value": "Ciągłe krótkie"
+            "value": "Morse Continuous Dots"
         },
         {
             "key": 216,
-            "value": "Ciągłe długie"
+            "value": "Morse Continuous Dashes"
         },
         {
             "key": 217,
-            "value": "Następna strona"
+            "value": "Next Morse Text Page"
         },
         {
             "key": 218,
-            "value": "Poprzednia strona"
+            "value": "Previous Morse Text Page"
         },
         {
             "key": 219,
-            "value": "Wycisz"
+            "value": "Mute Voice"
         },
         {
             "key": 220,
-            "value": "Przełącznik menu botów"
+            "value": "Bot Menu Toggle"
         },
         {
             "key": 221,
-            "value": "Menu botów (1)"
+            "value": "Bot Menu1"
         },
         {
             "key": 222,
-            "value": "Menu botów (2)"
+            "value": "Bot Menu2"
         },
         {
             "key": 223,
-            "value": "Menu botów (3)"
+            "value": "Bot Menu3"
         },
         {
             "key": 224,
-            "value": "Zresetuj licznik przebiegu"
+            "value": "Map Reset Odometer"
         },
         {
             "key": 225,
-            "value": "Oznacz"
+            "value": "Map Symbol Tool"
         },
         {
             "key": 226,
-            "value": "Linijka"
+            "value": "Map Line Tool"
         },
         {
             "key": 227,
-            "value": "Kompas"
+            "value": "Map Circle Tool"
         },
         {
             "key": 228,
-            "value": "Notatka"
+            "value": "Map Write Tool"
         },
         {
             "key": 229,
-            "value": "Kopiuj"
+            "value": "Map Copy Line Tool"
         },
         {
             "key": 230,
-            "value": "Gumka"
+            "value": "Map Eraser Tool"
         },
         {
             "key": 231,
-            "value": "Kątomierz"
+            "value": "Map Protractor Tool"
         },
         {
             "key": 232,
-            "value": "Szybkie narzędzie: Symbol"
+            "value": "Map Quicktool Symbol"
         },
         {
             "key": 233,
-            "value": "Szybkie narzędzie: Linia"
+            "value": "Map Quicktool Line"
         },
         {
             "key": 234,
-            "value": "Szybkie narzędzie: Koło"
+            "value": "Map Quicktool Circle"
         },
         {
             "key": 235,
-            "value": "Szybkie narzędzie: Kopiuj linię"
+            "value": "Map Quicktool Copy Line"
         },
         {
             "key": 236,
-            "value": "Szybkie narzędzie: Gumka"
+            "value": "Map Quicktool Eraser"
         },
         {
             "key": 237,
-            "value": "Szybkie narzędzie: Kątomierz"
+            "value": "Map Quicktool Protractor"
         },
         {
             "key": 238,
-            "value": "Przełącz szkic"
+            "value": "Map Toggle Sketch"
         },
         {
             "key": 239,
-            "value": "Podążaj za kątomierzem"
+            "value": "Map Protractor Follow"
         },
         {
             "key": 240,
-            "value": "Przełącz orientację kompasu"
+            "value": "Map Toggle Reverse Compass"
         },
         {
             "key": 241,
-            "value": "Przełącz tryb czasu"
+            "value": "Map Toggle Time Mode"
         },
         {
             "key": 242,
-            "value": "Pokaż kąt"
+            "value": "Map Toggle Show Angle"
         },
         {
             "key": 243,
-            "value": "Przełącz przyciąganie"
+            "value": "Map Toggle Snap"
         },
         {
             "key": 244,
-            "value": "Pokaż odległość"
+            "value": "Map Toggle Show Distance"
         },
         {
             "key": 245,
-            "value": "Pokaż symbole"
+            "value": "Map Toggle Symbol"
         },
         {
             "key": 246,
-            "value": "Zresetuj kątomierz"
+            "value": "Map Reset Protractor Rotation"
         },
         {
             "key": 247,
-            "value": "Rysuj od środka mapy"
+            "value": "Map Toggle Draw From Midpoint"
         },
         {
             "key": 248,
-            "value": "Przełącz łamaną"
+            "value": "Map Toggle Polyline"
         },
         {
             "key": 249,
-            "value": "Zmień styl linii"
+            "value": "Map Toggle Line Style"
         },
         {
             "key": 250,
-            "value": "Pokaż kątomierz"
+            "value": "Map Toggle Show Protractor"
         },
         {
             "key": 251,
-            "value": "Wprowadź kąt przed odległością"
+            "value": "Map Enter Angle Before Distance"
         },
         {
             "key": 252,
-            "value": "Przełącz nakładkę peryskopu"
+            "value": "Toggle Periscope Overlay"
         },
         {
             "key": 253,
-            "value": "Zmień nakładkę peryskopu"
+            "value": "Swap Periscope Overlay"
         },
         {
             "key": 254,
-            "value": "Powiększ nakładkę peryskopu X 1"
+            "value": "Increase Periscope Overlay X 1"
         },
         {
             "key": 255,
-            "value": "Zmniejsz nakładkę peryskopu X 1"
+            "value": "Decrease Periscope Overlay X 1"
         },
         {
             "key": 256,
-            "value": "Powiększ nakładkę peryskopu X 10"
+            "value": "Increase Periscope Overlay X 10"
         },
         {
             "key": 257,
-            "value": "Zmniejsz nakładkę peryskopu X 10"
+            "value": "Decrease Periscope Overlay X 10"
         },
         {
             "key": 258,
-            "value": "Zwiększ jasność"
+            "value": "Increase Periscope Brightness"
         },
         {
             "key": 259,
-            "value": "Zmniejsz jasność"
+            "value": "Decrease Periscope Brigthness"
         },
         {
             "key": 260,
-            "value": "Przełącz notatnik"
+            "value": "Toggle Notebook"
         },
         {
             "key": 261,
-            "value": "Załoga"
+            "value": "Crew"
         },
         {
             "key": 262,
-            "value": "Ładunek"
+            "value": "Loadout"
         },
         {
             "key": 263,
-            "value": "Opuść załogę"
+            "value": "Leave Crew"
         },
         {
             "key": 264,
-            "value": "Dołącz do załogi"
+            "value": "Join Crew"
         },
         {
             "key": 265,
-            "value": "Dołącz"
+            "value": "Join"
         },
         {
             "key": 266,
-            "value": "Załoga jest pełna"
+            "value": "Crew Is Full"
         },
         {
             "key": 267,
-            "value": "Pseudonim"
+            "value": "Nickname"
         },
         {
             "key": 268,
-            "value": "Społeczność"
+            "value": "Community"
         },
         {
             "key": 269,
-            "value": "Zgłoś błąd"
+            "value": "Report A Bug"
         },
         {
             "key": 270,
-            "value": "Opcje załogi"
+            "value": "Crew Options"
         },
         {
             "key": 271,
-            "value": "Opcje banowania"
+            "value": "Ban List Options"
         },
         {
             "key": 272,
-            "value": "Dziennik aktywności"
+            "value": "Activity Log"
         },
         {
             "key": 273,
-            "value": "Wróć do gry"
+            "value": "Resume"
         },
         {
             "key": 274,
-            "value": "Wyjdź z gry"
+            "value": "Leave Game"
         },
         {
             "key": 275,
-            "value": "Metadane"
+            "value": "Metadata"
         },
         {
             "key": 276,
-            "value": "Warunki początkowe"
+            "value": "Start Conditions"
         },
         {
             "key": 277,
-            "value": "Warunki zwycięstwa"
+            "value": "Victory Conditions"
         },
         {
             "key": 278,
-            "value": "Cele"
+            "value": "Targets"
         },
         {
             "key": 279,
-            "value": "Zawsze pokazuj"
+            "value": "Always Show"
         },
         {
             "key": 280,
-            "value": "Pokaż po zakończeniu"
+            "value": "Show On Completion"
         },
         {
             "key": 281,
-            "value": "Zawsze ukryte"
+            "value": "Always Hidden"
         },
         {
             "key": 282,
-            "value": "Zwiększa lub zmniejsza ogólną głośność gry, zachowując proporcje pomiędzy różnymi głośnościami."
+            "value": "Raises or lowers the overall volume of the game whilst maintaining ratios between different volumes."
         },
         {
             "key": 283,
-            "value": "Reguluje głośność muzyki."
+            "value": "Controls the volume of the music."
         },
         {
             "key": 284,
-            "value": "Reguluje głośność różnych efektów, takich jak eksplozje i tym podobne."
+            "value": "Controls the volume of various effects, such as explosions and similar."
         },
         {
             "key": 285,
-            "value": "Kontroluje głośność przychodzącego czatu głosowego."
+            "value": "Controls the volume of incoming voice chat."
         },
         {
             "key": 286,
-            "value": "Wyświetla poziom głośności wejściowej mikrofonu."
+            "value": "Displays your microphone input level."
         },
         {
             "key": 287,
-            "value": "Funkcja Push-To-Talk włącza i wyłącza mikrofon po naciśnięciu odpowiedniego przycisku."
+            "value": "Push-To-Talk toggles your microphone on and off when the appropriate key is pressed."
         },
         {
             "key": 288,
-            "value": "Włącz, aby wyświetlić informację, czy mikrofon jest włączony, czy nie."
+            "value": "Enable to display a hint for when your microphone is enabled or not."
         },
         {
             "key": 289,
-            "value": "Wyłącz, aby wyłączyć efekt tonu Morse'a podczas używania klawisza Morse'a."
+            "value": "Disable to stop the morse sound effect from playing when using the morse key."
         },
         {
             "key": 290,
-            "value": "Zaszyfrowana wiadomość"
+            "value": "Encoded Message"
         },
         {
             "key": 291,
-            "value": "Zapisz wiadomość"
+            "value": "Save Message"
         },
         {
             "key": 292,
-            "value": "Oznacz wiadomość jako wysłaną"
+            "value": "Mark Message As Sent"
         },
         {
             "key": 293,
-            "value": "Odszyfrowana wiadomość"
+            "value": "Decoded Message"
         },
         {
             "key": 294,
-            "value": "Kanał"
+            "value": "Channel"
         },
         {
             "key": 295,
-            "value": "Od"
+            "value": "From"
         },
         {
             "key": 296,
-            "value": "Do"
+            "value": "To"
         },
         {
             "key": 297,
-            "value": "Anuluj"
+            "value": "Cancel"
         },
         {
             "key": 298,
-            "value": "Wyślij"
+            "value": "Send"
         },
         {
             "key": 299,
-            "value": "Zapisz"
+            "value": "Save"
         },
         {
             "key": 300,
-            "value": "Usuń"
+            "value": "Delete"
         },
         {
             "key": 301,
-            "value": "Radio"
+            "value": "Broadcast"
         },
         {
             "key": 302,
@@ -1247,27 +1247,27 @@
         },
         {
             "key": 310,
-            "value": "Akceptuj"
+            "value": "Accept"
         },
         {
             "key": 311,
-            "value": "Odrzuć"
+            "value": "Reject"
         },
         {
             "key": 312,
-            "value": "Odrzuć i ignoruj"
+            "value": "Reject and Ignore"
         },
         {
             "key": 313,
-            "value": "Zaakceptuj prośbę o dołączenie"
+            "value": "Accept Join Request"
         },
         {
             "key": 314,
-            "value": "Odrzuć prośbę o dołączenie"
+            "value": "Reject Join Request"
         },
         {
             "key": 315,
-            "value": "Odrzuć i zignoruj ​​prośbę o dołączenie"
+            "value": "Reject and Ignore Join Request"
         }
     ],
     "suffixPairs": [
@@ -1285,11 +1285,11 @@
         },
         {
             "key": 3,
-            "value": " metrów"
+            "value": " meters"
         },
         {
             "key": 4,
-            "value": " ton"
+            "value": " tons"
         },
         {
             "key": 5,
@@ -1303,51 +1303,51 @@
     "morsePairs": [
         {
             "key": 0,
-            "value": "Każdy może otrzymać"
+            "value": "Calling anyone"
         },
         {
             "key": 1,
-            "value": "Z kanału"
+            "value": "From Channel"
         },
         {
             "key": 9,
-            "value": "Odbiór"
+            "value": "Over"
         },
         {
             "key": 2,
-            "value": "Zrozumiałem"
+            "value": "Roger"
         },
         {
             "key": 3,
-            "value": "Wiadomość zweryfikowana"
+            "value": "Message verified"
         },
         {
             "key": 4,
-            "value": "Powtórz"
+            "value": "Say again"
         },
         {
             "key": 5,
-            "value": "Czekaj"
+            "value": "Wait"
         },
         {
             "key": 6,
-            "value": "Wyjdź"
+            "value": "Out"
         },
         {
             "key": 7,
-            "value": "Tak"
+            "value": "Yes"
         },
         {
             "key": 8,
-            "value": "Nie"
+            "value": "No"
         },
         {
             "key": 10,
-            "value": "Nowa wiadomość"
+            "value": "New message"
         },
         {
             "key": 11,
-            "value": "Koniec wiadomości"
+            "value": "End of message"
         }
     ]
 }

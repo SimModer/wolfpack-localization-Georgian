@@ -1,253 +1,253 @@
 {
-    "header": "Polski",
+    "header": "Français",
     "pairs": [
         {
             "key": -1,
-            "value": "NIEWAŻNY"
+            "value": "INVALIDE"
         },
         {
             "key": 0,
-            "value": "UNCACHED"
+            "value": "NON MISE EN CACHE"
         },
         {
             "key": 20,
-            "value": "Graj"
+            "value": "Jouer"
         },
         {
             "key": 21,
-            "value": "Podręcznik"
+            "value": "Manuel"
         },
         {
             "key": 22,
-            "value": "Ustawienia"
+            "value": "Options"
         },
         {
             "key": 23,
-            "value": "Edytor"
+            "value": "Editeur"
         },
         {
             "key": 24,
-            "value": "Warsztat"
+            "value": "Workshop"
         },
         {
             "key": 25,
-            "value": "Autorzy"
+            "value": "Credits"
         },
         {
             "key": 26,
-            "value": "Opuść"
+            "value": "Quitter"
         },
         {
             "key": 4,
-            "value": "Aktualności"
+            "value": "Actualites"
         },
         {
             "key": 3,
-            "value": "Wersja"
+            "value": "Version"
         },
         {
             "key": 5,
-            "value": "Język"
+            "value": "Langue"
         },
         {
             "key": 6,
-            "value": "Wł"
+            "value": "Activé"
         },
         {
             "key": 7,
-            "value": "Wył"
+            "value": "Désactivé"
         },
         {
             "key": 8,
-            "value": "Aktywne"
+            "value": "Activé"
         },
         {
             "key": 9,
-            "value": "Nieaktywne"
+            "value": "Désactivé"
         },
         {
             "key": 10,
-            "value": "Pokaż"
+            "value": "Afficher"
         },
         {
             "key": 11,
-            "value": "Ukryj"
+            "value": "Masquer"
         },
         {
             "key": 12,
-            "value": "Dowolny"
+            "value": "Tout"
         },
         {
             "key": 13,
-            "value": "Tak"
+            "value": "Oui"
         },
         {
             "key": 14,
-            "value": "Nie"
+            "value": "Non"
         },
         {
             "key": 15,
-            "value": "Czas"
+            "value": "Heure"
         },
         {
             "key": 16,
-            "value": "Start"
+            "value": "Demarrer"
         },
         {
             "key": 17,
-            "value": "Czas gry"
+            "value": "Temps de jeu"
         },
         {
             "key": 18,
-            "value": "Zgodność"
+            "value": "Aléatoire"
         },
         {
             "key": 19,
-            "value": "Publiczny"
+            "value": "Publier"
         },
         {
             "key": 1,
-            "value": "Wstecz"
+            "value": "Retour"
         },
         {
             "key": 2,
-            "value": "Opuść"
+            "value": "Quitter"
         },
         {
             "key": 27,
-            "value": "Dźwięk"
+            "value": "Audio"
         },
         {
             "key": 28,
-            "value": "Wideo"
+            "value": "Video"
         },
         {
             "key": 29,
-            "value": "Klawiatura"
+            "value": "Clavier"
         },
         {
             "key": 30,
-            "value": "Mysz"
+            "value": "Souris"
         },
         {
             "key": 31,
-            "value": "Gracz"
+            "value": "Jeu"
         },
         {
             "key": 32,
-            "value": "Woda"
+            "value": "Eau"
         },
         {
             "key": 33,
-            "value": "Postprocessing"
+            "value": "Post-traitement"
         },
         {
             "key": 34,
-            "value": "Głośność"
+            "value": "Volume principal"
         },
         {
             "key": 35,
-            "value": "Głośność muzyki"
+            "value": "Volume de la musique"
         },
         {
             "key": 36,
-            "value": "Głośność efektów"
+            "value": "Volume des effets"
         },
         {
             "key": 37,
-            "value": "Głośność czatu głosowego"
+            "value": "Volume de la VOIP"
         },
         {
             "key": 38,
-            "value": "Głośność interfejsu"
+            "value": "Volume de l'interface utilisateur"
         },
         {
             "key": 39,
-            "value": "Głośność mikrofonu"
+            "value": "Volume du microphone"
         },
         {
             "key": 40,
-            "value": "Push-To-Talk"
+            "value": "Appuyer pour parler"
         },
         {
             "key": 41,
-            "value": "Pokaż ikonę Push-To-Talk"
+            "value": "Afficher l'indication push-to-talk"
         },
         {
             "key": 42,
-            "value": "Odtwarzaj kod Morse'a"
+            "value": "Lecture l'entrée morse"
         },
         {
             "key": 43,
-            "value": "Rozdzielczość"
+            "value": "Résolution du jeu"
         },
         {
             "key": 44,
-            "value": "Tryb wyświetlania"
+            "value": "Mode d'affichage"
         },
         {
             "key": 45,
-            "value": "Synchronizacja pionowa (VSync)"
+            "value": "Synchronisation verticale"
         },
         {
             "key": 46,
-            "value": "Ograniczenie FPS"
+            "value": "Limite de fréquence d'images"
         },
         {
             "key": 47,
-            "value": "Rozdzielczość tekstur"
+            "value": "Résolution des textures"
         },
         {
             "key": 48,
-            "value": "Filtrowanie anizotropowe"
+            "value": "Filtre Anisotropique"
         },
         {
             "key": 49,
-            "value": "Cienie"
+            "value": "Ombres"
         },
         {
             "key": 50,
-            "value": "Pełny ekran"
+            "value": "Plein écran"
         },
         {
             "key": 51,
-            "value": "Pełny ekran bez ramki"
+            "value": "Fenêtre sans bordure"
         },
         {
             "key": 52,
-            "value": "Pełny ekran bez ramki"
+            "value": "Fenêtre maximisée"
         },
         {
             "key": 53,
-            "value": "W oknie"
+            "value": "Fenêtre"
         },
         {
             "key": 54,
-            "value": "Każda klatka"
+            "value": "À chaque trame"
         },
         {
             "key": 55,
-            "value": "Co druga klatka"
+            "value": "À chaque Autre trame"
         },
         {
             "key": 56,
-            "value": "Bardzo niski"
+            "value": "Faible"
         },
         {
             "key": 57,
-            "value": "Niski"
+            "value": "Bas"
         },
         {
             "key": 58,
-            "value": "Normalny"
+            "value": "Moyenne"
         },
         {
             "key": 59,
-            "value": "Wysoki"
+            "value": "Élevé"
         },
         {
             "key": 60,
-            "value": "Bardzo wysoki"
+            "value": "Très élevé"
         },
         {
             "key": 61,
@@ -255,963 +255,963 @@
         },
         {
             "key": 62,
-            "value": "Overkill"
+            "value": "Extrème"
         },
         {
             "key": 63,
-            "value": "Maksymalny"
+            "value": "Max"
         },
         {
             "key": 64,
-            "value": "Czułość obrotu kamery"
+            "value": "Sensibilité de rotation de la caméra"
         },
         {
             "key": 65,
-            "value": "Czułość interakcji kursora"
+            "value": "Sensibilité du curseur"
         },
         {
             "key": 66,
-            "value": "Szybkość przewijania"
+            "value": "Sensibilité Molette"
         },
         {
             "key": 67,
-            "value": "Skalowanie kursora"
+            "value": "Taille Curseur"
         },
         {
             "key": 68,
-            "value": "Odwrócenie myszy"
+            "value": "Souris Inversée"
         },
         {
             "key": 69,
-            "value": "Skala linii mapy"
+            "value": "Échelle des lignes de la carte"
         },
         {
             "key": 70,
-            "value": "Rozmiar czcionki na mapie"
+            "value": "Échelle de la police de la carte"
         },
         {
             "key": 71,
-            "value": "Pokaż nazwy graczy"
+            "value": "Afficher les noms des joueurs"
         },
         {
             "key": 72,
-            "value": "Pokaż podpowiedzi"
+            "value": "Afficher les aides"
         },
         {
             "key": 73,
-            "value": "Pokaż licznik FPS"
+            "value": "Affichage Fps"
         },
         {
             "key": 74,
-            "value": "Pokaż samouczek na początku gry"
+            "value": "Afficher le didacticiel au démarrage du jeu"
         },
         {
             "key": 75,
-            "value": "Włącz drgania kamery"
+            "value": "Activer l'oscillation de la caméra"
         },
         {
             "key": 76,
-            "value": "Pole widzenia"
+            "value": "Champ de vision"
         },
         {
             "key": 77,
-            "value": "Nieprzezroczyste tło menu"
+            "value": "Opacité d'arrière-plan du menu"
         },
         {
             "key": 78,
-            "value": "Rozdzielczość wody"
+            "value": "Résolution de l'eau"
         },
         {
             "key": 79,
-            "value": "Liczba cząsteczek wody"
+            "value": "Nombre de particules d'eau projetées"
         },
         {
             "key": 80,
-            "value": "Dynamiczna jakość piany"
+            "value": "Qualité dynamique de l'écume"
         },
         {
             "key": 81,
-            "value": "Podgląd wody"
+            "value": "Aperçu de l'eau"
         },
         {
             "key": 82,
-            "value": "Okluzja otoczenia (SSAO)"
+            "value": "Occultation ambiante en espace écran"
         },
         {
             "key": 83,
-            "value": "Odbicia (SSR)"
+            "value": "Réflexion en espace écran"
         },
         {
             "key": 84,
-            "value": "Wygładzanie krawędzi"
+            "value": "Anticrénelage"
         },
         {
             "key": 85,
-            "value": "Oślepienie"
+            "value": "Flou"
         },
         {
             "key": 86,
-            "value": "Korekta jasności"
+            "value": "Correction de luminosité"
         },
         {
             "key": 87,
-            "value": "Dithering"
+            "value": "Dither"
         },
         {
             "key": 88,
-            "value": "Rozmycie w ruchu"
+            "value": "Flou cinétique"
         },
         {
             "key": 89,
-            "value": "Głębia pola"
+            "value": "Profondeur de champ"
         },
         {
             "key": 90,
-            "value": "Aberracja chromatyczna"
+            "value": "Aberration chromatique"
         },
         {
             "key": 91,
-            "value": "Otwórz folder >Język<"
+            "value": "Ouvrir le dossier des langues"
         },
         {
             "key": 92,
-            "value": "Wczytaj ponownie języki"
+            "value": "Recharger les langues"
         },
         {
             "key": 93,
-            "value": "Wczytaj ustawienia fabryczne"
+            "value": "Reinitialiser tous les parametres"
         },
         {
             "key": 94,
-            "value": "Szukaj lobby"
+            "value": "Rechercher un Lobby"
         },
         {
             "key": 95,
-            "value": "Utwórz lobby"
+            "value": "Creer un Lobby"
         },
         {
             "key": 96,
-            "value": "Filtr"
+            "value": "Filtres"
         },
         {
             "key": 97,
-            "value": "Dystans do hosta"
+            "value": "Distance du Lobby"
         },
         {
             "key": 98,
-            "value": "Hasło"
+            "value": "Mot de passe"
         },
         {
             "key": 99,
-            "value": "Boty"
+            "value": "Bots"
         },
         {
             "key": 100,
-            "value": "Pełne lobby"
+            "value": "lobbys complets"
         },
         {
             "key": 101,
-            "value": "Styl gry"
+            "value": "Style de jeu"
         },
         {
             "key": 102,
-            "value": "Łatwy"
+            "value": "Décontracté"
         },
         {
             "key": 103,
-            "value": "Trudny"
+            "value": "Hardcore"
         },
         {
             "key": 104,
-            "value": "Roleplay"
+            "value": "Jeu de rôle"
         },
         {
             "key": 105,
-            "value": "Bliski"
+            "value": "Proche"
         },
         {
             "key": 106,
-            "value": "Średni"
+            "value": "Par défaut"
         },
         {
             "key": 107,
-            "value": "Daleki"
+            "value": "Éloigné"
         },
         {
             "key": 108,
-            "value": "Cały świat"
+            "value": "Monde"
         },
         {
             "key": 111,
-            "value": "Nazwa serwera"
+            "value": "Titre"
         },
         {
             "key": 112,
-            "value": "Opis"
+            "value": "Description"
         },
         {
             "key": 113,
-            "value": "Widoczność"
+            "value": "Visibilité"
         },
         {
             "key": 114,
-            "value": "Do lobby można zaprosić znajomych"
+            "value": "Les amis peuvent inviter au Lobby"
         },
         {
             "key": 115,
-            "value": "Prywatny"
+            "value": "Masqué"
         },
         {
             "key": 116,
-            "value": "Tylko znajomi"
+            "value": "Amis uniquement"
         },
         {
             "key": 117,
-            "value": "Publiczny"
+            "value": "Public"
         },
         {
             "key": 109,
-            "value": "Przeładuj"
+            "value": "Actualiser"
         },
         {
             "key": 110,
-            "value": "Stwórz"
+            "value": "Creer"
         },
         {
             "key": 118,
-            "value": "Odprawa"
+            "value": "Briefing de mission"
         },
         {
             "key": 119,
-            "value": "Poziom trudności"
+            "value": "Parametres de difficulte"
         },
         {
             "key": 120,
-            "value": "Scenariusz"
+            "value": "Scenario"
         },
         {
             "key": 121,
-            "value": "Komendy"
+            "value": "Ordres"
         },
         {
             "key": 122,
-            "value": "Ogólne"
+            "value": "Général"
         },
         {
             "key": 123,
-            "value": "Data i godzina"
+            "value": "Heure et date"
         },
         {
             "key": 124,
-            "value": "Pogoda"
+            "value": "Météo"
         },
         {
             "key": 125,
-            "value": "Misja"
+            "value": "Mission"
         },
         {
             "key": 126,
-            "value": "Poziom trudności"
+            "value": "Difficulté"
         },
         {
             "key": 127,
-            "value": "Tryb gry"
+            "value": "Mode de jeu"
         },
         {
             "key": 128,
-            "value": "Dzień"
+            "value": "Jour"
         },
         {
             "key": 129,
-            "value": "Miesiąc"
+            "value": "Mois"
         },
         {
             "key": 130,
-            "value": "Rok"
+            "value": "Année"
         },
         {
             "key": 131,
-            "value": "Godzina"
+            "value": "Heure de la journée"
         },
         {
             "key": 132,
-            "value": "Lokalizacja"
+            "value": "Emplacement"
         },
         {
             "key": 133,
-            "value": "Prędkość wiatru"
+            "value": "Vitesse du vent"
         },
         {
             "key": 134,
-            "value": "Kierunek wiatru"
+            "value": "Direction du vent"
         },
         {
             "key": 135,
-            "value": "Data"
+            "value": "Date"
         },
         {
             "key": 136,
-            "value": "Mgła"
+            "value": "Brouillard"
         },
         {
             "key": 137,
-            "value": "Automatyczna nawigacja"
+            "value": "Navigation automatique"
         },
         {
             "key": 138,
-            "value": "Friendly Fire"
+            "value": "Tir fratricide"
         },
         {
             "key": 139,
-            "value": "Boty"
+            "value": "Membres d'équipage non joueurs"
         },
         {
             "key": 140,
-            "value": "Uproszczone radio"
+            "value": "Radio simplifiée"
         },
         {
             "key": 141,
-            "value": "Realistyczne tłumienie mowy"
+            "value": "Atténuation réaliste de la voix"
         },
         {
             "key": 142,
-            "value": "Szybki start"
+            "value": "Rencontre rapide"
         },
         {
             "key": 143,
-            "value": "Automatyczny silnik"
+            "value": "Moteur automatique"
         },
         {
             "key": 144,
-            "value": "Konwój okresowo zmienia kierunek"
+            "value": "Le convoi change périodiquement de direction"
         },
         {
             "key": 145,
-            "value": "Okręty eskorty korzystają z aktywnego sonaru"
+            "value": "Les escortes utilisent toujours le sonar actif"
         },
         {
             "key": 146,
-            "value": "Czas śledzenia przez eskortę"
+            "value": "Temps de poursuite de l'escorte"
         },
         {
             "key": 147,
-            "value": "Rozmiar konwoju"
+            "value": "Taille du convoi"
         },
         {
             "key": 148,
-            "value": "Realistyczny czas ładowania torped"
+            "value": "Vitesse réaliste de rechargement des torpilles"
         },
         {
             "key": 149,
-            "value": "Wadliwe torpedy"
+            "value": "Torpilles défectueuses"
         },
         {
             "key": 150,
-            "value": "Ograniczona celność torped"
+            "value": "Précision limitée des torpilles"
         },
         {
             "key": 151,
-            "value": "Wystrzelenie torpedy zależne od kąta"
+            "value": "Le déclenchement de la torpille dépend de l'angle"
         },
         {
             "key": 152,
-            "value": "Zaproś znajomego"
+            "value": "Inviter des amis"
         },
         {
             "key": 153,
-            "value": "Rozpocznij grę"
+            "value": "Demarrer le jeu"
         },
         {
             "key": 154,
-            "value": "Walka"
+            "value": "Escarmouche"
         },
         {
             "key": 155,
-            "value": "Samouczek"
+            "value": "Didacticiel"
         },
         {
             "key": 156,
-            "value": "Zatoka Biskajska"
+            "value": "Golfe Gascogne"
         },
         {
             "key": 157,
-            "value": "Morze Północne"
+            "value": "Mer du Nord"
         },
         {
             "key": 158,
-            "value": "Morze Norweskie"
+            "value": "Mer de Norvège"
         },
         {
             "key": 159,
-            "value": "Morze Bałtyckie"
+            "value": "Mer Baltique"
         },
         {
             "key": 160,
-            "value": "Mały"
+            "value": "Petit"
         },
         {
             "key": 161,
-            "value": "Średni"
+            "value": "Normal"
         },
         {
             "key": 162,
-            "value": "Duży"
+            "value": "Grand"
         },
         {
             "key": 163,
-            "value": "Krótki"
+            "value": "Court"
         },
         {
             "key": 164,
-            "value": "Długi"
+            "value": "Long"
         },
         {
             "key": 165,
-            "value": "Cele"
+            "value": "Objectifs"
         },
         {
             "key": 166,
-            "value": "Kliknij, aby przeglądać misje w Warsztacie Steam"
+            "value": "Cliquez pour parcourir les missions sur le Steam Workshop!"
         },
         {
             "key": 167,
-            "value": "Eksportuj misję do schowka"
+            "value": "Exporter la mission dans le presse-papier"
         },
         {
             "key": 168,
-            "value": "Importuj misję ze schowka"
+            "value": "Importer la mission depuis le presse-papier"
         },
         {
             "key": 169,
-            "value": "Podgląd"
+            "value": "Apercu"
         },
         {
             "key": 170,
-            "value": "Detale"
+            "value": "Détails"
         },
         {
             "key": 171,
-            "value": "Odkryte podczas misji"
+            "value": "Détecté pendant la mission"
         },
         {
             "key": 172,
-            "value": "Wystrzelono torpedy"
+            "value": "Torpilles tirées"
         },
         {
             "key": 173,
-            "value": "Torpedy trafiły"
+            "value": "Impacts Torpilles"
         },
         {
             "key": 174,
-            "value": "Celność torpedami"
+            "value": "Taux de réussite des torpilles"
         },
         {
             "key": 175,
-            "value": "Zniszczone okręty handlowe"
+            "value": "Marchands détruits"
         },
         {
             "key": 176,
-            "value": "Zniszczone okręty wojenne"
+            "value": "Navires de guerre détruits"
         },
         {
             "key": 177,
-            "value": "Zatopiony tonaż"
+            "value": "Tonnage coulé"
         },
         {
             "key": 178,
-            "value": "Czas operacyjny"
+            "value": "Temps de mission"
         },
         {
             "key": 179,
-            "value": "Skopiuj do schowka"
+            "value": "Exporter dans le presse-papiers"
         },
         {
             "key": 180,
-            "value": "Wróć do lobby"
+            "value": "Retour au lobby"
         },
         {
             "key": 181,
-            "value": "Powtórz misję"
+            "value": "Reessayer la mission"
         },
         {
             "key": 182,
-            "value": "Następna misja"
+            "value": "Mission suivante"
         },
         {
             "key": 183,
-            "value": "Rozłącz się"
+            "value": "Deconnecter"
         },
         {
             "key": 184,
-            "value": "Zresetuj przypisania"
+            "value": "Reinitialiser les raccourcis"
         },
         {
             "key": 185,
-            "value": "Idź naprzód"
+            "value": "Avancer"
         },
         {
             "key": 186,
-            "value": "Idź w lewo"
+            "value": "Aller à gauche"
         },
         {
             "key": 187,
-            "value": "Idź do tyłu"
+            "value": "Reculer"
         },
         {
             "key": 188,
-            "value": "Idź w prawo"
+            "value": "Aller à droite"
         },
         {
             "key": 189,
-            "value": "Biegnij"
+            "value": "Courir"
         },
         {
             "key": 190,
-            "value": "Otwórz/zamknij mapę"
+            "value": "Basculer la carte"
         },
         {
             "key": 191,
-            "value": "Wyświetl podłączonych graczy"
+            "value": "Afficher les clients connectés"
         },
         {
             "key": 192,
-            "value": "Przełącz 1. stoper"
+            "value": "Basculer le chronomètre 1"
         },
         {
             "key": 193,
-            "value": "Przełącz 2. stoper"
+            "value": "Basculer le chronomètre 2"
         },
         {
             "key": 194,
-            "value": "Przełącz 3. stoper"
+            "value": "Basculer le chronomètre 3"
         },
         {
             "key": 195,
-            "value": "Przełącz 4. stoper"
+            "value": "Basculer le chronomètre 4"
         },
         {
             "key": 196,
-            "value": "Resetuj 1. stoper"
+            "value": "Réinitialiser le chronomètre 1"
         },
         {
             "key": 197,
-            "value": "Resetuj 2. stoper"
+            "value": "Réinitialiser le chronomètre 2"
         },
         {
             "key": 198,
-            "value": "Resetuj 3. stoper"
+            "value": "Réinitialiser le chronomètre 3"
         },
         {
             "key": 199,
-            "value": "Resetuj 4. stoper"
+            "value": "Réinitialiser le chronomètre 4"
         },
         {
             "key": 200,
-            "value": "Zresetuj wszystkie stopery"
+            "value": "Réinitialiser tous les chronomètres"
         },
         {
             "key": 201,
-            "value": "Wystrzel torpedę"
+            "value": "Tirer une torpille"
         },
         {
             "key": 202,
-            "value": "Dziobowy ster głębokości w dół"
+            "value": "Abaisser les plans de plongée avant"
         },
         {
             "key": 203,
-            "value": "Dziobowy ster głębokości w górę"
+            "value": "Relever les plans de plongée avant"
         },
         {
             "key": 204,
-            "value": "Rufowy ster głębokości w dół"
+            "value": "Abaisser les plans de plongée arrière"
         },
         {
             "key": 205,
-            "value": "Rufowy ster głębokości w górę"
+            "value": "Relever les plans de plongée arrière"
         },
         {
             "key": 206,
-            "value": "Przełącz latarkę"
+            "value": "Activer/désactiver la lampe de poche"
         },
         {
             "key": 207,
-            "value": "Przełącz wykrywanie ręczne"
+            "value": "Activer/désactiver le manuel de reconnaissance"
         },
         {
             "key": 208,
-            "value": "Przełącz kolor latarki"
+            "value": "Modifier la couleur de la lampe de poche"
         },
         {
             "key": 209,
-            "value": "Zobacz cele misji"
+            "value": "Afficher les objectifs de la mission"
         },
         {
             "key": 210,
-            "value": "Centruj dziobowy ster głębokości"
+            "value": "Recentrer les plans de plongée avant"
         },
         {
             "key": 211,
-            "value": "Centruj rufowy ster głębokości"
+            "value": "Recentrer les plans de plongée arrière"
         },
         {
             "key": 212,
-            "value": "Klucz Morse'a"
+            "value": "Clé Morse"
         },
         {
             "key": 213,
-            "value": "Alfabet Morse’a „Krótki”"
+            "value": "Point Morse"
         },
         {
             "key": 214,
-            "value": "Alfabet Morse'a „Długi”"
+            "value": "Tiret Morse"
         },
         {
             "key": 215,
-            "value": "Ciągłe krótkie"
+            "value": "Points Morse en continu"
         },
         {
             "key": 216,
-            "value": "Ciągłe długie"
+            "value": "Tirets Morse en continu"
         },
         {
             "key": 217,
-            "value": "Następna strona"
+            "value": "Page suivante du texte Morse"
         },
         {
             "key": 218,
-            "value": "Poprzednia strona"
+            "value": "Page précédente du texte Morse"
         },
         {
             "key": 219,
-            "value": "Wycisz"
+            "value": "Couper le son de la voix"
         },
         {
             "key": 220,
-            "value": "Przełącznik menu botów"
+            "value": "Activer/désactiver le menu des bots"
         },
         {
             "key": 221,
-            "value": "Menu botów (1)"
+            "value": "Menu du bot 1"
         },
         {
             "key": 222,
-            "value": "Menu botów (2)"
+            "value": "Menu du bot 2"
         },
         {
             "key": 223,
-            "value": "Menu botów (3)"
+            "value": "Menu du bot 3"
         },
         {
             "key": 224,
-            "value": "Zresetuj licznik przebiegu"
+            "value": "Réinitialiser le compteur kilométrique de la carte"
         },
         {
             "key": 225,
-            "value": "Oznacz"
+            "value": "Outil de symbole de carte"
         },
         {
             "key": 226,
-            "value": "Linijka"
+            "value": "Outil de ligne de carte"
         },
         {
             "key": 227,
-            "value": "Kompas"
+            "value": "Outil de cercle de carte"
         },
         {
             "key": 228,
-            "value": "Notatka"
+            "value": "Outil d'écriture de carte"
         },
         {
             "key": 229,
-            "value": "Kopiuj"
+            "value": "Outil de copie de ligne de carte"
         },
         {
             "key": 230,
-            "value": "Gumka"
+            "value": "Outil de gomme de carte"
         },
         {
             "key": 231,
-            "value": "Kątomierz"
+            "value": "Outil de rapporteur de carte"
         },
         {
             "key": 232,
-            "value": "Szybkie narzędzie: Symbol"
+            "value": "Outil rapide de symbole de carte"
         },
         {
             "key": 233,
-            "value": "Szybkie narzędzie: Linia"
+            "value": "Outil rapide de ligne de carte"
         },
         {
             "key": 234,
-            "value": "Szybkie narzędzie: Koło"
+            "value": "Outil rapide de cercle de carte"
         },
         {
             "key": 235,
-            "value": "Szybkie narzędzie: Kopiuj linię"
+            "value": "Outil rapide de copie de ligne"
         },
         {
             "key": 236,
-            "value": "Szybkie narzędzie: Gumka"
+            "value": "Outil rapide de gomme"
         },
         {
             "key": 237,
-            "value": "Szybkie narzędzie: Kątomierz"
+            "value": "Outil rapide de rapporteur"
         },
         {
             "key": 238,
-            "value": "Przełącz szkic"
+            "value": "Basculer le croquis de la carte"
         },
         {
             "key": 239,
-            "value": "Podążaj za kątomierzem"
+            "value": "Suivre le rapporteur de la carte"
         },
         {
             "key": 240,
-            "value": "Przełącz orientację kompasu"
+            "value": "Activer/désactiver la boussole inversée"
         },
         {
             "key": 241,
-            "value": "Przełącz tryb czasu"
+            "value": "Modifier le mode temps de la carte"
         },
         {
             "key": 242,
-            "value": "Pokaż kąt"
+            "value": "Modifier l'affichage de l'angle sur la carte"
         },
         {
             "key": 243,
-            "value": "Przełącz przyciąganie"
+            "value": "Activer/désactiver l'alignement magnétique de la carte"
         },
         {
             "key": 244,
-            "value": "Pokaż odległość"
+            "value": "Modifier l'affichage de la distance sur la carte"
         },
         {
             "key": 245,
-            "value": "Pokaż symbole"
+            "value": "Modifier le symbole sur la carte"
         },
         {
             "key": 246,
-            "value": "Zresetuj kątomierz"
+            "value": "Réinitialiser la rotation du rapporteur de la carte"
         },
         {
             "key": 247,
-            "value": "Rysuj od środka mapy"
+            "value": "Activer/désactiver le dessin à partir du milieu"
         },
         {
             "key": 248,
-            "value": "Przełącz łamaną"
+            "value": "Activer/désactiver la polyligne sur la carte"
         },
         {
             "key": 249,
-            "value": "Zmień styl linii"
+            "value": "Modifier le style de ligne sur la carte"
         },
         {
             "key": 250,
-            "value": "Pokaż kątomierz"
+            "value": "Activer/désactiver l'affichage du rapporteur sur la carte"
         },
         {
             "key": 251,
-            "value": "Wprowadź kąt przed odległością"
+            "value": "Entrer l'angle avant la distance sur la carte"
         },
         {
             "key": 252,
-            "value": "Przełącz nakładkę peryskopu"
+            "value": "Activer/désactiver le superposition du périscope"
         },
         {
             "key": 253,
-            "value": "Zmień nakładkę peryskopu"
+            "value": "Échanger la superposition du périscope"
         },
         {
             "key": 254,
-            "value": "Powiększ nakładkę peryskopu X 1"
+            "value": "Augmenter la superposition du périscope x 1"
         },
         {
             "key": 255,
-            "value": "Zmniejsz nakładkę peryskopu X 1"
+            "value": "Diminuer la superposition du périscope x 1"
         },
         {
             "key": 256,
-            "value": "Powiększ nakładkę peryskopu X 10"
+            "value": "Augmenter la superposition du périscope x 10"
         },
         {
             "key": 257,
-            "value": "Zmniejsz nakładkę peryskopu X 10"
+            "value": "Diminuer la superposition du périscope x 10"
         },
         {
             "key": 258,
-            "value": "Zwiększ jasność"
+            "value": "Augmenter la luminosité du périscope"
         },
         {
             "key": 259,
-            "value": "Zmniejsz jasność"
+            "value": "Diminuer la luminosité du périscope"
         },
         {
             "key": 260,
-            "value": "Przełącz notatnik"
+            "value": "Activer/désactiver le carnet"
         },
         {
             "key": 261,
-            "value": "Załoga"
+            "value": "Equipage"
         },
         {
             "key": 262,
-            "value": "Ładunek"
+            "value": "Chargement"
         },
         {
             "key": 263,
-            "value": "Opuść załogę"
+            "value": "Quitter l'equipage"
         },
         {
             "key": 264,
-            "value": "Dołącz do załogi"
+            "value": "Rejoindre l'equipage"
         },
         {
             "key": 265,
-            "value": "Dołącz"
+            "value": "Rejoindre"
         },
         {
             "key": 266,
-            "value": "Załoga jest pełna"
+            "value": "L'equipage est complet"
         },
         {
             "key": 267,
-            "value": "Pseudonim"
+            "value": "Pseudo"
         },
         {
             "key": 268,
-            "value": "Społeczność"
+            "value": "Communaute"
         },
         {
             "key": 269,
-            "value": "Zgłoś błąd"
+            "value": "Signaler un bug"
         },
         {
             "key": 270,
-            "value": "Opcje załogi"
+            "value": "Options de l'equipage"
         },
         {
             "key": 271,
-            "value": "Opcje banowania"
+            "value": "Listes des bannissements"
         },
         {
             "key": 272,
-            "value": "Dziennik aktywności"
+            "value": "Journal d'activite"
         },
         {
             "key": 273,
-            "value": "Wróć do gry"
+            "value": "Reprendre"
         },
         {
             "key": 274,
-            "value": "Wyjdź z gry"
+            "value": "Quitter le Jeu"
         },
         {
             "key": 275,
-            "value": "Metadane"
+            "value": "Metadonnees"
         },
         {
             "key": 276,
-            "value": "Warunki początkowe"
+            "value": "Conditions de depart"
         },
         {
             "key": 277,
-            "value": "Warunki zwycięstwa"
+            "value": "Conditions de victoire"
         },
         {
             "key": 278,
-            "value": "Cele"
+            "value": "Cibles"
         },
         {
             "key": 279,
-            "value": "Zawsze pokazuj"
+            "value": "Toujours afficher"
         },
         {
             "key": 280,
-            "value": "Pokaż po zakończeniu"
+            "value": "Afficher la progression"
         },
         {
             "key": 281,
-            "value": "Zawsze ukryte"
+            "value": "Toujours masqué"
         },
         {
             "key": 282,
-            "value": "Zwiększa lub zmniejsza ogólną głośność gry, zachowując proporcje pomiędzy różnymi głośnościami."
+            "value": "Augmente ou diminue le volume général du jeu tout en maintenant les rapports entre les différents volumes."
         },
         {
             "key": 283,
-            "value": "Reguluje głośność muzyki."
+            "value": "Contrôle le volume de la musique."
         },
         {
             "key": 284,
-            "value": "Reguluje głośność różnych efektów, takich jak eksplozje i tym podobne."
+            "value": "Contrôle le volume de divers effets tels que les explosions et similaires."
         },
         {
             "key": 285,
-            "value": "Kontroluje głośność przychodzącego czatu głosowego."
+            "value": "Contrôle le volume de la discussion vocale entrante."
         },
         {
             "key": 286,
-            "value": "Wyświetla poziom głośności wejściowej mikrofonu."
+            "value": "Affiche le niveau d'entrée de votre microphone."
         },
         {
             "key": 287,
-            "value": "Funkcja Push-To-Talk włącza i wyłącza mikrofon po naciśnięciu odpowiedniego przycisku."
+            "value": "La touche Push-To-Talk active et désactive votre microphone lorsque elle est enfoncée."
         },
         {
             "key": 288,
-            "value": "Włącz, aby wyświetlić informację, czy mikrofon jest włączony, czy nie."
+            "value": "Activer pour afficher un témoin lorsque votre microphone est activé ou non."
         },
         {
             "key": 289,
-            "value": "Wyłącz, aby wyłączyć efekt tonu Morse'a podczas używania klawisza Morse'a."
+            "value": "Désactiver pour arrêter l'effet sonore morse lors de l'utilisation de la clé morse."
         },
         {
             "key": 290,
-            "value": "Zaszyfrowana wiadomość"
+            "value": "Message encodé"
         },
         {
             "key": 291,
-            "value": "Zapisz wiadomość"
+            "value": "Enregistrer le message"
         },
         {
             "key": 292,
-            "value": "Oznacz wiadomość jako wysłaną"
+            "value": "Marquer le message comme envoyé"
         },
         {
             "key": 293,
-            "value": "Odszyfrowana wiadomość"
+            "value": "Message décodé"
         },
         {
             "key": 294,
-            "value": "Kanał"
+            "value": "Canal"
         },
         {
             "key": 295,
-            "value": "Od"
+            "value": "De"
         },
         {
             "key": 296,
-            "value": "Do"
+            "value": "Pour"
         },
         {
             "key": 297,
-            "value": "Anuluj"
+            "value": "Annuler"
         },
         {
             "key": 298,
-            "value": "Wyślij"
+            "value": "Envoyer"
         },
         {
             "key": 299,
-            "value": "Zapisz"
+            "value": "Enregistrer"
         },
         {
             "key": 300,
-            "value": "Usuń"
+            "value": "Supprimer"
         },
         {
             "key": 301,
-            "value": "Radio"
+            "value": "Diffusion"
         },
         {
             "key": 302,
@@ -1247,37 +1247,37 @@
         },
         {
             "key": 310,
-            "value": "Akceptuj"
+            "value": "Accepter"
         },
         {
             "key": 311,
-            "value": "Odrzuć"
+            "value": "Rejeter"
         },
         {
             "key": 312,
-            "value": "Odrzuć i ignoruj"
+            "value": "Rejeter et Ignorer"
         },
         {
             "key": 313,
-            "value": "Zaakceptuj prośbę o dołączenie"
+            "value": "Accepter la demande de rejoindre"
         },
         {
             "key": 314,
-            "value": "Odrzuć prośbę o dołączenie"
+            "value": "Rejeter la demande de rejoindre"
         },
         {
             "key": 315,
-            "value": "Odrzuć i zignoruj ​​prośbę o dołączenie"
+            "value": "Rejeter et Ignorer la demande de rejoindre"
         }
-    ],
-    "suffixPairs": [
+            ],
+            "suffixPairs": [
         {
             "key": 0,
             "value": "°"
         },
         {
             "key": 1,
-            "value": " kts"
+            "value": " Nœuds"
         },
         {
             "key": 2,
@@ -1285,11 +1285,11 @@
         },
         {
             "key": 3,
-            "value": " metrów"
+            "value": " mètres"
         },
         {
             "key": 4,
-            "value": " ton"
+            "value": " tonnes"
         },
         {
             "key": 5,
@@ -1299,55 +1299,55 @@
             "key": 6,
             "value": "km/h"
         }
-    ],
-    "morsePairs": [
+            ],
+            "morsePairs": [
         {
             "key": 0,
-            "value": "Każdy może otrzymać"
+            "value": "Appel à tous"
         },
         {
             "key": 1,
-            "value": "Z kanału"
+            "value": "Du canal"
         },
         {
             "key": 9,
-            "value": "Odbiór"
+            "value": "Terminé"
         },
         {
             "key": 2,
-            "value": "Zrozumiałem"
+            "value": "Reçu"
         },
         {
             "key": 3,
-            "value": "Wiadomość zweryfikowana"
+            "value": "Message vérifié"
         },
         {
             "key": 4,
-            "value": "Powtórz"
+            "value": "Répétez"
         },
         {
             "key": 5,
-            "value": "Czekaj"
+            "value": "Attendez"
         },
         {
             "key": 6,
-            "value": "Wyjdź"
+            "value": "Fin de transmission"
         },
         {
             "key": 7,
-            "value": "Tak"
+            "value": "Oui"
         },
         {
             "key": 8,
-            "value": "Nie"
+            "value": "Non"
         },
         {
             "key": 10,
-            "value": "Nowa wiadomość"
+            "value": "Nouveau message"
         },
         {
             "key": 11,
-            "value": "Koniec wiadomości"
+            "value": "Fin du message"
         }
     ]
 }

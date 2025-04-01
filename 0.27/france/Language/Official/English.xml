@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <rudder>Contrôles de gouvernail</rudder>
+  <periscope>Périscope</periscope>
+  <TDC>Calculateur de données de torpilles</TDC>
+  <directionFinder>Localisateur de direction radio</directionFinder>
+  <radio>Émetteur-récepteur radio</radio>
+  <hydrophone>Hydrophone</hydrophone>
+  <enigma>Machine Enigma</enigma>
+  <ladder>Échelle</ladder>
+  <morseKey>Clé Morse</morseKey>
+  <deckgun>Canon de pont</deckgun>
+  <uzo>UZO</uzo>
+  <AAgun>Canon anti-aérien</AAgun>
+  <ballastTank_forwardVent>Évent Ballast avant</ballastTank_forwardVent>
+  <ballastTank_aftVent>Évent Ballast arrière</ballastTank_aftVent>
+  <EOT>Télégraphe d'ordres de moteur</EOT>
+  <diveControl>Commandes de plongée</diveControl>
+  <ballastTankControl>Commandes de Ballast</ballastTankControl>
+  <negativeTankControl>Commandes de Ballast négatif</negativeTankControl>
+  <recordStation>Tourne-disque</recordStation>
+  <echoRanger>Sondeur Acoustique</echoRanger>
+  <mapTable>Table de navigation</mapTable>
+  <trimTanks>Commandes de réservoir d'équilibrage</trimTanks>
+  <helmStation>Poste de pilotage</helmStation>
+  <BackupRudder>Gouvernail de secours</BackupRudder>
+  <Telephone>Interphone</Telephone>
+  <E_motor_controls>Commandes de Moteur électrique</E_motor_controls>
+  <Diesel_Engine>Moteur diesel</Diesel_Engine>
+  <E_Motor_Direction>Interrupteur Avant/Arrière</E_Motor_Direction>
+  <PortVoltageRegulator>Régulateur de tension Eclairage babord</PortVoltageRegulator>
+  <StbVoltageRegulator>Régulateur de tension Eclairage tribord</StbVoltageRegulator>
+  <AuxVoltageRegulator>Régulateur de tension auxiliaire</AuxVoltageRegulator>
+</LanguageString>
