@@ -12,7 +12,7 @@ Wolfpack is a thrilling WWII submarine simulation where you and your crew naviga
 ## Project Overview
 With the release of update 0.26, Wolfpack now supports community-driven translations. Our mission? To ensure players from all corners of the globe can experience Wolfpack in their native language. Join us on this journey to make the game accessible for everyone!
 
-### Current Status
+## Current Status
 Currently, we’re focusing on translating the **menu** text. In update 0.27, we’ve added an experimental version where a game file is replaced, but don’t worry—this file will still be available as a backup here. Some translations may be missing or appear late in the menu, so please bear with us as we refine this process.
 
 ## Contributors
