@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <rudder>შტურვალის კონტროლი</rudder>
+  <periscope>პერისკოპი</periscope>
+  <TDC>ტორპედოს მონაცემთა კომპიუტერი</TDC>
+  <directionFinder>რადიო მიმართულების მაძიებელი</directionFinder>
+  <radio>რადიო გადამცემი</radio>
+  <hydrophone>ჰიდროფონი</hydrophone>
+  <enigma>ენიგმა</enigma>
+  <ladder>კიბე</ladder>
+  <morseKey>მორზეს გასაღები</morseKey>
+  <deckgun>გემბანის იარაღი</deckgun>
+  <uzo>UZO</uzo>
+  <AAgun>თვითმფრინავის საწინააღმდეგო იარაღი</AAgun>
+  <ballastTank_forwardVent>წინა ბალასტის სარქველი</ballastTank_forwardVent>
+  <ballastTank_aftVent>უკანა ბალასტის სარქველი</ballastTank_aftVent>
+  <EOT>ძრავაზე ბრძანების გადამცემი ტელეგრაფი</EOT>
+  <diveControl>ჩაყვინთვის კონტროლი</diveControl>
+  <ballastTankControl>ბალასტის ავზის სამართავი</ballastTankControl>
+  <negativeTankControl>უარყოფითი ავზის სამართავი</negativeTankControl>
+  <recordStation>ჩანაწერის მოთამაშე</recordStation>
+  <echoRanger>ექო რეინჯერი</echoRanger>
+  <mapTable>საზღვაო რუკა</mapTable>
+  <trimTanks>ტრიმერის ავზის სამართავი</trimTanks>
+  <helmStation>შტურვალის სადგური</helmStation>
+  <BackupRudder>სარეზერვო შტურვალის სამართავი</BackupRudder>
+  <Telephone>ტელეფონი</Telephone>
+  <E_motor_controls>ელ. ძრავის სამართავი</E_motor_controls>
+  <Diesel_Engine>დიზელის ძრავა</Diesel_Engine>
+  <E_Motor_Direction>წინ/უკან გადამრთავი</E_Motor_Direction>
+  <PortVoltageRegulator>პორტის განათების ძაბვის მარეგულირებელი</PortVoltageRegulator>
+  <StbVoltageRegulator>გემბანის განათების ძაბვის მარეგულირებელი</StbVoltageRegulator>
+  <AuxVoltageRegulator>დამხმარე ძაბვის მარეგულირებელი</AuxVoltageRegulator>
+</LanguageString>
