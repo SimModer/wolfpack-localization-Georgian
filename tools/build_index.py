@@ -22,9 +22,9 @@ def build():
     packs = []
     for pack in pack_dirs():
         meta = json.loads((pack / "pack.json").read_text(encoding="utf-8"))
-        files = [entry(p) for p in sorted((pack / "Wolfpack_Data").rglob("*")) if p.is_file()]
+        files = [entry(p) for p in sorted((pack / "Wolfpack_Data").rglob("*"), key=lambda q: q.as_posix()) if p.is_file()]
         addon = pack / "addons" / "autotranslator"
-        extras = [entry(p) for p in sorted(addon.rglob("*")) if p.is_file() and p.name != ".gitkeep"] if addon.exists() else []
+        extras = [entry(p) for p in sorted(addon.rglob("*"), key=lambda q: q.as_posix()) if p.is_file() and p.name != ".gitkeep"] if addon.exists() else []
         packs.append({**{k: meta[k] for k in ("code", "name", "native_name", "pack_version", "game_version", "status", "notes")},
                       "authors": meta.get("authors", []), "files": files, "addon_files": extras})
     return {"schema": 1, "game_version": ref["game_version"],
