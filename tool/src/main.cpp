@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <d3d11.h>
+#include <dwmapi.h>
 #include <shobjidl.h>
+#include <windowsx.h>
 
 #include <cstdio>
 
@@ -55,6 +57,44 @@ static void destroy_device() {
 static LRESULT CALLBACK wnd_proc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
     if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wp, lp)) return true;
     switch (msg) {
+    case WM_NCCALCSIZE:
+        if (wp) {  // no native frame: the client area is the whole window
+            if (IsZoomed(hwnd)) {
+                NCCALCSIZE_PARAMS* p = (NCCALCSIZE_PARAMS*)lp;
+                int f = GetSystemMetrics(SM_CXFRAME) + GetSystemMetrics(SM_CXPADDEDBORDER);
+                p->rgrc[0].left += f; p->rgrc[0].right -= f; p->rgrc[0].top += f; p->rgrc[0].bottom -= f;
+            }
+            return 0;
+        }
+        break;
+    case WM_NCHITTEST: {
+        POINT pt{GET_X_LPARAM(lp), GET_Y_LPARAM(lp)};
+        ScreenToClient(hwnd, &pt);
+        RECT rc;
+        GetClientRect(hwnd, &rc);
+        float dpi = (float)GetDpiForWindow(hwnd) / 96.f;
+        int b = (int)(6 * dpi);
+        if (!IsZoomed(hwnd)) {
+            bool l = pt.x < b, r = pt.x >= rc.right - b, t = pt.y < b, bo = pt.y >= rc.bottom - b;
+            if (t && l) return HTTOPLEFT;
+            if (t && r) return HTTOPRIGHT;
+            if (bo && l) return HTBOTTOMLEFT;
+            if (bo && r) return HTBOTTOMRIGHT;
+            if (l) return HTLEFT;
+            if (r) return HTRIGHT;
+            if (t) return HTTOP;
+            if (bo) return HTBOTTOM;
+        }
+        if (pt.y < (LONG)ui_caption_height() && pt.x < rc.right - (LONG)ui_caption_buttons_width()) return HTCAPTION;
+        return HTCLIENT;
+    }
+    case WM_GETMINMAXINFO: {
+        MINMAXINFO* mm = (MINMAXINFO*)lp;
+        float dpi = (float)GetDpiForWindow(hwnd) / 96.f;
+        mm->ptMinTrackSize.x = (LONG)(900 * dpi);
+        mm->ptMinTrackSize.y = (LONG)(620 * dpi);
+        return 0;
+    }
     case WM_SIZE:
         if (g_dev && wp != SIZE_MINIMIZED) {
             if (g_rtv) { g_rtv->Release(); g_rtv = nullptr; }
@@ -72,10 +112,10 @@ static LRESULT CALLBACK wnd_proc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
     return DefWindowProcW(hwnd, msg, wp, lp);
 }
 
-static ImFont* load_fonts() {
+static void load_fonts(ImFont*& semibold, ImFont*& black) {
     ImGuiIO& io = ImGui::GetIO();
     const float size = 17.f;
-    // Regular for text, Semibold for headings/buttons; both get the same fallbacks so
+    // Regular for text, Semibold for labels/buttons, Black for headings. All get the same fallbacks so
     // every language (CJK, Georgian, symbols) can be shown and edited.
     auto add = [&](const char* base) -> ImFont* {
         ImFont* f = io.Fonts->AddFontFromFileTTF(base, size);
@@ -91,8 +131,10 @@ static ImFont* load_fonts() {
     };
     ImFont* regular = add("C:/Windows/Fonts/segoeui.ttf");
     if (!regular) regular = io.Fonts->AddFontDefault();
-    ImFont* bold = add("C:/Windows/Fonts/seguisb.ttf");
-    return bold ? bold : regular;
+    semibold = add("C:/Windows/Fonts/seguisb.ttf");
+    black = add("C:/Windows/Fonts/seguibl.ttf");
+    if (!semibold) semibold = regular;
+    if (!black) black = semibold;
 }
 
 // ---------------------------------------------------------------- self test (no window)
@@ -165,12 +207,15 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR cmdline, int) {
     WNDCLASSEXW wc{sizeof wc, CS_CLASSDC, wnd_proc, 0, 0, inst, nullptr, LoadCursorW(nullptr, IDC_ARROW), nullptr, nullptr, L"WolfpackL10nTool", nullptr};
     RegisterClassExW(&wc);
     float dpi = ImGui_ImplWin32_GetDpiScaleForMonitor(MonitorFromPoint({0, 0}, MONITOR_DEFAULTTOPRIMARY));
-    HWND hwnd = CreateWindowW(wc.lpszClassName, L"Wolfpack Language Tool", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, (int)(1180 * dpi), (int)(800 * dpi),
+    HWND hwnd = CreateWindowW(wc.lpszClassName, L"Wolfpack Language Tool", WS_POPUP | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, (int)(1180 * dpi), (int)(800 * dpi),
                               nullptr, nullptr, inst, nullptr);
     if (!create_device(hwnd)) {
         MessageBoxW(nullptr, L"Direct3D 11 is not available.", L"Wolfpack Language Tool", MB_ICONERROR);
         return 1;
     }
+    MARGINS margins{0, 0, 1, 0};  // keeps the drop shadow of a frameless window
+    DwmExtendFrameIntoClientArea(hwnd, &margins);
+    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     UpdateWindow(hwnd);
 
@@ -182,8 +227,9 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR cmdline, int) {
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_dev, g_ctx);
     float scale = ImGui_ImplWin32_GetDpiScaleForHwnd(hwnd);
-    ImFont* bold = load_fonts();
-    ui_init(bold);
+    ImFont *semibold = nullptr, *black = nullptr;
+    load_fonts(semibold, black);
+    ui_init(semibold, black, hwnd);
 
     bool running = true;
     while (running) {

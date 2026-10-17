@@ -3,6 +3,7 @@
 Portable installer and editor for the language packs in this repository. One `.exe`, no installation, nothing is written next to it.
 
 ## Features
+- Launcher-style UI: dashboard (game version, installed languages, pack status), languages, editor and a changelog loaded live from the GitHub commits. Frameless window with a custom title bar.
 - Finds the Wolfpack folder automatically (Steam libraries, all drives) or lets you pick it. Reads the game version from the game files.
 - Loads the list of language packs from GitHub (`packs/index.json`, every file is verified with SHA-256) and installs the selected one into the game folder, overwriting the old files. Warns about missing files, untranslated tooltips, unfinished packs and a game version that does not match the pack.
 - Asks for administrator rights only if the game folder is write-protected (the button restarts the tool elevated).

@@ -14,40 +14,41 @@
 #include <nlohmann/json.hpp>
 
 #include "game.h"
+#include "http.h"
 #include "imgui.h"
 #include "imgui_stdlib.h"
 #include "lang.h"
 #include "packs.h"
 
 // =============================================================================================
-// Theme
+// Theme (angular, near-black, neon lime - inspired by game launchers)
 // =============================================================================================
 static float S = 1.f;  // dpi scale
-static ImFont* g_bold = nullptr;
+static ImFont* g_bold = nullptr;   // Segoe UI Semibold: buttons, labels
+static ImFont* g_black = nullptr;  // Segoe UI Black: headings
+static HWND g_hwnd = nullptr;
 static float px(float v) { return v * S; }
 
 static ImU32 col(float r, float g, float b, float a = 1.f) { return ImGui::GetColorU32(ImVec4(r, g, b, a)); }
 static ImVec4 vec(float r, float g, float b, float a = 1.f) { return ImVec4(r, g, b, a); }
 
-static const ImVec4 kBg(0.043f, 0.055f, 0.071f, 1);
-static const ImVec4 kSide(0.062f, 0.078f, 0.098f, 1);
-static const ImVec4 kCard(0.085f, 0.106f, 0.133f, 1);
-static const ImVec4 kCardHi(0.115f, 0.140f, 0.175f, 1);
-static const ImVec4 kBorder(0.17f, 0.20f, 0.25f, 1);
-static const ImVec4 kText(0.92f, 0.94f, 0.96f, 1);
-static const ImVec4 kMuted(0.56f, 0.62f, 0.69f, 1);
-static const ImVec4 kAccent(0.96f, 0.69f, 0.25f, 1);
-static const ImVec4 kAccentDim(0.96f, 0.69f, 0.25f, 0.14f);
-static const ImVec4 kGood(0.36f, 0.78f, 0.52f, 1);
-static const ImVec4 kWarn(0.96f, 0.69f, 0.25f, 1);
-static const ImVec4 kBad(0.93f, 0.38f, 0.35f, 1);
-static const ImVec4 kInfo(0.40f, 0.72f, 0.88f, 1);
+static const ImVec4 kBg(0.039f, 0.039f, 0.043f, 1);
+static const ImVec4 kCard(0.067f, 0.067f, 0.075f, 1);
+static const ImVec4 kCardHi(0.098f, 0.098f, 0.110f, 1);
+static const ImVec4 kBorder(0.145f, 0.145f, 0.160f, 1);
+static const ImVec4 kText(0.96f, 0.96f, 0.97f, 1);
+static const ImVec4 kMuted(0.53f, 0.55f, 0.61f, 1);
+static const ImVec4 kAccent(0.78f, 1.0f, 0.0f, 1);   // lime
+static const ImVec4 kGood(0.78f, 1.0f, 0.0f, 1);
+static const ImVec4 kWarn(1.0f, 0.70f, 0.0f, 1);     // amber
+static const ImVec4 kBad(1.0f, 0.33f, 0.30f, 1);
+static const ImVec4 kInfo(0.42f, 0.62f, 1.0f, 1);
 
 static ImVec4 status_color(const std::string& s) {
     if (s == "complete") return kGood;
     if (s == "partial") return kWarn;
     if (s == "original") return kInfo;
-    return vec(0.92f, 0.52f, 0.34f);  // needs-review
+    return vec(1.0f, 0.50f, 0.28f);  // needs-review
 }
 
 static ImU32 U(const ImVec4& c, float a = -1.f) {
@@ -56,14 +57,19 @@ static ImU32 U(const ImVec4& c, float a = -1.f) {
     return ImGui::GetColorU32(v);
 }
 
+static std::string upper(std::string s) {
+    for (char& c : s) c = (char)toupper((unsigned char)c);
+    return s;
+}
+
 static void apply_style() {
     ImGuiStyle& s = ImGui::GetStyle();
     float keep = s.FontSizeBase;
     s = ImGuiStyle();
     s.FontSizeBase = keep;
-    s.WindowRounding = 0; s.ChildRounding = 12; s.FrameRounding = 8; s.PopupRounding = 10; s.GrabRounding = 8; s.ScrollbarRounding = 8;
-    s.FramePadding = ImVec2(12, 8); s.ItemSpacing = ImVec2(10, 10); s.WindowPadding = ImVec2(0, 0);
-    s.ScrollbarSize = 10; s.FrameBorderSize = 0; s.ChildBorderSize = 0; s.PopupBorderSize = 1;
+    s.WindowRounding = 0; s.ChildRounding = 0; s.FrameRounding = 0; s.PopupRounding = 0; s.GrabRounding = 0; s.ScrollbarRounding = 0;
+    s.FramePadding = ImVec2(12, 9); s.ItemSpacing = ImVec2(12, 12); s.WindowPadding = ImVec2(0, 0);
+    s.ScrollbarSize = 8; s.FrameBorderSize = 1; s.ChildBorderSize = 0; s.PopupBorderSize = 1;
     ImVec4* c = s.Colors;
     c[ImGuiCol_WindowBg] = kBg;
     c[ImGuiCol_ChildBg] = ImVec4(0, 0, 0, 0);
@@ -71,27 +77,27 @@ static void apply_style() {
     c[ImGuiCol_Border] = kBorder;
     c[ImGuiCol_Text] = kText;
     c[ImGuiCol_TextDisabled] = kMuted;
-    c[ImGuiCol_FrameBg] = kCardHi;
-    c[ImGuiCol_FrameBgHovered] = vec(0.14f, 0.17f, 0.21f);
-    c[ImGuiCol_FrameBgActive] = vec(0.16f, 0.19f, 0.24f);
+    c[ImGuiCol_FrameBg] = vec(0.055f, 0.055f, 0.062f);
+    c[ImGuiCol_FrameBgHovered] = vec(0.085f, 0.085f, 0.095f);
+    c[ImGuiCol_FrameBgActive] = vec(0.10f, 0.10f, 0.115f);
     c[ImGuiCol_Button] = kCardHi;
-    c[ImGuiCol_ButtonHovered] = vec(0.16f, 0.19f, 0.24f);
-    c[ImGuiCol_ButtonActive] = vec(0.19f, 0.23f, 0.29f);
-    c[ImGuiCol_Header] = kAccentDim;
-    c[ImGuiCol_HeaderHovered] = vec(0.96f, 0.69f, 0.25f, 0.22f);
-    c[ImGuiCol_HeaderActive] = vec(0.96f, 0.69f, 0.25f, 0.32f);
+    c[ImGuiCol_ButtonHovered] = vec(0.13f, 0.13f, 0.15f);
+    c[ImGuiCol_ButtonActive] = vec(0.16f, 0.16f, 0.18f);
+    c[ImGuiCol_Header] = vec(0.78f, 1.0f, 0.0f, 0.10f);
+    c[ImGuiCol_HeaderHovered] = vec(0.78f, 1.0f, 0.0f, 0.18f);
+    c[ImGuiCol_HeaderActive] = vec(0.78f, 1.0f, 0.0f, 0.28f);
     c[ImGuiCol_CheckMark] = kAccent;
     c[ImGuiCol_Separator] = kBorder;
-    c[ImGuiCol_TableHeaderBg] = vec(0.075f, 0.094f, 0.118f);
+    c[ImGuiCol_TableHeaderBg] = vec(0.055f, 0.055f, 0.062f);
     c[ImGuiCol_TableRowBg] = ImVec4(0, 0, 0, 0);
-    c[ImGuiCol_TableRowBgAlt] = vec(1, 1, 1, 0.018f);
-    c[ImGuiCol_TableBorderLight] = vec(0.17f, 0.20f, 0.25f, 0.5f);
+    c[ImGuiCol_TableRowBgAlt] = vec(1, 1, 1, 0.015f);
+    c[ImGuiCol_TableBorderLight] = vec(0.145f, 0.145f, 0.16f, 0.6f);
     c[ImGuiCol_TableBorderStrong] = kBorder;
     c[ImGuiCol_ScrollbarBg] = ImVec4(0, 0, 0, 0);
-    c[ImGuiCol_ScrollbarGrab] = vec(0.22f, 0.26f, 0.32f);
-    c[ImGuiCol_ScrollbarGrabHovered] = vec(0.30f, 0.35f, 0.42f);
-    c[ImGuiCol_ScrollbarGrabActive] = vec(0.38f, 0.44f, 0.52f);
-    c[ImGuiCol_TextSelectedBg] = vec(0.96f, 0.69f, 0.25f, 0.30f);
+    c[ImGuiCol_ScrollbarGrab] = vec(0.20f, 0.20f, 0.23f);
+    c[ImGuiCol_ScrollbarGrabHovered] = vec(0.30f, 0.30f, 0.34f);
+    c[ImGuiCol_ScrollbarGrabActive] = vec(0.78f, 1.0f, 0.0f, 0.8f);
+    c[ImGuiCol_TextSelectedBg] = vec(0.78f, 1.0f, 0.0f, 0.25f);
     s.ScaleAllSizes(S);
     s.FontScaleDpi = S;
 }
@@ -99,84 +105,144 @@ static void apply_style() {
 // =============================================================================================
 // Widgets
 // =============================================================================================
-enum BtnStyle { Primary, Secondary, Ghost };
+// Rectangle with the bottom-right corner cut off.
+static void chamfer(ImDrawList* dl, ImVec2 a, ImVec2 b, float cut, ImU32 fill, ImU32 border, float bw = 1.f) {
+    ImVec2 pts[5] = {{a.x, a.y}, {b.x, a.y}, {b.x, b.y - cut}, {b.x - cut, b.y}, {a.x, b.y}};
+    if (fill) dl->AddConvexPolyFilled(pts, 5, fill);
+    if (border) dl->AddPolyline(pts, 5, border, ImDrawFlags_Closed, bw);
+}
 
-static bool btn(const char* label, BtnStyle st, ImVec2 size = ImVec2(0, 0), bool enabled = true) {
-    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase);
-    ImVec2 ts = ImGui::CalcTextSize(label);
-    if (size.x <= 0) size.x = ts.x + px(32);
-    if (size.y <= 0) size.y = px(38);
+// Letter-spaced text (the font has no tracking). Returns the width.
+static float stext(ImDrawList* dl, ImVec2 p, ImU32 c, const std::string& t, float spacing, bool draw = true) {
+    float x = p.x;
+    for (size_t i = 0; i < t.size();) {
+        size_t n = 1;
+        while (i + n < t.size() && ((unsigned char)t[i + n] & 0xC0) == 0x80) ++n;
+        std::string ch = t.substr(i, n);
+        if (draw) dl->AddText(ImVec2(x, p.y), c, ch.c_str());
+        x += ImGui::CalcTextSize(ch.c_str()).x + spacing;
+        i += n;
+    }
+    return x - p.x - spacing;
+}
+
+// Small uppercase caption in the muted colour.
+static void label(const std::string& text, ImVec4 c = kMuted, float scale = 0.78f) {
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * scale);
     ImVec2 p = ImGui::GetCursorScreenPos();
-    ImGui::PushID(label);
+    float w = stext(ImGui::GetWindowDrawList(), p, U(c), upper(text), px(1.6f), false);
+    stext(ImGui::GetWindowDrawList(), p, U(c), upper(text), px(1.6f));
+    ImGui::Dummy(ImVec2(w, ImGui::GetTextLineHeight()));
+    ImGui::PopFont();
+}
+
+static void eyebrow(const std::string& text) {
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.78f);
+    float lh = ImGui::GetTextLineHeight();
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    dl->AddLine(ImVec2(p.x, p.y + lh * 0.5f), ImVec2(p.x + px(16), p.y + lh * 0.5f), U(kAccent), px(2));
+    float w = stext(dl, ImVec2(p.x + px(24), p.y), U(kAccent), upper(text), px(1.6f));
+    ImGui::Dummy(ImVec2(w + px(24), lh));
+    ImGui::PopFont();
+}
+
+static void heading(const char* text, float scale, ImVec4 c = kText) {
+    ImGui::PushFont(g_black, ImGui::GetStyle().FontSizeBase * scale);
+    ImGui::PushStyleColor(ImGuiCol_Text, c);
+    ImGui::TextUnformatted(text);
+    ImGui::PopStyleColor();
+    ImGui::PopFont();
+}
+
+enum BtnStyle { Primary, Amber, Secondary, Ghost };
+
+static bool btn(const char* label_text, BtnStyle st, ImVec2 size = ImVec2(0, 0), bool enabled = true) {
+    std::string t = upper(label_text);
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.86f);
+    float tw = stext(ImGui::GetWindowDrawList(), ImVec2(0, 0), 0, t, px(1.2f), false);
+    float th = ImGui::GetTextLineHeight();
+    if (size.x <= 0) size.x = tw + px(36);
+    if (size.y <= 0) size.y = px(40);
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImGui::PushID(label_text);
     ImGui::BeginDisabled(!enabled);
     bool clicked = ImGui::InvisibleButton("##b", size);
     bool hov = ImGui::IsItemHovered(), act = ImGui::IsItemActive();
     ImGui::EndDisabled();
     ImGui::PopID();
-    ImDrawList* dl = ImGui::GetWindowDrawList();
-    ImU32 bg, fg, border = 0;
-    float alpha = enabled ? 1.f : 0.4f;
-    if (st == Primary) {
-        ImVec4 a = kAccent;
-        if (hov && enabled) { a.x += 0.03f; a.y += 0.05f; a.z += 0.08f; }
-        if (act && enabled) { a.x -= 0.06f; a.y -= 0.06f; a.z -= 0.04f; }
-        a.w = alpha;
-        bg = U(a);
-        fg = col(0.10f, 0.07f, 0.02f, alpha);
+    float a = enabled ? 1.f : 0.35f;
+    ImU32 bg = 0, fg, border = 0;
+    if (st == Primary || st == Amber) {
+        ImVec4 base = st == Primary ? kAccent : kWarn;
+        ImVec4 v = base;
+        if (hov && enabled) { v.x = std::min(1.f, v.x + 0.08f); v.y = std::min(1.f, v.y + 0.04f); v.z = std::min(1.f, v.z + 0.2f); }
+        if (act && enabled) { v.x *= 0.85f; v.y *= 0.85f; }
+        v.w = a;
+        bg = U(v);
+        fg = col(0.05f, 0.05f, 0.02f, a);
     } else if (st == Secondary) {
-        bg = U(act ? vec(0.19f, 0.23f, 0.29f) : hov ? vec(0.16f, 0.19f, 0.24f) : kCardHi, alpha);
-        border = U(kBorder, alpha);
-        fg = U(kText, alpha);
-    } else {
         bg = hov && enabled ? U(kCardHi) : 0;
-        fg = U(hov ? kText : kMuted, alpha);
+        border = hov && enabled ? U(kAccent, 0.7f) : U(vec(0.28f, 0.28f, 0.31f), a);
+        fg = U(kText, a);
+    } else {
+        fg = U(hov ? kText : kMuted, a);
     }
-    dl->AddRectFilled(p, ImVec2(p.x + size.x, p.y + size.y), bg, px(8));
-    if (border) dl->AddRect(p, ImVec2(p.x + size.x, p.y + size.y), border, px(8));
-    dl->AddText(ImVec2(p.x + (size.x - ts.x) * 0.5f, p.y + (size.y - ts.y) * 0.5f), fg, label);
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    chamfer(dl, p, ImVec2(p.x + size.x, p.y + size.y), px(8), bg, border);
+    stext(dl, ImVec2(p.x + (size.x - tw) * 0.5f, p.y + (size.y - th) * 0.5f), fg, t, px(1.2f));
     ImGui::PopFont();
     return clicked && enabled;
 }
 
 static void chip(const char* text, ImVec4 c, bool same_line = false) {
     if (same_line) ImGui::SameLine(0, px(6));
-    ImVec2 ts = ImGui::CalcTextSize(text);
+    std::string t = upper(text);
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.72f);
+    float tw = stext(ImGui::GetWindowDrawList(), ImVec2(0, 0), 0, t, px(1.1f), false);
+    float th = ImGui::GetTextLineHeight();
     ImVec2 p = ImGui::GetCursorScreenPos();
-    float padx = px(9), pady = px(3);
+    float padx = px(8), pady = px(4);
+    ImVec2 size(tw + padx * 2, th + pady * 2);
     ImDrawList* dl = ImGui::GetWindowDrawList();
-    ImVec2 size(ts.x + padx * 2, ts.y + pady * 2);
-    dl->AddRectFilled(p, ImVec2(p.x + size.x, p.y + size.y), U(c, 0.16f), size.y * 0.5f);
-    dl->AddText(ImVec2(p.x + padx, p.y + pady), U(c), text);
+    dl->AddRectFilled(p, ImVec2(p.x + size.x, p.y + size.y), U(c, 0.10f));
+    dl->AddRect(p, ImVec2(p.x + size.x, p.y + size.y), U(c, 0.55f));
+    stext(dl, ImVec2(p.x + padx, p.y + pady), U(c), t, px(1.1f));
+    ImGui::PopFont();
     ImGui::Dummy(size);
 }
 
-static void heading(const char* text, float scale) {
-    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * scale);
-    ImGui::TextUnformatted(text);
+static float chip_w(const char* text) {
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.72f);
+    float w = stext(ImGui::GetWindowDrawList(), ImVec2(0, 0), 0, upper(text), px(1.1f), false) + px(16);
     ImGui::PopFont();
+    return w;
 }
 
-// Rounded notice box with a coloured left edge. Returns true when the optional button was clicked.
+static void card_bg(ImVec2 size, float = 0) {
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    chamfer(ImGui::GetWindowDrawList(), p, ImVec2(p.x + size.x, p.y + size.y), px(14), U(kCard), U(kBorder));
+}
+
+// Notice box with a coloured left edge. Returns true when the optional button was clicked.
 static bool callout(const char* text, ImVec4 c, const char* button = nullptr) {
     float w = ImGui::GetContentRegionAvail().x;
     float pad = px(14);
     ImVec2 ts = ImGui::CalcTextSize(text, nullptr, false, w - pad * 2 - px(6));
-    float bh = button ? px(38) + px(8) : 0;
+    float bh = button ? px(40) + px(10) : 0;
     ImVec2 p = ImGui::GetCursorScreenPos();
     float h = ts.y + pad * 2 + bh;
     ImDrawList* dl = ImGui::GetWindowDrawList();
-    dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(c, 0.10f), px(10));
-    dl->AddRectFilled(p, ImVec2(p.x + px(4), p.y + h), U(c), px(10), ImDrawFlags_RoundCornersLeft);
+    chamfer(dl, p, ImVec2(p.x + w, p.y + h), px(10), U(c, 0.07f), U(c, 0.30f));
+    dl->AddRectFilled(p, ImVec2(p.x + px(3), p.y + h), U(c));
     ImGui::SetCursorScreenPos(ImVec2(p.x + pad + px(6), p.y + pad));
     ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + w - pad * 2 - px(6));
-    ImGui::PushStyleColor(ImGuiCol_Text, kText);
     ImGui::TextUnformatted(text);
-    ImGui::PopStyleColor();
     ImGui::PopTextWrapPos();
     bool clicked = false;
     if (button) {
-        ImGui::SetCursorScreenPos(ImVec2(p.x + pad + px(6), p.y + pad + ts.y + px(8)));
-        clicked = btn(button, Secondary);
+        ImGui::SetCursorScreenPos(ImVec2(p.x + pad + px(6), p.y + pad + ts.y + px(10)));
+        clicked = btn(button, c.y > 0.9f && c.x < 0.9f ? Primary : Amber);
     }
     ImGui::SetCursorScreenPos(ImVec2(p.x, p.y + h));
     ImGui::Dummy(ImVec2(w, px(6)));
@@ -186,53 +252,26 @@ static bool callout(const char* text, ImVec4 c, const char* button = nullptr) {
 static void progress_bar(float f) {
     float w = ImGui::GetContentRegionAvail().x;
     ImVec2 p = ImGui::GetCursorScreenPos();
-    float h = px(6);
+    float h = px(4);
     ImDrawList* dl = ImGui::GetWindowDrawList();
-    dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(kCardHi), h);
-    if (f > 0) dl->AddRectFilled(p, ImVec2(p.x + w * std::min(f, 1.f), p.y + h), U(kAccent), h);
+    dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(vec(0.12f, 0.12f, 0.13f)));
+    if (f > 0) dl->AddRectFilled(p, ImVec2(p.x + w * std::min(f, 1.f), p.y + h), U(kAccent));
     ImGui::Dummy(ImVec2(w, h));
 }
 
-// Small line icons drawn with primitives (no icon font needed).
-static void icon(ImDrawList* dl, int kind, ImVec2 c, float r, ImU32 color) {
-    float t = px(1.8f);
-    if (kind == 0) {  // download arrow into tray
-        dl->AddLine(ImVec2(c.x, c.y - r), ImVec2(c.x, c.y + r * 0.35f), color, t);
-        dl->AddLine(ImVec2(c.x - r * 0.5f, c.y - r * 0.15f), ImVec2(c.x, c.y + r * 0.35f), color, t);
-        dl->AddLine(ImVec2(c.x + r * 0.5f, c.y - r * 0.15f), ImVec2(c.x, c.y + r * 0.35f), color, t);
-        dl->AddLine(ImVec2(c.x - r * 0.8f, c.y + r * 0.85f), ImVec2(c.x + r * 0.8f, c.y + r * 0.85f), color, t);
-    } else if (kind == 1) {  // pencil
-        dl->AddLine(ImVec2(c.x - r * 0.7f, c.y + r * 0.7f), ImVec2(c.x + r * 0.55f, c.y - r * 0.55f), color, t * 2.2f);
-        dl->AddTriangleFilled(ImVec2(c.x - r * 0.95f, c.y + r * 0.95f), ImVec2(c.x - r * 0.9f, c.y + r * 0.45f), ImVec2(c.x - r * 0.4f, c.y + r * 0.9f), color);
-    } else {  // info
-        dl->AddCircle(c, r, color, 24, t);
-        dl->AddLine(ImVec2(c.x, c.y - r * 0.05f), ImVec2(c.x, c.y + r * 0.5f), color, t);
-        dl->AddCircleFilled(ImVec2(c.x, c.y - r * 0.4f), t * 0.7f, color);
-    }
+// App logo mark: two slanted bars (a stylised "W").
+static void logo(ImDrawList* dl, ImVec2 p, float h, ImU32 c) {
+    float w = h * 0.9f, t = h * 0.22f, sk = h * 0.28f;
+    auto bar = [&](float x, float y0, float y1) {
+        ImVec2 pts[4] = {{x + sk, y0}, {x + sk + t, y0}, {x + t, y1}, {x, y1}};
+        dl->AddConvexPolyFilled(pts, 4, c);
+    };
+    bar(p.x, p.y, p.y + h);
+    bar(p.x + w * 0.42f, p.y + h * 0.35f, p.y + h);
+    bar(p.x + w * 0.84f, p.y, p.y + h);
 }
 
-static bool nav_item(const char* label, int icon_kind, bool active) {
-    float w = ImGui::GetContentRegionAvail().x;
-    float h = px(44);
-    ImVec2 p = ImGui::GetCursorScreenPos();
-    ImGui::PushID(label);
-    bool clicked = ImGui::InvisibleButton("##nav", ImVec2(w, h));
-    ImGui::PopID();
-    bool hov = ImGui::IsItemHovered();
-    ImDrawList* dl = ImGui::GetWindowDrawList();
-    if (active) {
-        dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(kAccent, 0.12f), px(10));
-        dl->AddRectFilled(ImVec2(p.x, p.y + px(10)), ImVec2(p.x + px(3), p.y + h - px(10)), U(kAccent), px(2));
-    } else if (hov) {
-        dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(kCard), px(10));
-    }
-    ImU32 c = active ? U(kAccent) : hov ? U(kText) : U(kMuted);
-    icon(dl, icon_kind, ImVec2(p.x + px(26), p.y + h * 0.5f), px(8), c);
-    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase);
-    dl->AddText(ImVec2(p.x + px(48), p.y + (h - ImGui::GetTextLineHeight()) * 0.5f), c, label);
-    ImGui::PopFont();
-    return clicked;
-}
+static std::string g_last_check;  // HH:MM:SS of the last successful index load
 
 static bool pick_folder(std::wstring& out) {
     IFileOpenDialog* dlg = nullptr;
@@ -354,6 +393,11 @@ static void load_index_async() {
                 g_ref_ready = ref_ok;
             }
             g_installed_dirty = true;
+            SYSTEMTIME st;
+            GetLocalTime(&st);
+            char tb[16];
+            snprintf(tb, sizeof tb, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
+            if (ok) g_last_check = tb;
         }
         g_index_task.running = false;
     }).detach();
@@ -584,18 +628,94 @@ static void ed_test_in_game() {
 }
 
 // =============================================================================================
-// Pages
+// Changelog (latest commits of the repository, loaded from the GitHub API)
 // =============================================================================================
-void ui_init(ImFont* bold) {
-    g_bold = bold;
-    detect_game();
-    load_index_async();
+struct Commit {
+    std::string date, msg, sha, author;
+};
+static std::vector<Commit> g_changelog;
+static std::string g_changelog_err;
+static Task g_changelog_task;
+static std::mutex g_cl_m;
+
+static std::string api_base() {
+    char buf[512];
+    DWORD n = GetEnvironmentVariableA("WOLFPACK_L10N_API", buf, sizeof buf);
+    if (n > 0 && n < sizeof buf) {
+        std::string s(buf, n);
+        if (s.back() != '/') s += '/';
+        return s;
+    }
+    return "https://api.github.com/";
 }
 
-static void page_header(const char* title, const char* subtitle) {
-    heading(title, 1.7f);
-    ImGui::TextColored(kMuted, "%s", subtitle);
-    ImGui::Dummy(ImVec2(0, px(6)));
+static std::string commit_title(const std::string& message) {
+    std::vector<std::string> lines;
+    size_t pos = 0;
+    while (pos <= message.size()) {
+        size_t e = message.find('\n', pos);
+        if (e == std::string::npos) e = message.size();
+        std::string l = message.substr(pos, e - pos);
+        while (!l.empty() && (l.back() == '\r' || l.back() == ' ')) l.pop_back();
+        if (!l.empty()) lines.push_back(l);
+        pos = e + 1;
+    }
+    if (lines.empty()) return "";
+    // merge commits carry the interesting text in the body
+    if (lines[0].rfind("Merge pull request", 0) == 0 && lines.size() > 1) return lines[1];
+    return lines[0];
+}
+
+static std::string pretty_date(const std::string& iso) {
+    static const char* months[] = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    if (iso.size() < 10) return iso;
+    int m = atoi(iso.substr(5, 2).c_str());
+    if (m < 1 || m > 12) return iso.substr(0, 10);
+    return std::to_string(atoi(iso.substr(8, 2).c_str())) + " " + months[m - 1] + " " + iso.substr(0, 4);
+}
+
+static void load_changelog_async() {
+    if (g_changelog_task.running.exchange(true)) return;
+    std::thread([] {
+        HttpResult r = http_get(api_base() + "repos/niclqs/wolfpack-localization/commits?per_page=40&sha=main");
+        std::vector<Commit> list;
+        std::string err;
+        if (!r.ok()) {
+            err = r.status == 403 ? "GitHub rate limit reached. Try again later." : "Could not load the changelog (" + r.error + ").";
+        } else {
+            try {
+                auto j = nlohmann::json::parse(r.body.begin(), r.body.end());
+                for (auto& c : j) {
+                    Commit k;
+                    k.date = c["commit"]["author"]["date"].get<std::string>();
+                    k.msg = commit_title(c["commit"]["message"].get<std::string>());
+                    k.sha = c["sha"].get<std::string>().substr(0, 7);
+                    k.author = c["commit"]["author"]["name"].get<std::string>();
+                    if (!k.msg.empty()) list.push_back(k);
+                }
+            } catch (const std::exception& e) {
+                err = std::string("Unexpected answer from GitHub: ") + e.what();
+            }
+        }
+        {
+            std::lock_guard<std::mutex> l(g_cl_m);
+            g_changelog = std::move(list);
+            g_changelog_err = err;
+        }
+        g_changelog_task.running = false;
+    }).detach();
+}
+
+// =============================================================================================
+// Shell: init, notices
+// =============================================================================================
+void ui_init(ImFont* semibold, ImFont* black, HWND hwnd) {
+    g_bold = semibold;
+    g_black = black;
+    g_hwnd = hwnd;
+    detect_game();
+    load_index_async();
+    load_changelog_async();
 }
 
 static void notices() {
@@ -608,15 +728,7 @@ static void notices() {
     }
 }
 
-static void card_bg(ImVec2 size, float rounding = 12) {
-    ImVec2 p = ImGui::GetCursorScreenPos();
-    ImDrawList* dl = ImGui::GetWindowDrawList();
-    dl->AddRectFilled(p, ImVec2(p.x + size.x, p.y + size.y), U(kCard), px(rounding));
-    dl->AddRect(p, ImVec2(p.x + size.x, p.y + size.y), U(kBorder), px(rounding));
-}
-
 static void page_install() {
-    page_header("Install a language", "Pick a language pack from GitHub and install it into your Wolfpack folder.");
     notices();
 
     std::vector<Pack> packs;
@@ -662,8 +774,8 @@ static void page_install() {
         if (clicked) g_selected = i;
         bool sel = g_selected == i;
         ImDrawList* dl = ImGui::GetWindowDrawList();
-        dl->AddRectFilled(pos, ImVec2(pos.x + w, pos.y + h), U(sel ? kCardHi : hov ? vec(0.10f, 0.125f, 0.155f) : kCard), px(12));
-        dl->AddRect(pos, ImVec2(pos.x + w, pos.y + h), sel ? U(kAccent, 0.8f) : U(kBorder), px(12), 0, sel ? px(1.5f) : 1.f);
+        chamfer(dl, pos, ImVec2(pos.x + w, pos.y + h), px(12), U(sel ? kCardHi : hov ? vec(0.085f, 0.085f, 0.095f) : kCard), sel ? U(kAccent, 0.9f) : U(kBorder), sel ? px(1.5f) : 1.f);
+        if (sel) dl->AddRectFilled(pos, ImVec2(pos.x + px(3), pos.y + h), U(kAccent));
         ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 1.15f);
         dl->AddText(ImVec2(pos.x + px(18), pos.y + px(11)), U(kText), p.native_name.c_str());
         ImGui::PopFont();
@@ -671,7 +783,7 @@ static void page_install() {
         dl->AddText(ImVec2(pos.x + px(18), pos.y + px(37)), U(kMuted), sub.c_str());
         // chips right aligned
         const char* st = p.status.c_str();
-        float cw = ImGui::CalcTextSize(st).x + px(18);
+        float cw = chip_w(st);
         ImVec2 save = ImGui::GetCursorScreenPos();
         float right = pos.x + w - px(16);
         float cy = pos.y + (h - ImGui::GetTextLineHeight() - px(6)) * 0.5f;
@@ -680,7 +792,7 @@ static void page_install() {
         if (g_installed.count(p.code)) {
             bool upd = g_state[p.code] == 2;
             const char* label = upd ? "update available" : "installed";
-            float cw2 = ImGui::CalcTextSize(label).x + px(18);
+            float cw2 = chip_w(label);
             ImGui::SetCursorScreenPos(ImVec2(right - cw - cw2 - px(6), cy));
             chip(label, upd ? kAccent : kGood);
         }
@@ -759,7 +871,7 @@ static void page_install() {
         float bw = inner;
         bool upd = g_installed.count(p.code) && g_state[p.code] == 2;
         bool same = g_installed.count(p.code) && g_state[p.code] == 1;
-        if (btn(busy ? "Working..." : upd ? "Update" : same ? "Reinstall" : "Install", Primary, ImVec2(bw, px(44)), !g_root.empty() && !busy && !g_game_running))
+        if (btn(busy ? "Working..." : upd ? "Update" : same ? "Reinstall" : "Install", upd ? Amber : Primary, ImVec2(bw, px(44)), !g_root.empty() && !busy && !g_game_running))
             install_async(p, can_addon && bepinex && g_with_addon);
         if (btn("Restore original English", Secondary, ImVec2(bw, px(38)), !g_root.empty() && !busy && !g_game_running))
             for (auto& q : packs)
@@ -826,7 +938,6 @@ static void ed_toolbar(const std::vector<Pack>& packs) {
 }
 
 static void page_editor() {
-    page_header("Language editor", "Create a new translation or improve an existing one, then export it for a pull request.");
     notices();
 
     bool ref_ready;
@@ -963,84 +1074,420 @@ static void page_editor() {
     if (btn("Repository", Ghost, ImVec2(0, px(42)))) open_url("https://github.com/niclqs/wolfpack-localization");
 }
 
-static void page_about() {
-    page_header("About", "Wolfpack Language Tool");
-    float w = std::min(ImGui::GetContentRegionAvail().x, px(640));
-    ImGui::BeginChild("about", ImVec2(w, px(250)));
-    card_bg(ImVec2(w, px(250)), 12);
-    ImGui::SetCursorPos(ImVec2(px(22), px(20)));
-    ImGui::BeginGroup();
-    ImGui::PushTextWrapPos(w - px(22));
-    ImGui::TextWrapped("An unofficial fan project. Wolfpack is developed by Usurpator.");
-    ImGui::Dummy(ImVec2(0, px(6)));
-    ImGui::TextColored(kAccent, "Tool license");
-    ImGui::TextWrapped("PolyForm Noncommercial 1.0.0. You may use, copy and modify the tool, but not for commercial purposes.");
-    ImGui::Dummy(ImVec2(0, px(6)));
-    ImGui::TextColored(kAccent, "Language packs");
-    ImGui::TextWrapped("The translations live in the GitHub repository (MIT). Contributions are welcome: use the Editor, export and open a pull request.");
-    ImGui::PopTextWrapPos();
+
+// =============================================================================================
+// Dashboard
+// =============================================================================================
+static void kv_row(const char* key, const std::string& value, ImVec4 c) {
+    float w = ImGui::GetContentRegionAvail().x;
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    dl->AddLine(p, ImVec2(p.x + w, p.y), U(kBorder));
     ImGui::Dummy(ImVec2(0, px(8)));
-    if (btn("Open repository", Secondary)) open_url("https://github.com/niclqs/wolfpack-localization");
+    label(key);
+    ImGui::SameLine();
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.86f);
+    std::string v = upper(value);
+    float vw = stext(dl, ImVec2(0, 0), 0, v, px(1.2f), false);
+    ImVec2 q = ImGui::GetItemRectMin();
+    stext(dl, ImVec2(p.x + w - vw, q.y - px(1)), U(c), v, px(1.2f));
+    ImGui::PopFont();
+    ImGui::Dummy(ImVec2(0, px(8)));
+}
+
+static void banner(const char* title, const char* subtitle, ImVec4 c, const char* button, BtnStyle bs, bool enabled, bool* clicked) {
+    float w = ImGui::GetContentRegionAvail().x, h = px(76);
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    chamfer(dl, p, ImVec2(p.x + w, p.y + h), px(14), U(kCard), U(kBorder));
+    dl->AddRectFilled(p, ImVec2(p.x + px(3), p.y + h), U(c));
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.95f);
+    stext(dl, ImVec2(p.x + px(24), p.y + px(15)), U(kText), upper(title), px(1.4f));
+    ImGui::PopFont();
+    dl->AddText(ImVec2(p.x + px(24), p.y + px(40)), U(kMuted), subtitle);
+    if (button) {
+        ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.86f);
+        float bw = stext(dl, ImVec2(0, 0), 0, upper(button), px(1.2f), false) + px(36) + px(36);
+        ImGui::PopFont();
+        ImGui::SetCursorScreenPos(ImVec2(p.x + w - bw - px(14), p.y + (h - px(44)) * 0.5f));
+        // small "!" square like a status icon inside the button
+        ImVec2 bp = ImGui::GetCursorScreenPos();
+        if (btn(button, bs, ImVec2(bw, px(44)), enabled)) *clicked = true;
+        if (bs == Amber) {
+            float s = px(18);
+            dl->AddRectFilled(ImVec2(bp.x + px(14), bp.y + (px(44) - s) * 0.5f), ImVec2(bp.x + px(14) + s, bp.y + (px(44) + s) * 0.5f), col(0.05f, 0.05f, 0.02f, enabled ? 1.f : 0.4f));
+            dl->AddText(ImVec2(bp.x + px(14) + s * 0.5f - ImGui::CalcTextSize("!").x * 0.5f, bp.y + (px(44) - ImGui::GetTextLineHeight()) * 0.5f), U(kWarn), "!");
+        }
+    }
+    ImGui::SetCursorScreenPos(ImVec2(p.x, p.y + h));
+    ImGui::Dummy(ImVec2(w, px(12)));
+}
+
+static void page_dashboard() {
+    std::vector<Pack> packs;
+    std::string idx_err, idx_game;
+    bool ready;
+    std::string last_check;
+    {
+        std::lock_guard<std::mutex> l(g_data);
+        packs = g_index.packs;
+        idx_err = g_index_err;
+        idx_game = g_index.game_version;
+        ready = g_index_ready;
+        last_check = g_last_check;
+    }
+    if (g_installed_dirty) refresh_installed();
+    std::vector<Pack> outdated;
+    int up_to_date = 0;
+    for (auto& p : packs) {
+        if (!g_state.count(p.code)) continue;
+        if (g_state[p.code] == 2) outdated.push_back(p);
+        else ++up_to_date;
+    }
+
+    // which banners are needed (max two, most important first)
+    struct B { int kind; };
+    std::vector<int> banners;
+    if (!g_root.empty() && (!g_writable || g_need_admin) && !is_elevated()) banners.push_back(0);
+    if (g_root.empty()) banners.push_back(1);
+    if (g_game_running) banners.push_back(2);
+    if (!outdated.empty()) banners.push_back(3);
+    else if (g_installed.empty()) banners.push_back(4);
+    else banners.push_back(5);
+    if (banners.size() > 2) banners.resize(2);
+
+    ImVec2 avail = ImGui::GetContentRegionAvail();
+    float banners_h = (float)banners.size() * px(88);
+    float cards_h = avail.y - banners_h - px(4);
+    float gap = px(16);
+    float left_w = std::floor((avail.x - gap) * 0.40f);
+    float right_w = avail.x - gap - left_w;
+    float game_h = std::floor((cards_h - gap) * 0.52f);
+    float lang_h = cards_h - gap - game_h;
+    float pad = px(22);
+
+    ImGui::BeginChild("left", ImVec2(left_w, cards_h));
+    {
+        ImGui::BeginChild("game", ImVec2(left_w, game_h));
+        card_bg(ImVec2(left_w, game_h));
+        ImGui::SetCursorPos(ImVec2(pad, px(18)));
+        ImGui::BeginGroup();
+        label("Game");
+        if (g_root.empty()) heading("NOT FOUND", 1.6f, kBad);
+        else heading(g_game_ver.empty() ? "UNKNOWN" : g_game_ver.c_str(), 2.1f, kAccent);
+        label(g_root.empty() ? "Select the Wolfpack folder" : "Version detected in the game files", kMuted, 0.72f);
+        if (!g_root.empty()) {
+            ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + left_w - pad * 2);
+            ImGui::TextColored(kMuted, "%s", path_u8(g_root).c_str());
+            ImGui::PopTextWrapPos();
+        }
+        ImGui::SetCursorPosY(game_h - px(54));
+        if (btn("Detect", Secondary, ImVec2(px(110), px(36)))) detect_game();
+        ImGui::SameLine(0, px(8));
+        if (btn("Browse", Secondary, ImVec2(px(110), px(36)))) {
+            std::wstring wp;
+            if (pick_folder(wp)) {
+                fs::path root;
+                if (normalize_game_dir(wp, root)) { set_game(root); g_game_msg.clear(); }
+                else g_game_msg = "That folder does not contain Wolfpack.exe.";
+            }
+        }
+        ImGui::EndGroup();
+        ImGui::EndChild();
+
+        ImGui::SetCursorPosY(game_h + gap);
+        ImGui::BeginChild("langs", ImVec2(left_w, lang_h));
+        card_bg(ImVec2(left_w, lang_h));
+        ImGui::SetCursorPos(ImVec2(pad, px(18)));
+        ImGui::BeginGroup();
+        label("Installed languages");
+        heading(std::to_string(g_installed.size()).c_str(), 2.1f);
+        {
+            std::string sub = std::to_string(up_to_date) + " up to date  /  " + std::to_string(outdated.size()) + " with updates";
+            label(sub, outdated.empty() ? kAccent : kWarn, 0.72f);
+        }
+        ImGui::Dummy(ImVec2(0, px(2)));
+        float line_w = left_w - pad * 2, used = 0;
+        for (auto& code : g_installed) {
+            float cw = ImGui::CalcTextSize(code.c_str()).x * 0.72f + px(40);
+            if (used > 0 && used + cw > line_w) used = 0;
+            else if (used > 0) ImGui::SameLine(0, px(6));
+            chip(code.c_str(), g_state[code] == 2 ? kWarn : kAccent);
+            used += cw + px(6);
+        }
+        ImGui::EndGroup();
+        ImGui::EndChild();
+    }
+    ImGui::EndChild();
+
+    ImGui::SameLine(0, gap);
+    ImGui::BeginChild("right", ImVec2(right_w, cards_h));
+    card_bg(ImVec2(right_w, cards_h));
+    ImGui::SetCursorPos(ImVec2(pad, px(18)));
+    ImGui::BeginGroup();
+    float inner = right_w - pad * 2;
+    label("Language packs on GitHub");
+    {
+        std::string big = std::to_string(packs.size()) + " PACKS";
+        heading(big.c_str(), 2.1f);
+    }
+    label(ready ? "Index loaded - all files verified by checksum" : idx_err.empty() ? "Loading..." : "Offline", ready ? kAccent : kBad, 0.72f);
+    ImGui::Dummy(ImVec2(0, px(4)));
+    {   // one segment per pack, coloured by status
+        ImVec2 p = ImGui::GetCursorScreenPos();
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        int n = std::max<int>(1, (int)packs.size());
+        float sg = px(4), sw = (inner - sg * (n - 1)) / n, sh = px(7);
+        for (int i = 0; i < (int)packs.size(); ++i) {
+            float x = p.x + i * (sw + sg);
+            dl->AddRectFilled(ImVec2(x, p.y), ImVec2(x + sw, p.y + sh), U(status_color(packs[i].status)));
+        }
+        if (packs.empty()) dl->AddRectFilled(p, ImVec2(p.x + inner, p.y + sh), U(vec(0.15f, 0.15f, 0.17f)));
+        ImGui::Dummy(ImVec2(inner, sh + px(10)));
+    }
+    ImGui::PushItemWidth(inner);
+    kv_row("Link", ready ? "Operational" : "Offline", ready ? kAccent : kBad);
+    {
+        std::string cmp = g_game_ver.empty() || idx_game.empty() ? "Unknown" : g_game_ver == idx_game ? "Packs match your game" : "Packs target " + idx_game;
+        ImVec4 cc = g_game_ver.empty() || idx_game.empty() ? kMuted : g_game_ver == idx_game ? kAccent : kWarn;
+        kv_row("Compatibility", cmp, cc);
+    }
+    kv_row("Translated", std::to_string(std::count_if(packs.begin(), packs.end(), [](const Pack& p) { return p.status == "complete" || p.status == "original"; })) + " of " + std::to_string(packs.size()) + " complete", kText);
+    kv_row("Last check", last_check.empty() ? "-" : last_check, kText);
+    ImGui::PopItemWidth();
+    ImGui::SetCursorPosY(cards_h - px(54));
+    if (btn("Check again", Secondary, ImVec2(px(140), px(36)), !g_index_task.running)) { load_index_async(); load_changelog_async(); }
+    ImGui::EndGroup();
+    ImGui::EndChild();
+
+    ImGui::SetCursorPosY(cards_h + px(12));
+    bool clicked = false;
+    for (int kind : banners) {
+        clicked = false;
+        bool busy = g_install_task.running || g_game_running;
+        switch (kind) {
+        case 0:
+            banner("Administrator rights required", "The game folder is write-protected. Restart the tool as administrator to install.", kWarn, "Restart as admin", Amber, true, &clicked);
+            if (clicked && relaunch_as_admin()) ExitProcess(0);
+            break;
+        case 1:
+            banner("Game not found", "Pick the folder that contains Wolfpack.exe.", kBad, nullptr, Primary, true, &clicked);
+            break;
+        case 2:
+            banner("Game is running", "Close Wolfpack to install or update language files.", kInfo, nullptr, Primary, true, &clicked);
+            break;
+        case 3:
+            banner("Update required", (std::to_string(outdated.size()) + " installed language pack(s) differ from GitHub.").c_str(), kWarn, "Update available", Amber, !busy && !g_root.empty(), &clicked);
+            if (clicked) g_queue = outdated;
+            break;
+        case 4:
+            banner("No language installed", "Open Languages and install a pack to get started.", kMuted, "Browse languages", Primary, true, &clicked);
+            if (clicked) g_page = 1;
+            break;
+        default:
+            banner("All up to date", "Your installed language files match the repository.", kAccent, nullptr, Primary, true, &clicked);
+        }
+    }
+}
+
+// =============================================================================================
+// Changelog
+// =============================================================================================
+static void page_changelog() {
+    std::vector<Commit> list;
+    std::string err;
+    {
+        std::lock_guard<std::mutex> l(g_cl_m);
+        list = g_changelog;
+        err = g_changelog_err;
+    }
+    ImVec2 avail = ImGui::GetContentRegionAvail();
+    label("Latest changes on GitHub (main branch)");
+    ImGui::SameLine(avail.x - px(130));
+    if (btn("Refresh", Secondary, ImVec2(px(130), px(34)), !g_changelog_task.running)) load_changelog_async();
+    if (!err.empty()) callout(err.c_str(), kWarn);
+    if (g_changelog_task.running) ImGui::TextColored(kMuted, "Loading...");
+
+    float w = ImGui::GetContentRegionAvail().x, h = ImGui::GetContentRegionAvail().y;
+    card_bg(ImVec2(w, h));
+    ImGui::BeginChild("log", ImVec2(w, h));
+    ImGui::SetCursorPos(ImVec2(px(24), px(18)));
+    ImGui::BeginGroup();
+    std::string last_date;
+    float text_w = w - px(24) * 2 - px(26);
+    for (size_t i = 0; i < list.size(); ++i) {
+        const Commit& c = list[i];
+        std::string d = pretty_date(c.date);
+        if (d != last_date) {
+            if (!last_date.empty()) ImGui::Dummy(ImVec2(0, px(8)));
+            label(d, kAccent, 0.8f);
+            ImGui::Dummy(ImVec2(0, px(2)));
+            last_date = d;
+        }
+        ImVec2 p = ImGui::GetCursorScreenPos();
+        ImGui::SetCursorScreenPos(ImVec2(p.x + px(26), p.y));
+        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + text_w);
+        ImGui::TextUnformatted(c.msg.c_str());
+        ImGui::PopTextWrapPos();
+        ImGui::SetCursorScreenPos(ImVec2(p.x + px(26), ImGui::GetCursorScreenPos().y));
+        ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.72f);
+        std::string meta = c.sha + "   " + c.author;
+        ImGui::TextColored(kMuted, "%s", upper(meta).c_str());
+        ImGui::PopFont();
+        float y1 = ImGui::GetCursorScreenPos().y;
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        dl->AddLine(ImVec2(p.x + px(6), p.y + px(14)), ImVec2(p.x + px(6), y1 + px(8)), U(kBorder), px(1.5f));
+        dl->AddRectFilled(ImVec2(p.x + px(2), p.y + px(6)), ImVec2(p.x + px(10), p.y + px(14)), U(kAccent));
+        ImGui::Dummy(ImVec2(0, px(8)));
+    }
+    if (list.empty() && err.empty() && !g_changelog_task.running) ImGui::TextColored(kMuted, "No entries.");
     ImGui::EndGroup();
     ImGui::EndChild();
 }
 
-// ---------------------------------------------------------------- sidebar
-static void sidebar(float w, float h) {
-    ImGui::BeginChild("side", ImVec2(w, h), ImGuiChildFlags_None);
-    ImDrawList* dl = ImGui::GetWindowDrawList();
-    ImVec2 p = ImGui::GetWindowPos();
-    dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(kSide));
-    dl->AddLine(ImVec2(p.x + w - 1, p.y), ImVec2(p.x + w - 1, p.y + h), U(kBorder));
-    ImGui::SetCursorPos(ImVec2(px(20), px(24)));
-    heading("WOLFPACK", 1.45f);
-    ImGui::SetCursorPosX(px(20));
-    ImGui::TextColored(kAccent, "LANGUAGE TOOL");
-    ImGui::SetCursorPos(ImVec2(px(12), px(96)));
-    ImGui::BeginGroup();
-    ImGui::PushItemWidth(w - px(24));
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, px(4)));
-    ImGui::BeginChild("nav", ImVec2(w - px(24), px(160)));
-    if (nav_item("Install", 0, g_page == 0)) g_page = 0;
-    if (nav_item("Editor", 1, g_page == 1)) g_page = 1;
-    if (nav_item("About", 2, g_page == 2)) g_page = 2;
-    ImGui::EndChild();
-    ImGui::PopStyleVar();
-    ImGui::PopItemWidth();
-    ImGui::EndGroup();
+// =============================================================================================
+// Frame: title bar, header with tabs, footer, splash
+// =============================================================================================
+static float g_caption_h = 0, g_caption_btn_w = 0;
+float ui_caption_height() { return g_caption_h; }
+float ui_caption_buttons_width() { return g_caption_btn_w; }
 
-    // game card pinned to the bottom
-    float ch = px(168);
-    ImGui::SetCursorPos(ImVec2(px(12), h - ch - px(14)));
-    ImVec2 cp = ImGui::GetCursorScreenPos();
-    float cw = w - px(24);
-    dl->AddRectFilled(cp, ImVec2(cp.x + cw, cp.y + ch), U(kCard), px(12));
-    dl->AddRect(cp, ImVec2(cp.x + cw, cp.y + ch), U(kBorder), px(12));
-    ImGui::SetCursorScreenPos(ImVec2(cp.x + px(14), cp.y + px(12)));
-    ImGui::BeginGroup();
-    ImGui::TextColored(kMuted, "GAME FOLDER");
-    if (g_root.empty()) {
-        ImGui::TextColored(kBad, "Not found");
-    } else {
-        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + cw - px(28));
-        ImGui::TextUnformatted(path_u8(g_root).c_str());
-        ImGui::PopTextWrapPos();
-        ImGui::Dummy(ImVec2(0, px(2)));
-        chip(g_game_ver.empty() ? "version unknown" : ("version " + g_game_ver).c_str(), g_game_ver.empty() ? kMuted : kInfo);
-    }
-    ImGui::SetCursorScreenPos(ImVec2(cp.x + px(14), cp.y + ch - px(46)));
-    if (btn("Detect", Secondary, ImVec2((cw - px(40)) * 0.5f, px(32)))) detect_game();
-    ImGui::SameLine(0, px(8));
-    if (btn("Browse", Secondary, ImVec2((cw - px(40)) * 0.5f, px(32)))) {
-        std::wstring wp;
-        if (pick_folder(wp)) {
-            fs::path root;
-            if (normalize_game_dir(wp, root)) { set_game(root); g_game_msg.clear(); }
-            else g_game_msg = "That folder does not contain Wolfpack.exe.";
+static void title_bar(float W) {
+    float h = px(42), bw = px(46);
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    dl->AddLine(ImVec2(0, h), ImVec2(W, h), U(kBorder));
+    logo(dl, ImVec2(px(18), px(13)), px(16), U(kText));
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.86f);
+    stext(dl, ImVec2(px(52), (h - ImGui::GetTextLineHeight()) * 0.5f), U(kText), "WOLFPACK L10N", px(1.6f));
+    ImGui::PopFont();
+    for (int i = 0; i < 2; ++i) {
+        float x = W - bw * (2 - i);
+        ImGui::SetCursorPos(ImVec2(x, 0));
+        ImGui::PushID(i);
+        bool clicked = ImGui::InvisibleButton("##cap", ImVec2(bw, h - 1));
+        bool hov = ImGui::IsItemHovered();
+        ImGui::PopID();
+        if (hov) dl->AddRectFilled(ImVec2(x, 0), ImVec2(x + bw, h - 1), i == 1 ? col(0.85f, 0.18f, 0.18f) : U(kCardHi));
+        ImVec2 c(x + bw * 0.5f, h * 0.5f);
+        ImU32 ic = U(hov ? kText : kMuted);
+        float r = px(5);
+        if (i == 0) dl->AddLine(ImVec2(c.x - r, c.y), ImVec2(c.x + r, c.y), ic, px(1.4f));
+        else {
+            dl->AddLine(ImVec2(c.x - r, c.y - r), ImVec2(c.x + r, c.y + r), ic, px(1.4f));
+            dl->AddLine(ImVec2(c.x - r, c.y + r), ImVec2(c.x + r, c.y - r), ic, px(1.4f));
+        }
+        if (clicked) {
+            if (i == 0) ShowWindow(g_hwnd, SW_MINIMIZE);
+            else PostMessageW(g_hwnd, WM_CLOSE, 0, 0);
         }
     }
-    ImGui::EndGroup();
-    ImGui::EndChild();
+    g_caption_h = h;
+    g_caption_btn_w = bw * 2;
+}
+
+static void tab_strip(float right_x, float y) {
+    static const char* names[] = {"Dashboard", "Languages", "Editor", "Changelog"};
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.78f);
+    float widths[4], total = 0;
+    for (int i = 0; i < 4; ++i) {
+        widths[i] = stext(dl, ImVec2(0, 0), 0, upper(names[i]), px(1.6f), false) + px(40);
+        total += widths[i];
+    }
+    float x = right_x - total, h = px(40);
+    for (int i = 0; i < 4; ++i) {
+        ImGui::SetCursorPos(ImVec2(x, y));
+        ImGui::PushID(i + 100);
+        if (ImGui::InvisibleButton("##tab", ImVec2(widths[i], h))) g_page = i;
+        bool hov = ImGui::IsItemHovered();
+        ImGui::PopID();
+        ImVec2 p = ImGui::GetItemRectMin();
+        bool act = g_page == i;
+        if (act) {
+            dl->AddRectFilled(p, ImVec2(p.x + widths[i], p.y + h), U(kCard));
+            dl->AddRectFilled(p, ImVec2(p.x + widths[i], p.y + px(3)), U(kAccent));
+        } else if (hov) {
+            dl->AddRectFilled(p, ImVec2(p.x + widths[i], p.y + h), U(kCard, 0.5f));
+        }
+        stext(dl, ImVec2(p.x + px(20), p.y + (h - ImGui::GetTextLineHeight()) * 0.5f + px(1)), U(act ? kText : hov ? kText : kMuted), upper(names[i]), px(1.6f));
+        x += widths[i];
+    }
+    ImGui::PopFont();
+}
+
+static void footer(float W, float H) {
+    float h = px(32);
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    dl->AddLine(ImVec2(0, H - h), ImVec2(W, H - h), U(kBorder));
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
+    float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
+    bool online;
+    {
+        std::lock_guard<std::mutex> l(g_data);
+        online = g_index_ready;
+    }
+    float x = px(28);
+    dl->AddRectFilled(ImVec2(x, ty + px(4)), ImVec2(x + px(7), ty + px(11)), U(online ? kAccent : kBad));
+    x += px(16);
+    x += stext(dl, ImVec2(x, ty), U(online ? kAccent : kBad), online ? "CONNECTED" : "OFFLINE", px(1.4f)) + px(14);
+    dl->AddLine(ImVec2(x, ty + px(2)), ImVec2(x, ty + px(14)), U(kBorder));
+    x += px(14);
+    x += stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.0", px(1.4f)) + px(14);
+    dl->AddLine(ImVec2(x, ty + px(2)), ImVec2(x, ty + px(14)), U(kBorder));
+    x += px(14);
+    SYSTEMTIME st;
+    GetLocalTime(&st);
+    char t[16];
+    snprintf(t, sizeof t, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
+    stext(dl, ImVec2(x, ty), U(kMuted), t, px(1.4f));
+
+    float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
+    float rx = W - px(28) - rw;
+    ImGui::SetCursorPos(ImVec2(rx - px(4), H - h));
+    if (ImGui::InvisibleButton("##repo", ImVec2(rw + px(8), h))) open_url("https://github.com/niclqs/wolfpack-localization");
+    bool hov = ImGui::IsItemHovered();
+    stext(dl, ImVec2(rx, ty), U(hov ? kAccent : kMuted), "REPOSITORY", px(1.4f));
+    std::string lic = "POLYFORM NONCOMMERCIAL";
+    float lw = stext(dl, ImVec2(0, 0), 0, lic, px(1.4f), false);
+    stext(dl, ImVec2(rx - px(24) - lw, ty), U(kMuted, 0.7f), lic, px(1.4f));
+    ImGui::PopFont();
+}
+
+static void splash(float W, float H, float shown, bool done_loading) {
+    ImDrawList* dl = ImGui::GetWindowDrawList();
+    // corner brackets
+    float m = px(26), l = px(22), t = px(2);
+    ImU32 c = U(kAccent);
+    dl->AddLine(ImVec2(m, m), ImVec2(m + l, m), c, t);          dl->AddLine(ImVec2(m, m), ImVec2(m, m + l), c, t);
+    dl->AddLine(ImVec2(W - m, m), ImVec2(W - m - l, m), c, t);  dl->AddLine(ImVec2(W - m, m), ImVec2(W - m, m + l), c, t);
+    dl->AddLine(ImVec2(m, H - m), ImVec2(m + l, H - m), c, t);  dl->AddLine(ImVec2(m, H - m), ImVec2(m, H - m - l), c, t);
+    dl->AddLine(ImVec2(W - m, H - m), ImVec2(W - m - l, H - m), c, t); dl->AddLine(ImVec2(W - m, H - m), ImVec2(W - m, H - m - l), c, t);
+
+    // centre: logo + name
+    ImGui::PushFont(g_black, ImGui::GetStyle().FontSizeBase * 2.4f);
+    ImVec2 ts = ImGui::CalcTextSize("WOLFPACK L10N");
+    float logo_h = px(64), gapx = px(22);
+    float total = logo_h * 0.9f + gapx + ts.x;
+    float x = (W - total) * 0.5f, y = H * 0.5f - ts.y * 0.5f - px(10);
+    logo(dl, ImVec2(x, y + (ts.y - logo_h) * 0.5f), logo_h, U(kText));
+    dl->AddText(ImVec2(x + logo_h * 0.9f + gapx, y), U(kText), "WOLFPACK L10N");
+    ImGui::PopFont();
+    float tx = x + logo_h * 0.9f + gapx;
+    dl->AddLine(ImVec2(tx, y + ts.y + px(6)), ImVec2(tx + px(34), y + ts.y + px(6)), U(kAccent), px(2));
+    ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.72f);
+    stext(dl, ImVec2(tx, y + ts.y + px(14)), U(kMuted), "LANGUAGE INSTALLER & EDITOR", px(2.4f));
+
+    // bottom progress
+    float bx = px(44), bw = W - px(88), by = H - px(64);
+    stext(dl, ImVec2(bx, by - px(24)), U(kMuted), done_loading ? "READY" : "LOADING LANGUAGE PACKS", px(1.4f));
+    char pct[16];
+    snprintf(pct, sizeof pct, "%d%%", (int)(shown * 100));
+    float pw = stext(dl, ImVec2(0, 0), 0, pct, px(1.4f), false);
+    stext(dl, ImVec2(bx + bw - pw, by - px(24)), U(kAccent), pct, px(1.4f));
+    ImGui::PopFont();
+    dl->AddRectFilled(ImVec2(bx, by), ImVec2(bx + bw, by + px(4)), U(vec(0.12f, 0.12f, 0.13f)));
+    dl->AddRectFilled(ImVec2(bx, by), ImVec2(bx + bw * shown, by + px(4)), U(kAccent));
+    for (int i = 0; i <= 10; ++i) dl->AddLine(ImVec2(bx + bw * i / 10.f, by + px(12)), ImVec2(bx + bw * i / 10.f, by + px(18)), U(kBorder));
 }
 
 bool ui_frame(float scale) {
@@ -1053,29 +1500,57 @@ bool ui_frame(float scale) {
         g_game_running = game_running();
         last_poll = ImGui::GetTime();
     }
+    if (!g_install_task.running && !g_queue.empty() && !g_game_running) {
+        Pack next = g_queue.front();
+        g_queue.erase(g_queue.begin());
+        install_async(next, false);
+    }
 
     ImGuiViewport* vp = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(vp->Pos);
     ImGui::SetNextWindowSize(vp->Size);
     ImGui::Begin("##main", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoScrollbar);
+    float W = vp->Size.x, H = vp->Size.y;
 
-    // soft top glow behind the content
-    ImDrawList* bg = ImGui::GetWindowDrawList();
-    bg->AddRectFilledMultiColor(vp->Pos, ImVec2(vp->Pos.x + vp->Size.x, vp->Pos.y + px(260)), col(0.10f, 0.12f, 0.16f), col(0.10f, 0.12f, 0.16f), col(0.043f, 0.055f, 0.071f), col(0.043f, 0.055f, 0.071f));
+    // ---- splash while the first data loads
+    static float shown = 0.f;
+    static bool in_splash = true;
+    if (in_splash) {
+        float target = g_index_task.running ? 0.6f : 1.0f;
+        shown += (target - shown) * std::min(1.f, ImGui::GetIO().DeltaTime * 3.f);
+        bool done = !g_index_task.running;
+        if (done && shown > 0.985f && ImGui::GetTime() > 1.6) in_splash = false;
+        splash(W, H, std::min(shown, 1.f), done);
+        g_caption_h = H;
+        g_caption_btn_w = 0;
+        ImGui::End();
+        return true;
+    }
 
-    float sw = px(230);
-    sidebar(sw, vp->Size.y);
-    ImGui::SameLine(0, 0);
-    ImGui::BeginChild("content", ImVec2(vp->Size.x - sw, vp->Size.y), ImGuiChildFlags_None);
-    ImGui::SetCursorPos(ImVec2(px(32), px(26)));
-    ImGui::BeginGroup();
-    ImGui::BeginChild("page", ImVec2(vp->Size.x - sw - px(64), vp->Size.y - px(50)), ImGuiChildFlags_None, ImGuiWindowFlags_NoScrollbar);
-    if (g_page == 0) page_install();
-    else if (g_page == 1) page_editor();
-    else page_about();
+    title_bar(W);
+
+    // ---- header: eyebrow + title on the left, tabs on the right
+    static const char* eyebrows[] = {"Overview", "Install", "Create", "What's new"};
+    static const char* titles[] = {"DASHBOARD", "LANGUAGES", "EDITOR", "CHANGELOG"};
+    float pad = px(32), top = g_caption_h + px(26);
+    ImGui::SetCursorPos(ImVec2(pad, top));
+    eyebrow(eyebrows[g_page]);
+    ImGui::SetCursorPos(ImVec2(pad, top + px(24)));
+    heading(titles[g_page], 2.1f);
+    tab_strip(W - pad, top + px(30));
+
+    float line_y = top + px(24) + px(62);
+    ImGui::GetWindowDrawList()->AddLine(ImVec2(pad, line_y), ImVec2(W - pad, line_y), U(kBorder));
+    float content_y = line_y + px(20), footer_h = px(32);
+    ImGui::SetCursorPos(ImVec2(pad, content_y));
+    ImGui::BeginChild("page", ImVec2(W - pad * 2, H - content_y - footer_h - px(14)), ImGuiChildFlags_None, ImGuiWindowFlags_NoScrollbar);
+    if (g_page == 0) page_dashboard();
+    else if (g_page == 1) page_install();
+    else if (g_page == 2) page_editor();
+    else page_changelog();
     ImGui::EndChild();
-    ImGui::EndGroup();
-    ImGui::EndChild();
+
+    footer(W, H);
     ImGui::End();
     return true;
 }
