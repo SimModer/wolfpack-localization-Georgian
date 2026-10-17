@@ -822,12 +822,12 @@ static void page_install() {
         ImDrawList* dl = ImGui::GetWindowDrawList();
         chamfer(dl, pos, ImVec2(pos.x + w, pos.y + h), px(12), U(sel ? kCardHi : hov ? vec(0.085f, 0.085f, 0.095f) : kCard), sel ? U(kAccent, 0.9f) : U(kBorder), sel ? px(1.5f) : 1.f);
         if (sel) dl->AddRectFilled(pos, ImVec2(pos.x + px(3), pos.y + h), U(kAccent));
-        float fw = flag_draw(dl, p.code, ImVec2(pos.x + px(18), pos.y + (h - px(26)) * 0.5f), px(26));
-        float tx = pos.x + px(18) + fw + px(16);
+        float fw = flag_draw(dl, p.code, ImVec2(pos.x + px(18), pos.y + (h - px(26)) * 0.5f), px(26), px(46));
+        float tx = pos.x + px(18) + fw + px(14);
         ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 1.15f);
         dl->AddText(ImVec2(tx, pos.y + px(11)), U(kText), p.native_name.c_str());
         ImGui::PopFont();
-        std::string sub = p.name + "   " + p.code;
+        std::string sub = p.name;
         if (!p.authors.empty() && p.code != "en") sub += "   by " + by_line(p);
         dl->AddText(ImVec2(tx, pos.y + px(37)), U(kMuted), sub.c_str());
         // chips right aligned
@@ -870,12 +870,12 @@ static void page_install() {
         ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + inner);
         {
             ImVec2 fp = ImGui::GetCursorScreenPos();
-            float fw = flag_draw(ImGui::GetWindowDrawList(), p.code, ImVec2(fp.x, fp.y + px(4)), px(30));
-            ImGui::SetCursorScreenPos(ImVec2(fp.x + fw + px(14), fp.y));
+            float fw = flag_draw(ImGui::GetWindowDrawList(), p.code, ImVec2(fp.x, fp.y + px(4)), px(30), px(54));
+            ImGui::SetCursorScreenPos(ImVec2(fp.x + fw + px(10), fp.y));
         }
         heading(p.native_name.c_str(), 1.5f);
         ImGui::SetCursorPosX(px(20));
-        ImGui::TextColored(kMuted, "%s  -  %s", p.name.c_str(), p.code.c_str());
+        ImGui::TextColored(kMuted, "%s", p.name.c_str());
         ImGui::Dummy(ImVec2(0, px(2)));
         chip(p.status.c_str(), status_color(p.status));
         chip(("v" + p.pack_version).c_str(), kInfo, true);
@@ -1306,8 +1306,8 @@ static void page_dashboard() {
         for (auto& q : packs) if (g_installed.count(q.code)) active = &q;
         if (active) {
             ImVec2 fp = ImGui::GetCursorScreenPos();
-            float fw = flag_draw(ImGui::GetWindowDrawList(), active->code, ImVec2(fp.x, fp.y + px(6)), px(34));
-            ImGui::SetCursorScreenPos(ImVec2(fp.x + fw + px(14), fp.y));
+            float fw = flag_draw(ImGui::GetWindowDrawList(), active->code, ImVec2(fp.x, fp.y + px(6)), px(34), px(62));
+            ImGui::SetCursorScreenPos(ImVec2(fp.x + fw + px(10), fp.y));
             heading(active->native_name.c_str(), 2.1f);
             ImGui::SetCursorPosX(pad);
             bool upd = g_state[active->code] == 2;

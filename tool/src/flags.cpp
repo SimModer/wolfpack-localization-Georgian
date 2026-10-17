@@ -58,9 +58,11 @@ Flag& load(const std::string& code) {
 
 void flags_init(ID3D11Device* device) { g_device = device; }
 
-float flag_draw(ImDrawList* dl, const std::string& code, ImVec2 p, float height) {
+float flag_draw(ImDrawList* dl, const std::string& code, ImVec2 p, float height, float slot) {
     Flag& f = load(code);
     float w = f.srv ? height * (float)f.w / (float)f.h : height * 1.6f;
+    float used = slot > w ? slot : w;
+    if (slot > w) p.x += (slot - w) * 0.5f;
     ImVec2 q(p.x + w, p.y + height);
     if (f.srv) {
         dl->AddImage((ImTextureID)(intptr_t)f.srv, p, q);
@@ -72,5 +74,5 @@ float flag_draw(ImDrawList* dl, const std::string& code, ImVec2 p, float height)
         dl->AddText(ImVec2(p.x + (w - ts.x) * 0.5f, p.y + (height - ts.y) * 0.5f), IM_COL32(150, 150, 160, 255), c.c_str());
     }
     dl->AddRect(p, q, IM_COL32(255, 255, 255, 40));
-    return w;
+    return used;
 }
