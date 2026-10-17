@@ -5,6 +5,9 @@
 3. Extract the zip into that folder. It contains a `Wolfpack_Data` folder. Confirm merging and **overwrite** existing files (this replaces `Language/Official/English.xml`; Steam's *Verify integrity of game files* restores the original).
 4. Start the game and choose the language under **Settings, Language**.
 
+## Reverting to the original
+Install the `en` pack (`Wolfpack-L10n_en_...zip`) the same way. It contains the unmodified `Official English.lang` and `English.xml`, so it overwrites the translated tooltips. Then select *Official English* in the language settings. Steam's *Verify integrity of game files* does the same.
+
 ## Troubleshooting
 - Language not listed: the file must be in `Wolfpack_Data/Languages` and end in `.lang`.
 - Game rejects the pack: run `python tools/validate.py <code>`. Missing keys or invalid JSON are the usual cause.

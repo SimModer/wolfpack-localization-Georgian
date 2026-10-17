@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <rudder>Rudder controls</rudder>
+  <periscope>Periscope</periscope>
+  <TDC>Torpedo data computer</TDC>
+  <directionFinder>Radio direction finder</directionFinder>
+  <radio>Radio transceiver</radio>
+  <hydrophone>Hydrophone</hydrophone>
+  <enigma>Enigma machine</enigma>
+  <ladder>Ladder</ladder>
+  <morseKey>Morse key</morseKey>
+  <deckgun>Deck gun</deckgun>
+  <uzo>UZO</uzo>
+  <AAgun>Anti aircraft gun</AAgun>
+  <ballastTank_forwardVent>Forward ballast vent</ballastTank_forwardVent>
+  <ballastTank_aftVent>Aft ballast vent</ballastTank_aftVent>
+  <EOT>Engine order telegraph</EOT>
+  <diveControl>Dive controls</diveControl>
+  <ballastTankControl>Ballast tank controls</ballastTankControl>
+  <negativeTankControl>Negative tank controls</negativeTankControl>
+  <recordStation>Record player</recordStation>
+  <echoRanger>Echo ranger</echoRanger>
+  <mapTable>Navigation chart</mapTable>
+  <trimTanks>Trim tank controls</trimTanks>
+  <helmStation>Helm station</helmStation>
+  <BackupRudder>Backup rudder control</BackupRudder>
+  <Telephone>Intercom</Telephone>
+  <E_motor_controls>Motor controls</E_motor_controls>
+  <Diesel_Engine>Diesel engine</Diesel_Engine>
+  <E_Motor_Direction>Forward/Reverse switch</E_Motor_Direction>
+  <PortVoltageRegulator>Port light voltage regulator</PortVoltageRegulator>
+  <StbVoltageRegulator>Starboard light voltage regulator</StbVoltageRegulator>
+  <AuxVoltageRegulator>Auxillary voltage regulator</AuxVoltageRegulator>
+</LanguageString>

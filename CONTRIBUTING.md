@@ -26,4 +26,4 @@ See [docs/GAME-UPDATES.md](docs/GAME-UPDATES.md).
 - Never change the numeric `key`s, only the `value`s.
 - Keep placeholders and tags (`{0}`, `<b>`, `%s`).
 - UTF-8, LF line endings.
-- Pack status: `complete` (all entries translated and tested), `needs-review` (migrated or partly English), `outdated`.
+- Pack status: `original` (unmodified game files, only updated on game updates), `complete` (all entries translated and tested), `needs-review` (migrated or partly English), `outdated`.
