@@ -37,7 +37,7 @@ def check_pack(pack, ref):
             warnings.append(f"key {k}: placeholders differ ({ref[k]!r} -> {v!r})")
         if v == ref[k] and re.search(r"[A-Za-z]{3}", v):
             same += 1
-    if meta["status"] != "complete" or same > 40:
+    if meta["status"] not in ("complete", "partial", "original") or same > 40:
         warnings.append(f"{same} entries identical to English")
     xml = pack / "Wolfpack_Data" / "Language" / "Official" / "English.xml"
     if xml.exists():

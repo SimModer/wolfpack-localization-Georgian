@@ -4,10 +4,10 @@
   "native_name": "Deutsch",
   "pack_version": "1.0.0",
   "game_version": "0.26R6",
-  "status": "complete",
+  "status": "partial",
   "tooltips_xml": true,
   "authors": [
     "Community"
   ],
-  "notes": "Fully translated for the current game version."
+  "notes": "Menu texts (320/320) and tooltips (31/31) are translated. Hard-coded in-game texts (crew messages, mission results, ...) are still English. Not tested in-game yet."
 }

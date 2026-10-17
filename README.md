@@ -9,7 +9,7 @@ Community language packs for the submarine game *Wolfpack* (Usurpator, Steam).
 | Code | Language | Status |
 |---|---|---|
 | `en` | English (original game files, use to revert) | original |
-| `de` | Deutsch (historical Kriegsmarine terminology) | complete |
+| `de` | Deutsch (historical Kriegsmarine terminology) | partial (menus and tooltips done, hard-coded texts open) |
 | `fr` `zh-Hans` `ka` | Français, 简体中文, ქართული | needs-review (tooltips translated) |
 | `nl` `es` `el` `it` `ja` `ko` `pl` `pt-BR` `ru` `tr` | Dutch, Spanish, Greek, Italian, Japanese, Korean, Polish, Portuguese (BR), Russian, Turkish | needs-review |
 
