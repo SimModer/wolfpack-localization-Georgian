@@ -4,6 +4,7 @@
 #include <shobjidl.h>
 #include <windowsx.h>
 
+#include <algorithm>
 #include <cstdio>
 
 #include "game.h"
@@ -88,12 +89,24 @@ static LRESULT CALLBACK wnd_proc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
         if (pt.y < (LONG)ui_caption_height() && pt.x < rc.right - (LONG)ui_caption_buttons_width()) return HTCAPTION;
         return HTCLIENT;
     }
-    case WM_GETMINMAXINFO: {
+    case WM_GETMINMAXINFO: {  // launcher format: never smaller than 1280x720 (logical pixels)
         MINMAXINFO* mm = (MINMAXINFO*)lp;
         float dpi = (float)GetDpiForWindow(hwnd) / 96.f;
-        mm->ptMinTrackSize.x = (LONG)(900 * dpi);
-        mm->ptMinTrackSize.y = (LONG)(620 * dpi);
+        mm->ptMinTrackSize.x = (LONG)(1280 * dpi);
+        mm->ptMinTrackSize.y = (LONG)(720 * dpi);
         return 0;
+    }
+    case WM_SIZING: {  // keep 16:9 while the user drags a border
+        RECT* r = (RECT*)lp;
+        LONG w = r->right - r->left, h = r->bottom - r->top;
+        if (wp == WMSZ_TOP || wp == WMSZ_BOTTOM) {
+            r->right = r->left + h * 16 / 9;
+        } else {
+            LONG nh = w * 9 / 16;
+            if (wp == WMSZ_TOPLEFT || wp == WMSZ_TOPRIGHT) r->top = r->bottom - nh;
+            else r->bottom = r->top + nh;
+        }
+        return TRUE;
     }
     case WM_SIZE:
         if (g_dev && wp != SIZE_MINIMIZED) {
@@ -204,10 +217,21 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR cmdline, int) {
 
     CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     ImGui_ImplWin32_EnableDpiAwareness();
-    WNDCLASSEXW wc{sizeof wc, CS_CLASSDC, wnd_proc, 0, 0, inst, nullptr, LoadCursorW(nullptr, IDC_ARROW), nullptr, nullptr, L"WolfpackL10nTool", nullptr};
+    HICON icon = LoadIconW(inst, MAKEINTRESOURCEW(1));
+    HICON icon_small = (HICON)LoadImageW(inst, MAKEINTRESOURCEW(1), IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), 0);
+    WNDCLASSEXW wc{sizeof wc, CS_CLASSDC, wnd_proc, 0, 0, inst, icon, LoadCursorW(nullptr, IDC_ARROW), nullptr, nullptr, L"WolfpackL10nTool", icon_small};
     RegisterClassExW(&wc);
     float dpi = ImGui_ImplWin32_GetDpiScaleForMonitor(MonitorFromPoint({0, 0}, MONITOR_DEFAULTTOPRIMARY));
-    HWND hwnd = CreateWindowW(wc.lpszClassName, L"Wolfpack Language Tool", WS_POPUP | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, (int)(1180 * dpi), (int)(800 * dpi),
+    // 16:9 launcher window, 1280x720 logical pixels, centred on the primary monitor's work area
+    RECT work;
+    SystemParametersInfoW(SPI_GETWORKAREA, 0, &work, 0);
+    int win_w = (int)(1280 * dpi), win_h = (int)(720 * dpi);
+    if (win_w > work.right - work.left || win_h > work.bottom - work.top) {  // small screen: shrink, keep 16:9
+        win_h = std::min(work.bottom - work.top, (work.right - work.left) * 9 / 16);
+        win_w = win_h * 16 / 9;
+    }
+    int win_x = work.left + (work.right - work.left - win_w) / 2, win_y = work.top + (work.bottom - work.top - win_h) / 2;
+    HWND hwnd = CreateWindowW(wc.lpszClassName, L"Wolfpack Language Tool", WS_POPUP | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU, win_x, win_y, win_w, win_h,
                               nullptr, nullptr, inst, nullptr);
     if (!create_device(hwnd)) {
         MessageBoxW(nullptr, L"Direct3D 11 is not available.", L"Wolfpack Language Tool", MB_ICONERROR);

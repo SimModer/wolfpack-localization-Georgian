@@ -490,7 +490,7 @@ struct XRow {
 static struct Editor {
     bool open = false;
     std::string code, name, native, author, filter;
-    bool only_untranslated = false, with_xml = true;
+    bool only_untranslated = false, with_xml = true, view_xml = false;
     std::vector<Row> rows;
     std::vector<XRow> xrows;
     std::string status;
@@ -631,7 +631,7 @@ static void ed_test_in_game() {
 // Changelog (latest commits of the repository, loaded from the GitHub API)
 // =============================================================================================
 struct Commit {
-    std::string date, msg, sha, author;
+    std::string date, msg, sha, author, url;  // url: the pull request (merge commits) or the commit page
 };
 static std::vector<Commit> g_changelog;
 static std::string g_changelog_err;
@@ -691,6 +691,14 @@ static void load_changelog_async() {
                     k.msg = commit_title(c["commit"]["message"].get<std::string>());
                     k.sha = c["sha"].get<std::string>().substr(0, 7);
                     k.author = c["commit"]["author"]["name"].get<std::string>();
+                    k.url = c.value("html_url", std::string());
+                    {   // link merged pull requests ("Merge pull request #29 ..." or "title (#29)") to the PR itself
+                        std::string full = c["commit"]["message"].get<std::string>();
+                        std::smatch m;
+                        std::string head = full.substr(0, full.find('\n'));
+                        if (std::regex_search(head, m, std::regex("^Merge pull request #([0-9]+)")) || std::regex_search(head, m, std::regex("\\(#([0-9]+)\\)$")))
+                            k.url = "https://github.com/niclqs/wolfpack-localization/pull/" + m[1].str();
+                    }
                     if (!k.msg.empty()) list.push_back(k);
                 }
             } catch (const std::exception& e) {
@@ -767,7 +775,7 @@ static void page_install() {
     for (int i = 0; i < (int)packs.size(); ++i) {
         const Pack& p = packs[i];
         ImGui::PushID(i);
-        float w = ImGui::GetContentRegionAvail().x, h = px(68);
+        float w = ImGui::GetContentRegionAvail().x - px(14), h = px(68);
         ImVec2 pos = ImGui::GetCursorScreenPos();
         bool clicked = ImGui::InvisibleButton("##card", ImVec2(w, h));
         bool hov = ImGui::IsItemHovered();
@@ -807,7 +815,7 @@ static void page_install() {
     ImVec2 dp = ImGui::GetCursorScreenPos();
     (void)dp;
     card_bg(ImVec2(detail_w, avail.y));
-    ImGui::BeginChild("detail", ImVec2(detail_w, avail.y), ImGuiChildFlags_AlwaysUseWindowPadding);
+    ImGui::BeginChild("detail", ImVec2(detail_w, avail.y), ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar);
     ImGui::SetCursorPos(ImVec2(px(20), px(18)));
     ImGui::BeginGroup();
     float inner = detail_w - px(40);
@@ -834,9 +842,12 @@ static void page_install() {
         }
         ImGui::PopTextWrapPos();
         ImGui::Dummy(ImVec2(0, px(4)));
-        ImGui::BeginChild("warn", ImVec2(inner, px(150)));
-        for (auto& w : p.warnings(g_game_ver)) callout(w.c_str(), kWarn);
-        ImGui::EndChild();
+        for (auto& w : p.warnings(g_game_ver)) {
+            if (w.rfind("partly translated", 0) == 0 || w.rfind("needs review", 0) == 0) continue;  // already told by the status chip
+            ImGui::PushItemWidth(inner);
+            callout(w.c_str(), kWarn);
+            ImGui::PopItemWidth();
+        }
         bool can_addon = !p.addon_files.empty();
         bool bepinex = !g_root.empty() && fs::exists(g_root / L"BepInEx");
         if (can_addon) {
@@ -866,7 +877,7 @@ static void page_install() {
             }
         }
         ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + inner);
-        ImGui::TextColored(kMuted, "You can keep several languages installed and switch in the game settings. Control tooltips are a single shared file: the last installed pack decides their language.");
+        ImGui::TextColored(kMuted, "Several languages can stay installed. Control tooltips are one shared file: the last installed pack decides their language.");
         ImGui::PopTextWrapPos();
         float bw = inner;
         bool upd = g_installed.count(p.code) && g_state[p.code] == 2;
@@ -881,60 +892,69 @@ static void page_install() {
     ImGui::EndChild();
 }
 
+// One 40 px high row across the full width: [New] [pack list] [Open from GitHub] [installed list] [Open installed]
 static void ed_toolbar(const std::vector<Pack>& packs) {
-    if (btn("New language", Primary)) {
+    const float h = px(40), gap = px(12);
+    float W = ImGui::GetContentRegionAvail().x;
+    float b1 = px(170), b2 = px(190), b3 = px(170);
+    float combo_w = std::floor((W - b1 - b2 - b3 - gap * 4) / 2.f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (h - ImGui::GetFontSize()) * 0.5f));
+
+    if (btn("New language", Primary, ImVec2(b1, h))) {
         std::lock_guard<std::mutex> l(g_data);
         ed_blank();
     }
-    ImGui::SameLine();
-    ImGui::SetNextItemWidth(px(160));
+    ImGui::SameLine(0, gap);
+    ImGui::SetNextItemWidth(combo_w);
     int pi = packs.empty() ? 0 : std::min(ed.open_pack, (int)packs.size() - 1);
     if (ImGui::BeginCombo("##pk", packs.empty() ? "-" : (packs[pi].native_name + " (" + packs[pi].code + ")").c_str())) {
         for (int i = 0; i < (int)packs.size(); ++i)
             if (ImGui::Selectable((packs[i].native_name + " (" + packs[i].code + ")").c_str(), i == ed.open_pack)) ed.open_pack = i;
         ImGui::EndCombo();
     }
-    ImGui::SameLine();
-    if (btn("Open from GitHub", Secondary, ImVec2(0, 0), !packs.empty() && !g_open_task.running)) ed_open_pack_async(packs[pi]);
-    if (!g_root.empty()) {
-        if (!ed.installed_scanned) {
-            std::error_code ec;
-            for (auto& e : fs::directory_iterator(g_root / L"Wolfpack_Data" / L"Languages", ec))
-                if (e.path().extension() == L".lang" && e.path().filename() != L"Official English.lang") ed.installed_files.push_back(e.path());
+    ImGui::SameLine(0, gap);
+    if (btn("Open from GitHub", Secondary, ImVec2(b2, h), !packs.empty() && !g_open_task.running)) ed_open_pack_async(packs[pi]);
+
+    if (!ed.installed_scanned && !g_root.empty()) {
+        std::error_code ec;
+        for (auto& e : fs::directory_iterator(g_root / L"Wolfpack_Data" / L"Languages", ec))
+            if (e.path().extension() == L".lang" && e.path().filename() != L"Official English.lang") ed.installed_files.push_back(e.path());
+        ed.installed_scanned = true;
+    }
+    ImGui::SameLine(0, gap);
+    int ii = ed.installed_files.empty() ? 0 : std::min(ed.open_installed, (int)ed.installed_files.size() - 1);
+    ImGui::SetNextItemWidth(combo_w);
+    ImGui::BeginDisabled(g_root.empty());
+    if (ImGui::BeginCombo("##inst", ed.installed_files.empty() ? "No installed packs" : path_u8(ed.installed_files[ii].filename()).c_str())) {
+        for (int i = 0; i < (int)ed.installed_files.size(); ++i)
+            if (ImGui::Selectable(path_u8(ed.installed_files[i].filename()).c_str(), i == ed.open_installed)) ed.open_installed = i;
+        ImGui::EndCombo();
+    }
+    ImGui::EndDisabled();
+    ImGui::SameLine(0, gap);
+    if (btn("Open installed", Secondary, ImVec2(b3, h), !ed.installed_files.empty())) {
+        std::vector<char> data;
+        LangFile lf;
+        std::string err;
+        fs::path file = ed.installed_files[ii];
+        if (read_file(file, data) && parse_lang(std::string(data.begin(), data.end()), lf, err)) {
+            auto files = ed.installed_files;
+            std::lock_guard<std::mutex> l(g_data);
+            ed_blank();
+            ed_fill(&lf, nullptr);
+            ed.installed_files = files;
             ed.installed_scanned = true;
-        }
-        ImGui::SameLine(0, px(16));
-        int ii = ed.installed_files.empty() ? 0 : std::min(ed.open_installed, (int)ed.installed_files.size() - 1);
-        ImGui::SetNextItemWidth(px(170));
-        if (ImGui::BeginCombo("##inst", ed.installed_files.empty() ? "no installed packs" : path_u8(ed.installed_files[ii].filename()).c_str())) {
-            for (int i = 0; i < (int)ed.installed_files.size(); ++i)
-                if (ImGui::Selectable(path_u8(ed.installed_files[i].filename()).c_str(), i == ed.open_installed)) ed.open_installed = i;
-            ImGui::EndCombo();
-        }
-        ImGui::SameLine();
-        if (btn("Open installed", Secondary, ImVec2(0, 0), !ed.installed_files.empty())) {
-            std::vector<char> data;
-            LangFile lf;
-            std::string err;
-            fs::path file = ed.installed_files[ii];
-            if (read_file(file, data) && parse_lang(std::string(data.begin(), data.end()), lf, err)) {
-                auto files = ed.installed_files;
-                std::lock_guard<std::mutex> l(g_data);
-                ed_blank();
-                ed_fill(&lf, nullptr);
-                ed.installed_files = files;
-                ed.installed_scanned = true;
-                ed.open_installed = ii;
-                ed.name = path_u8(file.stem());
-                if (ed.name.rfind("Community ", 0) == 0) ed.name = ed.name.substr(10);
-                ed.with_xml = true;
-            } else {
-                ed.status = err.empty() ? "Cannot read the file." : err;
-                ed.status_bad = true;
-            }
+            ed.open_installed = ii;
+            ed.name = path_u8(file.stem());
+            if (ed.name.rfind("Community ", 0) == 0) ed.name = ed.name.substr(10);
+            ed.with_xml = true;
+        } else {
+            ed.status = err.empty() ? "Cannot read the file." : err;
+            ed.status_bad = true;
         }
     }
-    if (g_open_task.running) { ImGui::SameLine(); ImGui::TextColored(kMuted, "Loading..."); }
+    ImGui::PopStyleVar();
+    if (g_open_task.running) ImGui::TextColored(kMuted, "Loading...");
 }
 
 static void page_editor() {
@@ -968,31 +988,40 @@ static void page_editor() {
     float cw = ImGui::GetContentRegionAvail().x;
     ImGui::BeginChild("meta", ImVec2(cw, px(64)), ImGuiChildFlags_None);
     card_bg(ImVec2(cw, px(64)), 12);
-    ImGui::SetCursorPos(ImVec2(px(14), px(14)));
-    float fw = (cw - px(28) - px(30)) / 4.f;
-    ImGui::SetNextItemWidth(fw * 0.7f); ImGui::InputTextWithHint("##code", "Code (sv, pt-BR)", &ed.code);
-    ImGui::SameLine(); ImGui::SetNextItemWidth(fw); ImGui::InputTextWithHint("##name", "English name", &ed.name);
-    ImGui::SameLine(); ImGui::SetNextItemWidth(fw * 1.2f); ImGui::InputTextWithHint("##nat", "Name shown in the game", &ed.native);
-    ImGui::SameLine(); ImGui::SetNextItemWidth(fw * 1.1f); ImGui::InputTextWithHint("##auth", "Your GitHub name", &ed.author);
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (px(40) - ImGui::GetFontSize()) * 0.5f));
+    ImGui::SetCursorPos(ImVec2(px(12), px(12)));
+    float mg = px(12), mw = cw - px(24) - mg * 3;
+    ImGui::SetNextItemWidth(mw * 0.16f); ImGui::InputTextWithHint("##code", "Code (sv, pt-BR)", &ed.code);
+    ImGui::SameLine(0, mg); ImGui::SetNextItemWidth(mw * 0.28f); ImGui::InputTextWithHint("##name", "English name", &ed.name);
+    ImGui::SameLine(0, mg); ImGui::SetNextItemWidth(mw * 0.32f); ImGui::InputTextWithHint("##nat", "Name shown in the game", &ed.native);
+    ImGui::SameLine(0, mg); ImGui::SetNextItemWidth(mw * 0.24f); ImGui::InputTextWithHint("##auth", "Your GitHub name", &ed.author);
+    ImGui::PopStyleVar();
     ImGui::EndChild();
 
     // ---- filter row
     int done = 0;
     for (auto& r : ed.rows) done += !r.untranslated();
-    ImGui::SetNextItemWidth(px(280));
-    ImGui::InputTextWithHint("##flt", "Search key, English or translation", &ed.filter);
-    ImGui::SameLine();
-    ImGui::Checkbox("Only untranslated", &ed.only_untranslated);
-    ImGui::SameLine(0, px(24));
-    ImGui::AlignTextToFramePadding();
-    ImGui::TextColored(kMuted, "%d of %d translated", done, (int)ed.rows.size());
-    ImGui::SameLine();
     {
+        const float gap = px(12), row_h = px(40);
+        float W = ImGui::GetContentRegionAvail().x;
+        float right = px(176) + px(190) + px(170) + gap * 4;  // checkbox + counter + progress
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (row_h - ImGui::GetFontSize()) * 0.5f));
+        ImGui::SetNextItemWidth(std::max(px(200), W - right));
+        ImGui::InputTextWithHint("##flt", "Search key, English or translation", &ed.filter);
+        ImGui::SameLine(0, gap);
+        ImGui::Checkbox("Only untranslated", &ed.only_untranslated);
+        ImGui::SameLine(0, gap * 2);
+        ImGui::AlignTextToFramePadding();
+        ImGui::TextColored(kMuted, "%d of %d translated", done, (int)ed.rows.size());
+        ImGui::SameLine(0, gap);
+        ImVec2 p = ImGui::GetCursorScreenPos();
         float f = ed.rows.empty() ? 0.f : (float)done / (float)ed.rows.size();
-        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + px(12));
-        ImGui::PushItemWidth(px(160));
-        progress_bar(f);
-        ImGui::PopItemWidth();
+        float bw = std::max(px(60), ImGui::GetContentRegionAvail().x), by = p.y + (row_h - px(4)) * 0.5f;
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        dl->AddRectFilled(ImVec2(p.x, by), ImVec2(p.x + bw, by + px(4)), U(vec(0.12f, 0.12f, 0.13f)));
+        dl->AddRectFilled(ImVec2(p.x, by), ImVec2(p.x + bw * f, by + px(4)), U(kAccent));
+        ImGui::Dummy(ImVec2(bw, row_h));
+        ImGui::PopStyleVar();
     }
 
     std::string f = lower(ed.filter);
@@ -1005,81 +1034,93 @@ static void page_editor() {
     for (int i = 0; i < (int)ed.rows.size(); ++i)
         if (match(ed.rows[i].en, ed.rows[i].tr, ed.rows[i].untranslated(), std::to_string(ed.rows[i].key))) idx.push_back(i);
 
-    float footer = px(ed.xrows.empty() ? 96 : 130) + (ed.status.empty() ? 0 : px(70));
+    float footer = px(56) + (ed.status.empty() ? 0 : px(70));
     ImGui::BeginChild("tbl", ImVec2(0, -footer), ImGuiChildFlags_None);
     card_bg(ImGui::GetContentRegionAvail(), 12);
-    if (ImGui::BeginTable("rows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
+    const float row_h = px(40);
+    if (!ed.view_xml) {
+        if (ImGui::BeginTable("rows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
+            ImGui::TableSetupScrollFreeze(0, 1);
+            ImGui::TableSetupColumn("Key", ImGuiTableColumnFlags_WidthFixed, px(64));
+            ImGui::TableSetupColumn("English", ImGuiTableColumnFlags_WidthStretch, 1.f);
+            ImGui::TableSetupColumn("Translation", ImGuiTableColumnFlags_WidthStretch, 1.4f);
+            ImGui::TableHeadersRow();
+            ImGuiListClipper clip;
+            clip.Begin((int)idx.size(), row_h);
+            while (clip.Step()) {
+                for (int n = clip.DisplayStart; n < clip.DisplayEnd; ++n) {
+                    Row& r = ed.rows[idx[n]];
+                    ImGui::TableNextRow(0, row_h);
+                    if (r.untranslated()) ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, U(kAccent, 0.05f));
+                    ImGui::PushID(r.key + 1000);
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::AlignTextToFramePadding();
+                    ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%d", r.key);
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::AlignTextToFramePadding();
+                    ImGui::TextUnformatted(r.en.c_str());
+                    if (ImGui::IsItemHovered() && ImGui::CalcTextSize(r.en.c_str()).x > ImGui::GetColumnWidth()) ImGui::SetTooltip("%s", r.en.c_str());
+                    ImGui::TableSetColumnIndex(2);
+                    ImGui::SetNextItemWidth(-1);
+                    ImGui::InputTextWithHint("##t", r.en.c_str(), &r.tr);
+                    ImGui::PopID();
+                }
+            }
+            ImGui::EndTable();
+        }
+    } else if (ImGui::BeginTable("xrows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
         ImGui::TableSetupScrollFreeze(0, 1);
-        ImGui::TableSetupColumn("Key", ImGuiTableColumnFlags_WidthFixed, px(64));
+        ImGui::TableSetupColumn("Tooltip", ImGuiTableColumnFlags_WidthFixed, px(230));
         ImGui::TableSetupColumn("English", ImGuiTableColumnFlags_WidthStretch, 1.f);
         ImGui::TableSetupColumn("Translation", ImGuiTableColumnFlags_WidthStretch, 1.4f);
         ImGui::TableHeadersRow();
-        ImGuiListClipper clip;
-        clip.Begin((int)idx.size(), px(46));
-        while (clip.Step()) {
-            for (int n = clip.DisplayStart; n < clip.DisplayEnd; ++n) {
-                Row& r = ed.rows[idx[n]];
-                ImGui::TableNextRow(0, px(46));
-                if (r.untranslated()) ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, U(kAccent, 0.05f));
-                ImGui::PushID(r.key + 1000);
-                ImGui::TableSetColumnIndex(0);
-                ImGui::AlignTextToFramePadding();
-                ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%d", r.key);
-                ImGui::TableSetColumnIndex(1);
-                ImGui::AlignTextToFramePadding();
-                ImGui::TextUnformatted(r.en.c_str());
-                if (ImGui::IsItemHovered() && ImGui::CalcTextSize(r.en.c_str()).x > ImGui::GetColumnWidth()) ImGui::SetTooltip("%s", r.en.c_str());
-                ImGui::TableSetColumnIndex(2);
-                ImGui::SetNextItemWidth(-1);
-                ImGui::InputTextWithHint("##t", r.en.c_str(), &r.tr);
-                ImGui::PopID();
-            }
+        for (int i = 0; i < (int)ed.xrows.size(); ++i) {
+            XRow& r = ed.xrows[i];
+            if (!match(r.en, r.tr, r.untranslated(), r.tag)) continue;
+            ImGui::TableNextRow(0, row_h);
+            if (r.untranslated()) ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, U(kAccent, 0.05f));
+            ImGui::PushID(i + 5000);
+            ImGui::TableSetColumnIndex(0);
+            ImGui::AlignTextToFramePadding();
+            ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%s", r.tag.c_str());
+            ImGui::TableSetColumnIndex(1);
+            ImGui::AlignTextToFramePadding();
+            ImGui::TextUnformatted(r.en.c_str());
+            ImGui::TableSetColumnIndex(2);
+            ImGui::SetNextItemWidth(-1);
+            ImGui::InputTextWithHint("##x", r.en.c_str(), &r.tr);
+            ImGui::PopID();
         }
         ImGui::EndTable();
     }
     ImGui::EndChild();
 
-    if (!ed.xrows.empty()) {
-        ImGui::Checkbox("Include control tooltips (English.xml)", &ed.with_xml);
-        ImGui::SameLine();
-        if (ImGui::TreeNode("Edit tooltips")) {
-            ImGui::BeginChild("xml", ImVec2(0, px(220)), ImGuiChildFlags_Borders);
-            for (int i = 0; i < (int)ed.xrows.size(); ++i) {
-                XRow& r = ed.xrows[i];
-                if (!match(r.en, r.tr, r.untranslated(), r.tag)) continue;
-                ImGui::PushID(i);
-                ImGui::AlignTextToFramePadding();
-                ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%s", r.tag.c_str());
-                ImGui::SameLine(px(230));
-                ImGui::TextUnformatted(r.en.c_str());
-                ImGui::SameLine(px(480));
-                ImGui::SetNextItemWidth(-1);
-                ImGui::InputTextWithHint("##x", r.en.c_str(), &r.tr);
-                ImGui::PopID();
-            }
-            ImGui::EndChild();
-            ImGui::TreePop();
-        }
-    }
-
     if (!ed.status.empty()) callout(ed.status.c_str(), ed.status_bad ? kBad : kGood);
-    if (btn("Export for GitHub", Primary, ImVec2(0, px(42)))) ed_export();
-    ImGui::SameLine();
-    if (btn("Test in game", Secondary, ImVec2(0, px(42)), !g_root.empty() && !g_game_running)) ed_test_in_game();
-    ImGui::SameLine();
-    if (!ed.exported.empty()) {
-        if (btn("Open export folder", Ghost, ImVec2(0, px(42)))) open_folder(ed.exported);
-        ImGui::SameLine();
-    }
-    if (btn("Repository", Ghost, ImVec2(0, px(42)))) open_url("https://github.com/niclqs/wolfpack-localization");
-}
 
+    // ---- one action row: buttons on the left, tooltip options on the right
+    const float bh = px(42);
+    if (btn("Export for GitHub", Primary, ImVec2(0, bh))) ed_export();
+    ImGui::SameLine();
+    if (btn("Test in game", Secondary, ImVec2(0, bh), !g_root.empty() && !g_game_running)) ed_test_in_game();
+    if (!ed.exported.empty()) {
+        ImGui::SameLine();
+        if (btn("Open export folder", Ghost, ImVec2(0, bh))) open_folder(ed.exported);
+    }
+    if (!ed.xrows.empty()) {
+        float rw = px(150) + px(250) + px(12);
+        ImGui::SameLine(ImGui::GetContentRegionMax().x - rw);
+        if (btn(ed.view_xml ? "Show strings" : "Edit tooltips", Secondary, ImVec2(px(150), bh))) ed.view_xml = !ed.view_xml;
+        ImGui::SameLine(0, px(12));
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (bh - ImGui::GetFontSize()) * 0.5f));
+        ImGui::Checkbox("Include tooltips (English.xml)", &ed.with_xml);
+        ImGui::PopStyleVar();
+    }
+}
 
 // =============================================================================================
 // Dashboard
 // =============================================================================================
-static void kv_row(const char* key, const std::string& value, ImVec4 c) {
-    float w = ImGui::GetContentRegionAvail().x;
+static void kv_row(const char* key, const std::string& value, ImVec4 c, float w) {
     ImVec2 p = ImGui::GetCursorScreenPos();
     ImDrawList* dl = ImGui::GetWindowDrawList();
     dl->AddLine(p, ImVec2(p.x + w, p.y), U(kBorder));
@@ -1246,14 +1287,14 @@ static void page_dashboard() {
         ImGui::Dummy(ImVec2(inner, sh + px(10)));
     }
     ImGui::PushItemWidth(inner);
-    kv_row("Link", ready ? "Operational" : "Offline", ready ? kAccent : kBad);
+    kv_row("Link", ready ? "Operational" : "Offline", ready ? kAccent : kBad, inner);
     {
         std::string cmp = g_game_ver.empty() || idx_game.empty() ? "Unknown" : g_game_ver == idx_game ? "Packs match your game" : "Packs target " + idx_game;
         ImVec4 cc = g_game_ver.empty() || idx_game.empty() ? kMuted : g_game_ver == idx_game ? kAccent : kWarn;
-        kv_row("Compatibility", cmp, cc);
+        kv_row("Compatibility", cmp, cc, inner);
     }
-    kv_row("Translated", std::to_string(std::count_if(packs.begin(), packs.end(), [](const Pack& p) { return p.status == "complete" || p.status == "original"; })) + " of " + std::to_string(packs.size()) + " complete", kText);
-    kv_row("Last check", last_check.empty() ? "-" : last_check, kText);
+    kv_row("Translated", std::to_string(std::count_if(packs.begin(), packs.end(), [](const Pack& p) { return p.status == "complete" || p.status == "original"; })) + " of " + std::to_string(packs.size()) + " complete", kText, inner);
+    kv_row("Last check", last_check.empty() ? "-" : last_check, kText, inner);
     ImGui::PopItemWidth();
     ImGui::SetCursorPosY(cards_h - px(54));
     if (btn("Check again", Secondary, ImVec2(px(140), px(36)), !g_index_task.running)) { load_index_async(); load_changelog_async(); }
@@ -1314,7 +1355,7 @@ static void page_changelog() {
     ImGui::SetCursorPos(ImVec2(px(24), px(18)));
     ImGui::BeginGroup();
     std::string last_date;
-    float text_w = w - px(24) * 2 - px(26);
+    float text_w = w - px(24) * 2 - px(26) - px(160);
     for (size_t i = 0; i < list.size(); ++i) {
         const Commit& c = list[i];
         std::string d = pretty_date(c.date);
@@ -1336,6 +1377,12 @@ static void page_changelog() {
         ImGui::PopFont();
         float y1 = ImGui::GetCursorScreenPos().y;
         ImDrawList* dl = ImGui::GetWindowDrawList();
+        if (!c.url.empty()) {   // READ MORE button, right aligned on the entry
+            bool is_pr = c.url.find("/pull/") != std::string::npos;
+            ImGui::SetCursorScreenPos(ImVec2(p.x + (w - px(24) * 2) - px(150), p.y + px(2)));
+            if (btn(is_pr ? "View pull request" : "Read more", Ghost, ImVec2(px(150), px(32)))) open_url(c.url.c_str());
+            ImGui::SetCursorScreenPos(ImVec2(p.x, y1));
+        }
         dl->AddLine(ImVec2(p.x + px(6), p.y + px(14)), ImVec2(p.x + px(6), y1 + px(8)), U(kBorder), px(1.5f));
         dl->AddRectFilled(ImVec2(p.x + px(2), p.y + px(6)), ImVec2(p.x + px(10), p.y + px(14)), U(kAccent));
         ImGui::Dummy(ImVec2(0, px(8)));
@@ -1421,25 +1468,8 @@ static void footer(float W, float H) {
     dl->AddLine(ImVec2(0, H - h), ImVec2(W, H - h), U(kBorder));
     ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
     float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
-    bool online;
-    {
-        std::lock_guard<std::mutex> l(g_data);
-        online = g_index_ready;
-    }
     float x = px(28);
-    dl->AddRectFilled(ImVec2(x, ty + px(4)), ImVec2(x + px(7), ty + px(11)), U(online ? kAccent : kBad));
-    x += px(16);
-    x += stext(dl, ImVec2(x, ty), U(online ? kAccent : kBad), online ? "CONNECTED" : "OFFLINE", px(1.4f)) + px(14);
-    dl->AddLine(ImVec2(x, ty + px(2)), ImVec2(x, ty + px(14)), U(kBorder));
-    x += px(14);
-    x += stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.0", px(1.4f)) + px(14);
-    dl->AddLine(ImVec2(x, ty + px(2)), ImVec2(x, ty + px(14)), U(kBorder));
-    x += px(14);
-    SYSTEMTIME st;
-    GetLocalTime(&st);
-    char t[16];
-    snprintf(t, sizeof t, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
-    stext(dl, ImVec2(x, ty), U(kMuted), t, px(1.4f));
+    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.0", px(1.4f));
 
     float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
     float rx = W - px(28) - rw;
