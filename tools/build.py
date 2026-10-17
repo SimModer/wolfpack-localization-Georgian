@@ -2,7 +2,6 @@
 
 Usage: python tools/build.py [pack-code ...]
 Each zip contains a Wolfpack_Data/ folder that is copied into the game directory.
-The German autotranslator add-on (packs/<code>/addons/autotranslator) is zipped separately.
 """
 import json
 import sys
@@ -29,11 +28,6 @@ def main():
         with zipfile.ZipFile(dist / f"{name}.zip", "w", zipfile.ZIP_DEFLATED) as zf:
             zip_tree(zf, pack / "Wolfpack_Data", "Wolfpack_Data/")
         print("built", name + ".zip")
-        addon = pack / "addons" / "autotranslator"
-        if addon.exists():
-            with zipfile.ZipFile(dist / f"{name}_autotranslator-addon.zip", "w", zipfile.ZIP_DEFLATED) as zf:
-                zip_tree(zf, addon)
-            print("built", name + "_autotranslator-addon.zip")
 
 
 if __name__ == "__main__":

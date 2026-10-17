@@ -8,7 +8,6 @@ packs/<code>/            one folder per language
   Wolfpack_Data/         copied 1:1 into the game folder
     Languages/*.lang     main UI texts (JSON, numeric keys)
     Language/Official/English.xml   control tooltips (optional)
-  addons/                optional extras (e.g. German AutoTranslator texts)
 reference/               original English files of the current game version
 templates/new-language/  copy this to start a new language
 tools/                   validate / sync / build / find_strings (Python 3, no dependencies)
