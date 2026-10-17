@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <shellapi.h>
 #include <shlobj.h>
+#include <tlhelp32.h>
 
 #include <algorithm>
 #include <fstream>
@@ -117,6 +118,17 @@ bool relaunch_as_admin() {
     GetModuleFileNameW(nullptr, exe, (DWORD)std::size(exe));
     HINSTANCE r = ShellExecuteW(nullptr, L"runas", exe, nullptr, nullptr, SW_SHOWNORMAL);
     return (INT_PTR)r > 32;
+}
+
+bool game_running() {
+    HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (snap == INVALID_HANDLE_VALUE) return false;
+    PROCESSENTRY32W e{sizeof e};
+    bool found = false;
+    for (BOOL ok = Process32FirstW(snap, &e); ok && !found; ok = Process32NextW(snap, &e))
+        found = _wcsicmp(e.szExeFile, L"Wolfpack.exe") == 0;
+    CloseHandle(snap);
+    return found;
 }
 
 fs::path downloads_dir() {

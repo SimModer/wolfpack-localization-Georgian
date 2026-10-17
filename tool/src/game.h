@@ -15,3 +15,5 @@ bool is_elevated();
 // Starts this exe again with administrator rights (UAC prompt). Returns false if the user declined.
 bool relaunch_as_admin();
 fs::path downloads_dir();
+// True while Wolfpack.exe is running (the game locks and caches its language files).
+bool game_running();

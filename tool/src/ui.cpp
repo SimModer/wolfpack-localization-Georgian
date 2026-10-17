@@ -291,6 +291,8 @@ static bool g_writable = true;
 static std::vector<fs::path> g_candidates;
 static std::string g_game_msg;
 static std::set<std::string> g_installed;
+static std::map<std::string, int> g_state;  // pack code -> 1 up to date, 2 update available (only for installed packs)
+static std::vector<Pack> g_queue;           // packs waiting for 'Update all'
 static bool g_installed_dirty = true;
 
 static int g_selected = -1;
@@ -300,6 +302,7 @@ static std::string g_install_result;
 static std::vector<std::string> g_install_missing;
 static bool g_need_admin = false;
 static int g_page = 0;
+static bool g_game_running = false;  // polled about once per second
 
 static void set_game(const fs::path& root) {
     g_root = root;
@@ -356,21 +359,58 @@ static void load_index_async() {
     }).detach();
 }
 
+static bool is_lang_path(const std::string& p) { return p.size() > 5 && p.compare(p.size() - 5, 5, ".lang") == 0; }
+static bool is_xml_path(const std::string& p) { return p.find("/Language/Official/English.xml") != std::string::npos; }
+
+static std::string local_hash(const fs::path& f) {
+    std::vector<char> d;
+    return read_file(f, d) ? sha256_hex(d.data(), d.size()) : std::string();
+}
+
+// A pack counts as installed when its language file exists. It has an update when a language file differs
+// from the repository (e.g. after a merged pull request). The tooltip file English.xml is one shared slot
+// in the game, so it only counts when the installed copy matches no pack at all (stale).
 static void refresh_installed() {
     g_installed.clear();
+    g_state.clear();
     if (!g_root.empty()) {
         std::lock_guard<std::mutex> l(g_data);
+        std::set<std::string> xml_hashes;
+        for (auto& f : g_index.reference)
+            if (f.path.size() > 4 && f.path.compare(f.path.size() - 4, 4, ".xml") == 0) xml_hashes.insert(f.sha256);
         for (auto& p : g_index.packs)
             for (auto& f : p.files)
-                if (f.path.size() > 5 && f.path.compare(f.path.size() - 5, 5, ".lang") == 0 && fs::exists(g_root / u8_path(install_rel(p, f)))) {
-                    g_installed.insert(p.code);
-                    break;
+                if (is_xml_path(f.path)) xml_hashes.insert(f.sha256);
+        std::string installed_xml = local_hash(g_root / L"Wolfpack_Data" / L"Language" / L"Official" / L"English.xml");
+        bool xml_stale = !installed_xml.empty() && !xml_hashes.count(installed_xml);
+        for (auto& p : g_index.packs) {
+            bool installed = false, outdated = false;
+            for (auto& f : p.files) {
+                fs::path local = g_root / u8_path(install_rel(p, f));
+                if (is_lang_path(f.path)) {
+                    if (fs::exists(local)) {
+                        installed = true;
+                        if (local_hash(local) != f.sha256) outdated = true;
+                    }
                 }
+            }
+            if (!installed) continue;
+            if (xml_stale && p.has_xml()) outdated = true;
+            g_installed.insert(p.code);
+            g_state[p.code] = outdated ? 2 : 1;
+        }
     }
     g_installed_dirty = false;
 }
 
 static void install_async(Pack pack, bool addon) {
+    PackFile ref_xml;
+    bool has_ref_xml = false;
+    {
+        std::lock_guard<std::mutex> l(g_data);
+        for (auto& f : g_index.reference)
+            if (f.path.size() > 4 && f.path.compare(f.path.size() - 4, 4, ".xml") == 0) { ref_xml = f; has_ref_xml = true; }
+    }
     if (g_install_task.running.exchange(true)) return;
     g_install_task.set(0.f, "");
     {
@@ -379,8 +419,8 @@ static void install_async(Pack pack, bool addon) {
         g_install_missing.clear();
     }
     fs::path root = g_root;
-    std::thread([pack, addon, root] {
-        InstallResult r = install_pack(pack, root, addon, [](float p, const std::string& s) { g_install_task.set(p, s); });
+    std::thread([pack, addon, root, ref_xml, has_ref_xml] {
+        InstallResult r = install_pack(pack, root, addon, [](float p, const std::string& s) { g_install_task.set(p, s); }, has_ref_xml ? &ref_xml : nullptr);
         {
             std::lock_guard<std::mutex> l(g_data);
             if (!r.error.empty()) g_install_result = "ERROR: " + r.error;
@@ -559,6 +599,7 @@ static void page_header(const char* title, const char* subtitle) {
 }
 
 static void notices() {
+    if (g_game_running) callout("Wolfpack is running. Close the game to install or test language files.", kInfo);
     if (!g_game_msg.empty() && g_root.empty()) callout(g_game_msg.c_str(), kWarn);
     if (!g_root.empty() && (!g_writable || g_need_admin)) {
         if (callout("This game folder is write-protected. Administrator rights are needed to install or test language files.", kWarn,
@@ -587,6 +628,22 @@ static void page_install() {
     }
     if (!err.empty()) callout(("Could not load the language list: " + err).c_str(), kBad, "Try again") ? load_index_async() : void();
     if (g_installed_dirty) refresh_installed();
+    if (!g_install_task.running && !g_queue.empty()) {
+        Pack next = g_queue.front();
+        g_queue.erase(g_queue.begin());
+        install_async(next, false);
+    }
+    {
+        std::string names;
+        std::vector<Pack> outdated;
+        for (auto& q : packs)
+            if (g_state.count(q.code) && g_state[q.code] == 2) {
+                outdated.push_back(q);
+                names += (names.empty() ? "" : ", ") + q.native_name;
+            }
+        if (!outdated.empty() && g_queue.empty() && callout(("Updates available for: " + names + ". The files in your game folder differ from the repository.").c_str(), kAccent, (g_install_task.running || g_game_running) ? nullptr : "Update all"))
+            g_queue = outdated;
+    }
 
     ImVec2 avail = ImGui::GetContentRegionAvail();
     float detail_w = px(340), gap = px(16);
@@ -621,9 +678,11 @@ static void page_install() {
         ImGui::SetCursorScreenPos(ImVec2(right - cw, cy));
         chip(st, status_color(p.status));
         if (g_installed.count(p.code)) {
-            float cw2 = ImGui::CalcTextSize("installed").x + px(18);
+            bool upd = g_state[p.code] == 2;
+            const char* label = upd ? "update available" : "installed";
+            float cw2 = ImGui::CalcTextSize(label).x + px(18);
             ImGui::SetCursorScreenPos(ImVec2(right - cw - cw2 - px(6), cy));
-            chip("installed", kGood);
+            chip(label, upd ? kAccent : kGood);
         }
         ImGui::SetCursorScreenPos(save);
         ImGui::Dummy(ImVec2(0, 0));
@@ -653,7 +712,10 @@ static void page_install() {
         ImGui::Dummy(ImVec2(0, px(2)));
         chip(p.status.c_str(), status_color(p.status));
         chip(("v" + p.pack_version).c_str(), kInfo, true);
-        if (g_installed.count(p.code)) chip("installed", kGood, true);
+        if (g_installed.count(p.code)) {
+            if (g_state[p.code] == 2) chip("update available", kAccent, true);
+            else chip("installed, up to date", kGood, true);
+        }
         if (!p.notes.empty()) {
             ImGui::Dummy(ImVec2(0, px(4)));
             ImGui::TextColored(kMuted, "%s", p.notes.c_str());
@@ -691,10 +753,15 @@ static void page_install() {
                 ImGui::PopTextWrapPos();
             }
         }
+        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + inner);
+        ImGui::TextColored(kMuted, "You can keep several languages installed and switch in the game settings. Control tooltips are a single shared file: the last installed pack decides their language.");
+        ImGui::PopTextWrapPos();
         float bw = inner;
-        if (btn(busy ? "Installing..." : "Install", Primary, ImVec2(bw, px(44)), !g_root.empty() && !busy))
+        bool upd = g_installed.count(p.code) && g_state[p.code] == 2;
+        bool same = g_installed.count(p.code) && g_state[p.code] == 1;
+        if (btn(busy ? "Working..." : upd ? "Update" : same ? "Reinstall" : "Install", Primary, ImVec2(bw, px(44)), !g_root.empty() && !busy && !g_game_running))
             install_async(p, can_addon && bepinex && g_with_addon);
-        if (btn("Restore original English", Secondary, ImVec2(bw, px(38)), !g_root.empty() && !busy))
+        if (btn("Restore original English", Secondary, ImVec2(bw, px(38)), !g_root.empty() && !busy && !g_game_running))
             for (auto& q : packs)
                 if (q.code == "en") install_async(q, false);
     }
@@ -887,7 +954,7 @@ static void page_editor() {
     if (!ed.status.empty()) callout(ed.status.c_str(), ed.status_bad ? kBad : kGood);
     if (btn("Export for GitHub", Primary, ImVec2(0, px(42)))) ed_export();
     ImGui::SameLine();
-    if (btn("Test in game", Secondary, ImVec2(0, px(42)), !g_root.empty())) ed_test_in_game();
+    if (btn("Test in game", Secondary, ImVec2(0, px(42)), !g_root.empty() && !g_game_running)) ed_test_in_game();
     ImGui::SameLine();
     if (!ed.exported.empty()) {
         if (btn("Open export folder", Ghost, ImVec2(0, px(42)))) open_folder(ed.exported);
@@ -980,6 +1047,12 @@ bool ui_frame(float scale) {
     static float applied = 0.f;
     S = scale;
     if (applied != scale) { apply_style(); applied = scale; }
+
+    static double last_poll = -10;
+    if (ImGui::GetTime() - last_poll > 1.0) {
+        g_game_running = game_running();
+        last_poll = ImGui::GetTime();
+    }
 
     ImGuiViewport* vp = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(vp->Pos);

@@ -41,4 +41,7 @@ struct InstallResult {
     bool need_admin = false;
 };
 using ProgressFn = std::function<void(float, const std::string&)>;
-InstallResult install_pack(const Pack& p, const fs::path& game_root, bool with_addon, const ProgressFn& progress);
+// default_xml: the original English tooltip file. It is written when the pack has no tooltips of its own,
+// so the tooltips of a previously installed pack do not stay behind (the file is one shared slot in the game).
+InstallResult install_pack(const Pack& p, const fs::path& game_root, bool with_addon, const ProgressFn& progress,
+                           const PackFile* default_xml = nullptr);

@@ -105,28 +105,29 @@ std::string install_rel(const Pack& p, const PackFile& f) {
     return f.path.compare(0, prefix.size(), prefix) == 0 ? f.path.substr(prefix.size()) : f.path;
 }
 
-InstallResult install_pack(const Pack& p, const fs::path& root, bool with_addon, const ProgressFn& progress) {
+InstallResult install_pack(const Pack& p, const fs::path& root, bool with_addon, const ProgressFn& progress, const PackFile* default_xml) {
     InstallResult res;
-    std::vector<const PackFile*> todo;
-    for (auto& f : p.files) todo.push_back(&f);
+    std::vector<std::pair<const PackFile*, std::string>> todo;  // file, path relative to the game folder
+    for (auto& f : p.files) todo.push_back({&f, install_rel(p, f)});
     if (with_addon)
-        for (auto& f : p.addon_files) todo.push_back(&f);
+        for (auto& f : p.addon_files) todo.push_back({&f, install_rel(p, f)});
+    if (default_xml && !p.has_xml()) todo.push_back({default_xml, "Wolfpack_Data/Language/Official/English.xml"});
 
     // Download everything first so a broken connection never leaves half a pack in the game folder.
-    std::vector<std::pair<const PackFile*, std::vector<char>>> loaded;
+    std::vector<std::pair<std::pair<const PackFile*, std::string>, std::vector<char>>> loaded;
     for (size_t i = 0; i < todo.size(); ++i) {
-        progress((float)i / (float)(todo.size() * 2), "Downloading " + todo[i]->path);
+        progress((float)i / (float)(todo.size() * 2), "Downloading " + todo[i].first->path);
         std::vector<char> data;
         std::string err;
-        if (fetch_file(*todo[i], data, err)) loaded.push_back({todo[i], std::move(data)});
+        if (fetch_file(*todo[i].first, data, err)) loaded.push_back({todo[i], std::move(data)});
         else res.missing.push_back(err);
     }
     for (size_t i = 0; i < loaded.size(); ++i) {
-        const PackFile& f = *loaded[i].first;
-        progress(0.5f + (float)i / (float)(loaded.size() * 2), "Installing " + install_rel(p, f));
+        const std::string& rel = loaded[i].first.second;
+        progress(0.5f + (float)i / (float)(loaded.size() * 2), "Installing " + rel);
         std::string err;
         bool denied = false;
-        if (!write_file_atomic(root / u8_path(install_rel(p, f)), loaded[i].second.data(), loaded[i].second.size(), err, &denied)) {
+        if (!write_file_atomic(root / u8_path(rel), loaded[i].second.data(), loaded[i].second.size(), err, &denied)) {
             res.error = err;
             res.need_admin = denied;
             return res;
