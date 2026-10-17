@@ -906,12 +906,17 @@ static void page_install() {
             callout(w.c_str(), kWarn, nullptr, inner);
         }
         bool can_addon = !p.addon_files.empty();
-        bool bepinex = !g_root.empty() && fs::exists(g_root / L"BepInEx");
+        bool bepinex = !g_root.empty() && fs::exists(g_root / L"BepInEx" / L"core");
         if (can_addon) {
             ImGui::BeginDisabled(!bepinex);
             ImGui::Checkbox("Install the add-on for hard-coded texts", &g_with_addon);
             ImGui::EndDisabled();
-            if (!bepinex) ImGui::TextColored(kMuted, "Needs BepInEx + XUnity.AutoTranslator.");
+            if (!bepinex) {
+                ImGui::AlignTextToFramePadding();
+                ImGui::TextColored(kMuted, "Needs BepInEx 6 (IL2CPP).");
+                ImGui::SameLine();
+                if (btn("Get BepInEx", Ghost, ImVec2(0, px(28)))) open_url("https://github.com/BepInEx/BepInEx");
+            }
         }
 
         // bottom anchored actions
@@ -937,8 +942,7 @@ static void page_install() {
         {
             std::string cur;
             for (auto& q : packs) if (g_installed.count(q.code) && q.code != p.code) cur = q.native_name;
-            std::string hint = cur.empty() ? "Only one language can be installed. Installing another one removes the current one."
-                                           : "Only one language can be installed: this replaces " + cur + ".";
+            std::string hint = cur.empty() ? "One language at a time." : "One language at a time: replaces " + cur + ".";
             ImGui::TextColored(kMuted, "%s", hint.c_str());
         }
         ImGui::PopTextWrapPos();
@@ -1541,7 +1545,7 @@ static void footer(float W, float H) {
     ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
     float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
     float x = px(28);
-    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.0", px(1.4f));
+    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.1", px(1.4f));
 
     float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
     float rx = W - px(28) - rw;

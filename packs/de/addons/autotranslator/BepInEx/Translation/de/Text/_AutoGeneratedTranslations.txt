@@ -1,0 +1,474 @@
+﻿# =============================================================================
+# REINE SYSTEM- UND MENÜTEXTE
+# =============================================================================
+Confirm=Bestätigen
+Apply=Anwenden
+Cancel=Abbrechen
+Refresh=Aktualisieren
+Manage=Verwalten
+Close=Schließen
+Placeholder=Platzhalter
+Placeholder description.=Platzhalterbeschreibung.
+Create=Erstellen
+Players=Spieler
+Submarine=Unterseeboot
+
+
+# Lobby- und Multiplayer-Menüs
+Creating lobby...=Lobby wird erstellt...
+Loading models and game...=Einsatzdaten und Einheiten werden geladen...
+Loading...=Wird geladen...
+Loading languages...=Sprachen werden geladen...
+Streamworks initialized.=Steamworks initialisiert.
+Loading uboat iconography...=U-Boot-Symbole werden geladen...
+Loading icons...=Symbole werden geladen...
+Loading ranks...=Dienstgrade werden geladen...
+Loading game...=Spiel wird geladen...
+Starting game...=Einsatz wird gestartet...
+Filters=Filter
+Casual=Lässig
+Low=Niedrig
+High=Hoch
+Off=Aus
+On=An
+r:^Launch\s*$="Auslaufen"
+Players in this session=Spieler in dieser Sitzung
+Host=Gastgeber
+r:^(.*) \(Host\)$="$1 (Gastgeber)"
+A Long Player Name=Ein langer Spielername
+Click to enter a title for your lobby...=Gib einen Namen für deine Lobby ein...
+Click to enter a description for your lobby...=Gib eine Beschreibung für deine Lobby ein...
+Click to enter a password for your lobby...=Gib ein Passwort für deine Lobby ein...
+That server requires a password, please submit the correct password below:=Für diesen Server ist ein Passwort erforderlich. Bitte gib das Passwort unten ein:
+Abort the game?=Einsatz abbrechen?
+Accept=Annehmen
+You are about to abandon your crew members!\nAre you sure?=Sie sind im Begriff, Ihre Besatzung im Stich zu lassen!\nSind Sie sicher?
+Passenger=Passagier
+Sailor=Seemann
+Machinist=Maschinist
+Helmsman=Steuermann
+Radioman=Funker
+Navigator=Navigator
+Dive Officer=Tauchoffizier
+Chief Engineer=Chefingenieur
+Torpedoes=Torpedos
+Destroyed=Gesunken
+Playstyle=Schwierigkeit
+r:^No\s+games\s+found!\nTry\s+updating\s+your\s+search\s+parameters\s+in\s+the\s+sidebar,\s+or\s+creating\s+a\s+new\s+lobby\.\n\nYou\s+can\s+also\s+click\s+any\s+of\s+the\s+icons\s+below\s+to\s+join\s+Wolfpack\s+communities\s+online\s+and\s+find\s+other\s+people\s+looking\s+to\s+play!$="Keine Einsätze gefunden!\nVersuchen Sie, die Suchkriterien in der Seitenleiste anzupassen oder eine neue Lobby zu erstellen.\n\nSie können auch auf eines der Symbole unten klicken, um Online-Gemeinschaften von Wolfpack beizutreten und andere Mitspieler für eine Feindfahrt zu finden!"
+
+# Missions- und Editor-Texte
+Mission=Einsatz
+Scenario=Szenario
+Realism=Realismus
+Escorts=Geleitzug
+Other=Weiteres
+Force Manual Navigation=Manuelle Navigation erzwingen
+Force Real Morse=Echtes Morsen erzwingen
+Tonnage Goal=Tonnageziel
+Time Limit=Zeitlimit
+Objective Visibility=Sichtbarkeit der Ziele
+r:^• Destroy enemy merchant ships: (\d+)/(\d+) grt\.$="• Feindliche Handelsschiffe zerstört: $1/$2 BRT."
+r:^• Destroy enemy merchant ships: (\d+)/(\d+) grt\.\s*$="• Feindliche Handelsschiffe zerstört: $1/$2 BRT."
+r:^• Sink at least (\d+) tonnes of enemy merchant ships\.$="• Mindestens $1 Bruttoregistertonnen feindlichen Handelsschiffsraum versenken."
+Load Mission=Einsatz laden
+Select Mission=Einsatz wählen
+Mission Title=Einsatzname
+Mission Description=Einsatzbeschreibung
+Victory Message=Siegesbotschaft
+Loss Message=Verlustmeldung
+Abort Message=Abbruchnachricht
+Click to enter a title for your mission...=Gib einen Namen für deinen Einsatz ein...
+Click here to enter a workshop description...=Gib eine Workshop-Beschreibung ein...
+Click here to add a victory message to your mission...=Füge deinem Einsatz eine Siegesbotschaft hinzu...
+Click here to add an abort message to your mission...=Füge deinem Einsatz eine Abbruchnachricht hinzu...
+Click here to add a defeat message to your mission...=Füge deinem Einsatz eine Niederlagennachricht hinzu...
+Export To Clipboard=In Zwischenablage exportieren
+Import From Clipboard=Aus Zwischenablage importieren
+Publish to the Steam Workshop=Im Steam Workshop veröffentlichen
+Revert=Zurücksetzen
+Reset=Zurücksetzen
+Clear All=Alles löschen
+r:^Sehr geehrter, Herr Kommandant!\s*As you know, the war we are fighting is a tonnage war\. The British are highly dependant on imported goods and have therefore adopted convoy tactics in order to protect their merchant ships\. The objective of the German U-boat fleet is to break their supply chain by intercepting these convoys, strangling the enemy into submission\.\s*You have been assigned to the (.*), grid ([A-Z]{2}\s*\d+)\.\s*These are your orders:\s*Locate a British merchant convoy and approach it with caution\. The enemy will be on the alert for the presence of U-boats\. The merchant ships may be weaponized or escorted by heavily armed naval vessels and aircraft\. Engage the convoy at periscope depth\s*and make sure to keep your distance if surfaced\. The U-boats low water profile makes it difficult to detect from larger distances\. Attacks during nighttime or in advantageous weather conditions such as fog reduces the risk of detection, as long as you stay clear of enemy vessels equipped with searchlights\.\s*Once a convoy is located, sink at least (\d+) tonnes worth of enemy freighters and then\s*return to port\. Avoid escort vessels if possible, engage them only if necessary\. In case of detection, dive immediately and stay submerged until a new opportunity arises\.\s*We expect you to do your utmost at all times\. You will fulfill your duty and ensure the success of our commission\.\s*Best of luck\s*(.*)$="Sehr geehrter Herr Kommandant!\n\nWie Ihnen bekannt ist, ist der Krieg, den wir führen, ein Tonnagekrieg. Die Briten sind in hohem Maße von Importgütern abhängig und sind daher zur Geleitzugtaktik übergegangen, um ihre Handelsschiffe zu schützen. Das Ziel der deutschen U-Boot-Flotte ist es, diese Nachschublinien durch das Abfangen der Geleitzüge zu unterbrechen und den Gegner niederzuzwingen.\n\nIhr Boot wurde für das Operationsgebiet $1, Marinequadrat $2, eingeleilt.\n\nHier sind Ihre Befehle:\nSichten Sie einen britischen Handelsgeleitzug und laufen Sie diesen mit äußerster Vorsicht an. Der Gegner ist alarmiert und rechnet mit der Anwesenheit von U-Booten. Die Handelsschiffe können bewaffnet sein oder von schwer bewaffneten Seestreitkräften und Luftstreitkräften eskortiert werden. Greifen Sie den Geleitzug auf Sehrohrtiefe an\nund halten Sie bei Überwasserfahrt unbedingt ausreichenden Abstand. Die niedrige Silhouette des U-Bootes erschwert eine Sichtung auf größere Entfernungen. Angriffe bei Nacht oder unter günstigen Wetterbedingungen wie Nebel verringern das Entdeckungsrisiko, solange Sie sich von feindlichen Schiffen mit Suchscheinwerfern fernhalten.\n\nSobald der Geleitzug ausgemacht ist, versenken Sie mindestens $3 BRT feindlichen Handelsschiffsraums und danach\ntreten Sie den Rückmarsch zum Stützpunkt an. Meiden Sie Sicherungsfahrzeuge nach Möglichkeit und bekämpfen Sie diese nur im Notfall. Bei Entdeckung ist sofort zu tauchen; verbleiben Sie unter Wasser, bis sich eine neue Gelegenheit bietet.\n\nEs wird zu jeder Zeit voller Einsatz von Ihnen erwartet. Erfüllen Sie Ihre Pflicht und sichern Sie den Erfolg unseres Auftrags.\n\nGute Jagd!\n\n$4"
+r:^([A-Z]{2}\d*)\s*-\s*(Medium Tanker|Requisitioned Trawler|Passenger Liner|Light Merchant|Heavy Tanker|Heavy Freighter),\s*type\s*(\d+)\s*\|\s*Displacement:\s*(\d+)\s*tons\s*\|\s*Top Speed:\s*(\d+)\s*kn\s*\|\s*Armed:\s*(Yes|No)$="$1 - $2, Typ $3 | Verdrängung: $4 Tonnen | Höchstgeschwindigkeit: $5 kn | Bewaffnet: ${6/Yes/Ja/No/Nein}"
+Geschwindigkeit=Fahrt
+TV Electric Torpedo=G7es Zaunkönig (Typ V)
+TI Steam Torpedo=G7a Dampftorpedo (Typ I)
+TII Electric Torpedo=G7e Elektrotorpedo (Typ II)
+Timed=Zeitgesteuert
+Hold left control and left-click to automatically assign a torpedo of this type.=Strg + linke Maustaste: Torpedo dieses Typs automatisch laden.
+Hold left shift and left-click to automatically assign all torpedoes of this type.=Umschalt + linke Maustaste: Alle Torpedos dieses Typs automatisch laden.
+Right-click a torpedo to remove it.=Torpedo mit rechter Maustaste anklicken, um ihn zu entfernen.
+Left-click and drag a torpedo to the desired slot to assign it.=Torpedo mit linker Maustaste anklicken und in das Rohr oder Lager ziehen.
+Objectives=Operationsziele
+
+# =============================================================================
+# ABSCHLUSSBERICHT & EINSATZSTATISTIK 
+# =============================================================================
+r:^(.*) is alive\.$="$1 ist fahrbereit."
+r:^Mission time:\n(\d+) hours, (\d+) minutes, and (\d+) seconds\.$="Einsatzdauer:\n$1 Stunden, $2 Minuten und $3 Sekunden."
+r:^Detected during mission:\s*Yes\nTorpedoes fired:\s*(\d+)\nTorpedoes hit:\s*(\d+)\nTorpedo Hit Ratio:\s*(\d+)%\nMerchants Destroyed:\s*(\d+)\nWarships Destroyed:\s*(\d+)\nAircraft Destroyed:\s*(\d+)\nTonnage Sunk:\s*(\d+)$="Während des Einsatzes geortet: Ja\nAbgefeuerte Torpedos: $1\nTorpedotreffer: $2\nTorpedo-Trefferquote: $3%\nZerstörte Handelsschiffe: $4\nZerstörte Kriegsschiffe: $5\nAbgeschossene Flugzeuge: $6\nVersenkte Tonnage: $7 BRT"
+r:^Detected during mission:\s*No\nTorpedoes fired:\s*(\d+)\nTorpedoes hit:\s*(\d+)\nTorpedo Hit Ratio:\s*(\d+)%\nMerchants Destroyed:\s*(\d+)\nWarships Destroyed:\s*(\d+)\nAircraft Destroyed:\s*(\d+)\nTonnage Sunk:\s*(\d+)$="Während des Einsatzes geortet: Nein\nAbgefeuerte Torpedos: $1\nTorpedotreffer: $2\nTorpedo-Trefferquote: $3%\nZerstörte Handelsschiffe: $4\nZerstörte Kriegsschiffe: $5\nAbgeschossene Flugzeuge: $6\nVersenkte Tonnage: $7 BRT"
+Mission Aborted=Mission abgebrochen
+You Died=Sie sind gestorben
+You drowned=Sie sind ertrunken
+r:^Respawning in (\d+)\.\.\.$="Wiedereinstieg in $1..."
+r:^(.+)\s+Destroyed$="$1 zerstört"
+r:^(.+)\s+sunk\s+due\s+to\s+flooding\.\s*All\s+aboard\s+perished\.$="$1 infolge Wassereinbruchs gesunken.\nDie gesamte Besatzung ist gefallen."
+
+
+# =============================================================================
+# GEOGRAFISCHE ANGABEN & KARTENDATEN 
+# =============================================================================
+Longitude=Länge (L)
+Latitude=Breite (B)
+Average Depth=Mittlere Tiefe
+meters=Meter
+r:^Longitude:\s*(-?\d+[\.,]\d+)\s*°\s*E,\s*Latitude:\s*(-?\d+[\.,]\d+)\s*°\s*N\nAverage\s+Depth:\s*(\d+)\s*-\s*(\d+)\s+meters$="Längengrad: $1 ° O, Breitengrad: $2 ° N\nMittlere Tiefe: $3 - $4 Meter"
+r:^Longitude:\s*(-?\d+[\.,]\d+)\s*°\s*W,\s*Latitude:\s*(-?\d+[\.,]\d+)\s*°\s*N\nAverage\s+Depth:\s*(\d+)\s*-\s*(\d+)\s+meters$="Längengrad: $1 ° W, Breitengrad: $2 ° N\nMittlere Tiefe: $3 - $4 Meter"
+
+# Sonstiges UI
+Log Book=Logbuch
+Activity Log=Aktivitätsprotokoll
+Banned Players=Gebannte Spieler
+Community Profile=Community-Profil
+Steam Profile=Steam-Profil
+
+
+# =============================================================================
+# KOMMANDOSTATIONEN, BORDTELEFON & DIENSTRÄUME 
+# =============================================================================
+Torpedo room=Torpedoraum
+Conning tower=Kommandoturm
+Control room=Zentrale
+Diesel room=Dieselmaschinenraum
+E.engine room=E-Maschinenraum
+
+# Bordtelefon-Anlage (Intercom / Ringer)
+Select room=Station wählen
+Use ringer=Wecker betätigen
+Receive=Empfangen
+
+
+# =============================================================================
+# INTERIEUR & U-BOOT-STATIONEN (HISTORISCH KORREKT)
+# =============================================================================
+# Zentrale & Steuerstand
+Rudder angle=Ruderlage
+Open voice tube.=Sprechrohr öffnen
+Close voice tube.=Sprechrohr schließen
+Use voice tube whistle=Sprechrohrpfeife betätigen
+Voice tube leading to the control room=Sprechrohr zur Zentrale
+Night light switch=Nachtbeleuchtungsschalter
+
+# Tiefensteuerstand (Dive Control)
+Rotate forward diveplane clockwise=Vorderes Tiefenruder aufholen
+Rotate forward diveplane counterclockwise=Vorderes Tiefenruder niederlegen
+Vorderes Tiefenruder nach unten=Vorderes Tiefenruder legen (Abfangen)
+Vorderes Tiefenruder nach oben=Vorderes Tiefenruder aufholen (Steigen)
+Vorderes Tiefenruder Mitte=Vorderes Tiefenruder mittschiffs legen
+Rotate aft diveplane clockwise=Achteres Tiefenruder niederlegen
+Rotate aft diveplane counterclockwise=Achteres Tiefenruder aufholen
+Achteres Tiefenruder nach unten=Hinteres Tiefenruder niederlegen (Abfangen)
+Achteres Tiefenruder nach oben=Hinteres Tiefenruder aufholen (Steigen)
+
+# =============================================================================
+# FLUT- UND TRIMMANLAGE (ZENTRALE)
+# =============================================================================
+Ballast air valve=Anblasventil
+Ballast air control=Anblassteuerung
+
+# Schnelltauchanlage
+Negative airflow control=Schnelltauch-Ausblasventil
+Negative tank air flow=Schnelltauch-Ausblasdruck
+Negative tank vent=Schnelltauchzellen-Entlüftung
+
+# Trimmanlage
+Trim tank air valve=Trimmzellen-Ausblasventil
+Trim tank air flow=Trimmzellen-Anblasdruk
+Trim tank vent=Trimmzellen-Entlüftung
+
+# Pumpen, Kompressoren & Alarm
+Turn on bilge pump=Lenzpumpe einschalten
+Turn off bilge pump=Lenzpumpe ausschalten
+Turn on compressor=Kompressor einschalten
+Turn off compressor=Kompressor ausschalten
+Dive alarm=Tauchalarm
+
+# =============================================================================
+# E-Maschinenraum
+# =============================================================================
+E-motor controls=E-Maschinen-Steuerung
+Starboard E motor clutch=Steuerbord-E-Maschinenkupplung
+Port E motor clutch=Backbord-E-Maschinenkupplung
+E_Motor_Direction=Fahrschalter
+Forward/Reverse switch=Fahrschalter (Voraus/Zurück)
+Fahrschalter=Fahrschalter
+Motor Series/parallel switch=Gruppenschalter (Reihe/Parallel)
+Battery Series/parallel switch=Batterieschalter (Reihe/Parallel)
+Speed control=Drehzahlregler (Widerstand)
+Disable starting resistor=Anlaufwiderstand ausschalten
+Enable starting resistor=Anlaufwiderstand einschalten
+Starboard fuse=Steuerbordsicherung
+Port fuse=Backbordsicherung
+Voltage regulator=Spannungsregler
+Auxillary voltage regulator=Hilfsspannungsregler
+Rectifier=Gleichrichter
+Power On=Hauptschalter ein
+Power Off=Hauptschalter aus
+
+# =============================================================================
+# MASCHINENTELEGRAF - BEFEHLE & ANZEIGEN 
+# =============================================================================
+# Fahrtstufen Voraus (Ahead)
+Dead slow speed ahead=Kleine Fahrt voraus
+Slow speed ahead=Langsame Fahrt voraus
+Half speed ahead=Halbe Fahrt voraus
+Great speed ahead=Große Fahrt voraus
+Full speed ahead=Äußerste Kraft voraus
+
+# Fahrtstufen Zurück (Astern)
+Dead slow speed Astern=Kleine Fahrt zurück
+Slow speed astern=Langsame Fahrt zurück
+Half speed astern=Halbe Fahrt zurück
+Full speed astern=Äußerste Kraft zurück
+
+# Weitere Befehle
+Stop=Stopp
+Charge batteries=Laden
+Increase speed on both engines by 10 rpm=Drehzahl auf beiden Maschinen um 10 U/min erhöhen
+Decrease speed on both engines by 10 rpm=Drehzahl auf beiden Maschinen um 10 U/min verringern
+Attention=Achtung
+Dive=Tauchen!
+Start diesel engine=Dieselmaschine anlassen
+Start electric engine=E-Maschine anlassen
+
+# =============================================================================
+# DIESELMASCHINENRAUM 
+# =============================================================================
+Start diesel engine=Dieselmaschine anlassen
+Decouple diesel engine=Dieselmaschine auskuppeln
+Engage diesel engine=Dieselmaschine einkuppeln
+Decouple starboard screw=Steuerbord Schraube auskuppeln
+Engage starboard screw=Steuerbord Schraube einkuppeln
+Decouple port screw=Backbord Schraube auskuppeln
+Engage port screw=Backbord Schraube einkuppeln
+Starboard Diesel clutch=Steuerbord-Dieselkupplung
+Port Diesel clutch=Backbord-Dieselkupplung
+Throttle=Füllungshebel
+Starter lever=Anlasshebel
+Starter air=Anlassluft
+Turn on supercharger=Gebläse einschalten
+Turn off supercharger=Gebläse ausschalten
+Air intake valve=Hauptluftmastventil
+Air exhaust valve=Abgashauptklappe
+Engine intake valve=Verbrennungsluftklappe
+Open air intake valve=Hauptluftmastventil öffnen
+Close air intake valve=Hauptluftmastventil schließen
+Open air exhaust valve=Abgashauptklappe öffnen
+Close air exhaust valve=Abgashauptklappe schließen
+Open engine air intake valve=Verbrennungsluftklappe öffnen
+Close engine air intake valve=Verbrennungsluftklappe schließen
+Open starboard engine exhaust valve=Steuerbord-Abgasklappe öffnen
+Close starboard engine exhaust valve=Steuerbord-Abgasklappe schließen
+Open port engine exhaust valve=Backbord-Abgasklappe öffnen
+Close port engine exhaust valve=Backbord-Abgasklappe schließen
+
+# VENTILE & TREIBÖL (MASCHINENRAUM)
+Port Diesel flow valve 1=Backbord-Kraftstoffventil 1
+Port Diesel flow valve 2=Backbord-Kraftstoffventil 2
+Port Diesel flow valve 3=Backbord-Kraftstoffventil 3
+Port Diesel flow valve 4=Backbord-Kraftstoffventil 4
+Port Diesel flow valve 5=Backbord-Kraftstoffventil 5
+Port Diesel flow valve 6=Backbord-Kraftstoffventil 6
+Port Oil flow valve 1=Backbord-Schmierölventil 1
+Port Oil flow valve 2=Backbord-Schmierölventil 2
+Port Oil flow valve 3=Backbord-Schmierölventil 3
+Port Oil flow valve 4=Backbord-Schmierölventil 4
+Port Oil flow valve 5=Backbord-Schmierölventil 5
+Port Oil flow valve 6=Backbord-Schmierölventil 6
+Port Check valve 1=Backbord-Rückschlagventil 1
+Port Check valve 2=Backbord-Rückschlagventil 2
+Port Check valve 3=Backbord-Rückschlagventil 3
+Port Check valve 4=Backbord-Rückschlagventil 4
+Port Check valve 5=Backbord-Rückschlagventil 5
+Port Check valve 6=Backbord-Rückschlagventil 6
+Starboard Diesel flow valve 1=Steuerbord-Kraftstoffventil 1
+Starboard Diesel flow valve 2=Steuerbord-Kraftstoffventil 2
+Starboard Diesel flow valve 3=Steuerbord-Kraftstoffventil 3
+Starboard Diesel flow valve 4=Steuerbord-Kraftstoffventil 4
+Starboard Diesel flow valve 5=Steuerbord-Kraftstoffventil 5
+Starboard Diesel flow valve 6=Steuerbord-Kraftstoffventil 6
+Starboard Oil flow valve 1=Steuerbord-Schmierölventil 1
+Starboard Oil flow valve 2=Steuerbord-Schmierölventil 2
+Starboard Oil flow valve 3=Steuerbord-Schmierölventil 3
+Starboard Oil flow valve 4=Steuerbord-Schmierölventil 4
+Starboard Oil flow valve 5=Steuerbord-Schmierölventil 5
+Starboard Oil flow valve 6=Steuerbord-Schmierölventil 6
+Starboard Check valve 1=Steuerbord-Rückschlagventil 1
+Starboard Check valve 2=Steuerbord-Rückschlagventil 2
+Starboard Check valve 3=Steuerbord-Rückschlagventil 3
+Starboard Check valve 4=Steuerbord-Rückschlagventil 4
+Starboard Check valve 5=Steuerbord-Rückschlagventil 5
+Starboard Check valve 6=Steuerbord-Rückschlagventil 6
+
+
+# =============================================================================
+# FUNK- & HORCHRAUM
+# =============================================================================
+Message to...=Funkspruch an...
+Message from...=Funkspruch von...
+Encode=Verschlüsseln
+Decode=Entziffern
+Encrypt new message=Neuen Funkspruch verschlüsseln
+Decrypt new message=Neuen Funkspruch entziffern
+Transmitting=Sende...
+raise direction finder antenna=Peilrahmen ausfahren
+lower direction finder antenna=Peilrahmen einfahren
+Rotate direction finder antenna=Peilrahmen drehen
+Hydrophone direction=Horchrichtung
+Hydrophone gain=Verstärkung
+Directionality=Richtcharakteristik
+High pass filter=Hochpassfilter
+
+# =============================================================================
+# SEERÄUME, NAVIGATION & OPTIKEN
+# =============================================================================
+Periscope=Sehrohr
+Raise periscope=Sehrohr ausfahren
+Lower periscope=Sehrohr einfahren
+UZO (Überwasserzieloptik)=UZO (Überwasserzieloptik)
+Attack Disc=Angriffsscheibe
+Horizontal\nDistance table=Horizontale Entfernungstabelle
+Vertical\nDistance Table=Vertikale Entfernungstabelle
+Table for calculating target distance using the vertical scale=Tabelle zur Entfernungsberechnung über die vertikale Skala
+Table for calculating attack distances using the horizontal scale=Tabelle zur Entfernungsberechnung über die horizontale Skala
+
+# =============================================================================
+# TORPEDOTECHNIK & RECHENAPPARAT (TDC)
+# =============================================================================
+Angle on bow=Lagenwinkel
+Target speed=Gegnerfahrt (v)
+Target range=Zielentfernung (E)
+Target heading=Gegnerkurs
+Target length=Gegnerlänge
+Torpedo running depth=Torpedolauftiefe
+Torpedo reload=Torpedo nachladen
+Torpedo.=Torpedo
+r:^Launch\s*$="Auslaufen"
+r:^Launch\s+.*$="Torpedoschuss (Los!)"
+Torpedo abschießen=Torpedo abfeuern
+Open lid=Schutzkappe öffnen
+Close lid=Schutzkappe schließen
+Forward Torpedo Tubes=Bugtorpedorohre
+Aft Torpedo Tubes=Hecktorpedorohre
+forward torpedo reserve=Vordere Torpedo Reserve
+aft torpedo reserve=Achtere Torpedo Reserve
+tube 1=Rohr I
+tube 2=Rohr II
+tube 3=Rohr III
+tube 4=Rohr IV
+tube 5=Rohr V
+Loading tube 1=Rohr I wird geladen
+Loading tube 2=Rohr II wird geladen
+Loading tube 3=Rohr III wird geladen
+Loading tube 4=Rohr IV wird geladen
+Loading tube 5=Rohr V wird geladen
+T1 Torpedo=G7a (Dampftorpedo Typ I „Ato“)
+T2 Torpedo=G7e (Elektrotorpedo Typ II „Eto“)
+T5 Torpedo=G7es (Elektrotorpedo Typ V „Zaunkönig“)
+TI=G7a
+TII=G7e
+TV=G7es
+g7e, type II=G7e (Elektrotorpedo Typ II „Eto“)
+Type I Steam Torpedo=G7a (Dampftorpedo Typ I „Ato“)
+TV Electric Torpedo=G7es Zaunkönig (Typ V)
+Zaunkoenig=Zaunkönig
+r:^T5 ZAUNKÖNIG\s+\((\d+) VERFÜGBAR\)$="G7es Zaunkönig (Typ V)"
+Available Torpedoes=Verfügbare Torpedos
+Available TI Torpedoes=Verfügbare G7a-Torpedos
+Available TII Torpedoes=Verfügbare G7e-Torpedos
+Available TV Torpedoes=Verfügbare G7es-Torpedos
+Available selections=Verfügbare Auswahl
+Forward Reserve=Vordere Reserve
+Aft Reserve=Achtere Reserve
+Available Selections=Verfügbare Auswahl
+Speed=Fahrt
+
+
+# =============================================================================
+# LOGBUCH
+# =============================================================================
+Orders=Befehle
+Recognition Manual=Erkennungsbuch
+Recognition manual=Erkennungsbuch
+Identified Ships=Erkannte Schiffe
+Background color=Hintergrundfarbe
+Recognition manual >=Erkennungsbuch >
+Warships >=Kriegsschiffe >
+Aircraft >=Flugzeuge >
+Search results >=Suchergebnisse >
+
+Engine placement=Maschinenlage
+Superstructure=Aufbauten
+Islands=Inselaufbauten
+Masts=Masten
+Ship type=Schiffstyp
+Unspecified=Keine Angabe
+Amidship=Mittschiffs
+Aft=Achtern
+Split=Geteilt
+Composite=Kombiniert
+Front=Vorn
+Mid=Mittschiffs
+
+Height in meters=Höhe in Metern
+Length in meters=Länge in Metern
+Vertical View Angle=Vertikale Blickwinkel
+Horizontal View Angle=Horizontaler Blickwinkel
+
+Warships=Kriegsschiffe
+Bogue aircraft carrier=Geleitflugzeugträger der „Bogue“-Klasse
+Flower class corvette=Korvette der „Flower“-Klassse
+Bittern class sloop=Sloop der „Bittern“-Klasse
+Tribal class destroyer=Zerstörer der „Tribal“-Klasse
+
+Aircraft=Flugzeuge
+B-24 Liberator=B-24 „Liberator“
+Spitfire=„Spitfire“
+Swordfish=„Swordfish“
+Wellington=„Wellington“
+
+Merchants=Handelsschiffe
+r:"^Heavy Freighter, type ([0-9]+)$"=Schwerer Frachter, Typ $1
+r:"^Heavy Tanker, type ([0-9]+)$"=Schwerer Tanker, Typ $1
+r:"^Light Merchant, type ([0-9]+)$"=Kleines Handelsschiff, Typ $1
+r:"^Medium Tanker, type ([0-9]+)$"=Mittlerer Tanker, Typ $1
+r:"^Passenger Liner, type ([0-9]+)$"=Passagierdampfer, Typ $1
+r:"^Requisitioned Trawler , type ([0-9]+)$"=Requirierter Trawler, Typ $1
+r:"Displacement:\s*([0-9.,]+)\s*tons\s*Length:\s*([0-9.,]+)\s*m\s*Draught:\s*([0-9.,]+)\s*m\s*Beam:\s*([0-9.,]+)\s*m\s*Speed:\s*([0-9.,]+)\s*kts\s*Mast\s*height:\s*([0-9.,]+)\s*m"=Wasserverdrängung: $1 t\nLänge: $2 m\nTiefgang: $3 m\nBreite: $4 m\nGeschwindigkeit: $5 kn\nMasthöhe: $6 m
+
+
+# =============================================================================
+# TORPEDO-INFOKARTEN 
+# =============================================================================
+r:^The\s+type\s+I\s+torpedo\s+is\s+a\s+steam\s+powered\s+torpedo\.\s+Steam\s+torpedoes\s+have\s+a\s+long\s+range\s+and\s+high\s+speed,\s+but\s+are\s+noisy\s+and\s+leave\s+a\s+trail\s+of\s+bubbles\s+that\s+can\s+be\s+visually\s+detected\.\n\nPropulsion:\s*Steam\s+powered\nEntered\s+service:\s*1934\nRange:\s*7000\s*-\s*14000\s+meters\nSpeed:\s*30\s*-\s*44\s+knots\nTrigger\s+mechanism:\s*Impact\s+pistol\nGuidance:\s*None$="Der G7a-Torpedo (Typ I „Ato“) ist ein dampfgetriebener Torpedo. Dampftorpedos besitzen eine große Reichweite und hohe Geschwindigkeit, sind jedoch geräuschvoll und hinterlassen eine sichtbare Blasenbahn, die optisch ausgemacht werden kann.\n\nAntrieb: Dampfmotor\nIn Dienst gestellt: 1934\nReichweite: 7000 - 14000 Meter\nFahrt: 30 - 44 sm/h\nZündmechanismus: Aufschlagzünder (AZ)\nLenkung: Keine"
+r:^The\s+type\s+II\s+torpedo\s+is\s+an\s+electric\s+torpedo\.\s+Electric\s+torpedoes\s+leave\s+no\s+bubble\s+trail,\s+and\s+are\s+virtually\s+silent,\s+but\s+have\s+limited\s+range\s+and\s+speed\.\n\nPropulsion:\s*Electric\nEntered\s+service:\s*1936\nRange:\s*5000\s+meters\nSpeed:\s*30\s+knots\nTrigger\s+mechanism:\s*Impact\s+pistol\nGuidance:\s*None$="Der G7e-Torpedo (Typ II „Eto“) ist ein elektrisch angetriebener Torpedo. Elektrotorpedos hinterlassen keine Blasenbahn und laufen nahezu geräuschlos, besitzen jedoch eine begrenzte Reichweite und Geschwindigkeit.\n\nAntrieb: Elektromotor\nIn Dienst gestellt: 1936\nReichweite: 5000 Meter\nFahrt: 30 sm/h\nZündmechanismus: Aufschlagzünder (AZ)\nLenkung: Keine"
+
+# =============================================================================
+# SONSTIGE STATIONEN & SCHOTTE
+# =============================================================================
+BOLDSCHLEUSE | BOLD AUSWERFEN (5/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (5/5)
+BOLDSCHLEUSE | BOLD AUSWERFEN (4/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (4/5)
+BOLDSCHLEUSE | BOLD AUSWERFEN (3/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (3/5)
+BOLDSCHLEUSE | BOLD AUSWERFEN (2/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (2/5)
+BOLDSCHLEUSE | BOLD AUSWERFEN (1/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (1/5)
+BOLDSCHLEUSE | BOLD AUSWERFEN (0/5)=Täuschkörperwerfer (Bold) |\nAuswerfen (0/5)
+Deckgeschütz.=Deckgeschütz (8,8-cm-SK)
+Flugabwehrkanone=Flugabwehrkanone (Flak)
+Open door=Schott öffnen
+Close door=Schott schließen
+Lock door=Schott verriegeln
+Unlock door=Schott entriegeln
+Open hatch=Luke öffnen
+Close hatch=Luke schließen
+Outer hatch=Außenluke

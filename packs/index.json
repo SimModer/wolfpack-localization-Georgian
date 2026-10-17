@@ -21,7 +21,7 @@
    "pack_version": "1.0.0",
    "game_version": "0.26R6",
    "status": "partial",
-   "notes": "Menu texts (320/320) and tooltips (31/31) are translated. Hard-coded in-game texts (crew messages, mission results, ...) are still English. Not tested in-game yet.",
+   "notes": "Menus and tooltips complete. Hard-coded texts via the optional add-on. Not tested in-game yet.",
    "authors": [
     "@Apade1"
    ],
@@ -37,7 +37,133 @@
      "sha256": "2d2d1a661790ca17fff72746f8ceb1d6adaf333db65864741b4dbc931710c51c"
     }
    ],
-   "addon_files": []
+   "addon_files": [
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/config/AutoTranslatorConfig.ini",
+     "size": 3402,
+     "sha256": "fa334220dfa2f380da6dc8a42ff594447a2bf63504aa70f3f4ac10c9e7615a18"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/README (AutoTranslator).md",
+     "size": 156802,
+     "sha256": "9d729bbcc58290f4c472d016d6aa3f5ca31a084745182c8553b4e2e154558645"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/ExIni.dll",
+     "size": 13312,
+     "sha256": "c073db2220667e6bbbfff64e13ed4f7e744af4b554c408f13ea80bfdffd859d0"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BaiduTranslate.dll",
+     "size": 11264,
+     "sha256": "390376beb1c5cbfaad429611a71aa9e1a86a1694fec5f04e7826b3d0b4692ada"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslate.dll",
+     "size": 13824,
+     "sha256": "9bf6c0f597bca57c942c297950c63ebbe6b570642aa7143268cc304f8e422e6c"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslateLegitimate.dll",
+     "size": 9728,
+     "sha256": "2ac477f17ce9c72963dd09e95d71df4cf1ee17118b6c37fb78de899c0568ed01"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/CustomTranslate.dll",
+     "size": 6656,
+     "sha256": "fd1434da32a40d403d9460c8a97efc16068eed25cb22c015d9592faf2d5a5d38"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/DeepLTranslate.dll",
+     "size": 9728,
+     "sha256": "d437d9cd1a761f22f93256ffdb0a78d586a7f2060ca4a282d1a3220f4a41adbf"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/ezTransXP.dll",
+     "size": 6144,
+     "sha256": "6f8f9089bbd10e18bfa1475eca149df88d26f595a6fa696db6fde752e1ec2b41"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslate.dll",
+     "size": 25600,
+     "sha256": "0d3c23f98d5f288b799a2f48fc6661cba0898ab996675eb3ee38d3cd45e3d605"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateCompat.dll",
+     "size": 8192,
+     "sha256": "7ce7c9837ee368b023197343e1cba62318b3afa43830d35ce25f4218e38af760"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateLegitimate.dll",
+     "size": 9728,
+     "sha256": "ca3b96027f04a475d2896f993a17b9026df943ce66f53053160cb3866fe3701b"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/LecPowerTranslator15.dll",
+     "size": 7168,
+     "sha256": "6b85714d9a8856691e9849e692f982d0377b09a0654d1b5b2b6a49ed6b5eb832"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/LingoCloudTranslate.dll",
+     "size": 8192,
+     "sha256": "66684c7d536cb53ba7a86e68ace0bcd3e3cfce689333020282fe9f88cfa7cc80"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/PapagoTranslate.dll",
+     "size": 12800,
+     "sha256": "01f4488ec58e7f712e39509202964f1f49dc12f4f87cb0edd6a24f7564e890d9"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/WatsonTranslate.dll",
+     "size": 9216,
+     "sha256": "6701e19016483c57c55a82227951b00fd4b85d47a5d7db00b6a2eabad4cddb47"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/YandexTranslate.dll",
+     "size": 9728,
+     "sha256": "4f522e353253bbdfd1fa4eee17b2bb3da9301625263331fae7fed25f0872c56b"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.BepInEx-IL2CPP.dll",
+     "size": 7168,
+     "sha256": "0c302c744bcf0f24b2346bf8fdd6c0137db1b2a3379affe8c1f0b77a4f5a7b03"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.Core.dll",
+     "size": 644096,
+     "sha256": "6a04943e4aba902e1642625e784f1be536cb7e641923d6e04fefa2ef59299149"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.ExtProtocol.dll",
+     "size": 10752,
+     "sha256": "e502c355f34de51e3fa3d3b08c95cbbda4a2ac044bf8aebf5c4b6ecf81efff8f"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.Common.dll",
+     "size": 96768,
+     "sha256": "f9ee09a28054ac2aac715939ad6e71c2e1dd5a5bcef398766805782a4b7e7d3a"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.BepInEx-IL2CPP.dll",
+     "size": 7168,
+     "sha256": "d021d4eee106b98ffafc91b88aef70b7c6ee540a41cf686a0e2e6e44579b9b23"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.dll",
+     "size": 65536,
+     "sha256": "29dfc65c8b83b623b6f74c3f359609ceb184f668dc24052b0a7c53a06bdc43d2"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/Translation/de/Text/_AutoGeneratedTranslations.txt",
+     "size": 26472,
+     "sha256": "97e7a485e0b040ec6976b3c7d8044a1cb8dc3acbe4993e9625af452c49cef598"
+    },
+    {
+     "path": "packs/de/addons/autotranslator/BepInEx/Translation/de/Texture/fish_1 [7BC3FFD1F2-590D3E2A0D].png",
+     "size": 866278,
+     "sha256": "c06cf8877eddd89371510f51c58b6768137190327ee17e5cf77fcac06cbe6d55"
+    }
+   ]
   },
   {
    "code": "el",
