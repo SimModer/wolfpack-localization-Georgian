@@ -25,4 +25,4 @@ Copy [`templates/new-language`](templates/new-language) to `packs/<code>`, trans
 Anleitung: [docs/INSTALLATION.md](docs/INSTALLATION.md). ZIP aus den Releases in den Wolfpack-Ordner entpacken (Dateien überschreiben).
 
 ## License
-MIT, see [LICENSE](LICENSE). Credits: [CREDITS.md](CREDITS.md).
+MIT, see [LICENSE](LICENSE).
