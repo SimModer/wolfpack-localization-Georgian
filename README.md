@@ -8,7 +8,7 @@ Community language packs for the submarine game *Wolfpack* (Usurpator, Steam).
 
 | Code | Language | Status |
 |---|---|---|
-| `de` | Deutsch (historical Kriegsmarine terminology, plus AutoTranslator add-on) | complete |
+| `de` | Deutsch (historical Kriegsmarine terminology) | complete |
 | `fr` `zh-Hans` `ka` | Français, 简体中文, ქართული | needs-review (tooltips translated) |
 | `nl` `es` `el` `it` `ja` `ko` `pl` `pt-BR` `ru` `tr` | Dutch, Spanish, Greek, Italian, Japanese, Korean, Polish, Portuguese (BR), Russian, Turkish | needs-review |
 
@@ -21,7 +21,7 @@ Every game version lives on its own branch (`version/0.26`, `version/0.27`, `ver
 Copy [`templates/new-language`](templates/new-language) to `packs/<code>`, translate, run `python tools/validate.py`, open a PR.
 
 ## Deutsch
-Anleitung: [docs/INSTALLATION.md](docs/INSTALLATION.md). ZIP aus den Releases in den Wolfpack-Ordner entpacken (Dateien überschreiben). Für fest einprogrammierte Texte zusätzlich das AutoTranslator-Add-on installieren.
+Anleitung: [docs/INSTALLATION.md](docs/INSTALLATION.md). ZIP aus den Releases in den Wolfpack-Ordner entpacken (Dateien überschreiben).
 
 ## License
 MIT, see [LICENSE](LICENSE). Credits: [CREDITS.md](CREDITS.md).
