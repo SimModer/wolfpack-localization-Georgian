@@ -11,13 +11,17 @@ packs/<code>/            one folder per language
     Language/Official/English.xml   control tooltips (optional)
 reference/               original English files of the current game version
 templates/new-language/  copy this to start a new language
-tools/                   validate / sync / build / find_strings (Python 3, no dependencies)
+tool/                    installer & editor (C++, PolyForm Noncommercial)
+tools/                   validate / build_index / / sync / build / find_strings (Python 3, no dependencies)
 docs/                    installation, game updates
 ```
 
 Each game version has its own branch: `version/0.26`, `version/0.27`, `version/0.26R6`, ... `main` always carries the newest version.
 
 ## Adding or improving a translation
+Easiest: use the Editor of the Language Tool and export. Or copy the template by hand (below).
+
+**After changing anything below `packs/` or `reference/` run `python tools/build_index.py`** - the tool reads `packs/index.json`; CI checks that it is current.
 See [templates/new-language/README.md](templates/new-language/README.md). Run `python tools/validate.py` before every PR.
 
 ## Game updates

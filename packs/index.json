@@ -1,0 +1,298 @@
+{
+ "schema": 1,
+ "game_version": "0.26R6",
+ "reference": [
+  {
+   "path": "reference/English.lang",
+   "size": 28225,
+   "sha256": "14e73a2fb85a7e127310352f06da0ac364a706eca5ae951f6da24c8581b9d498"
+  },
+  {
+   "path": "reference/English.xml",
+   "size": 1625,
+   "sha256": "87f9b8dc1eb54dddf1614c97fc90a5ac5d330aaae56b081532cfa8d03891d969"
+  }
+ ],
+ "packs": [
+  {
+   "code": "de",
+   "name": "German",
+   "native_name": "Deutsch",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "partial",
+   "notes": "Menu texts (320/320) and tooltips (31/31) are translated. Hard-coded in-game texts (crew messages, mission results, ...) are still English. Not tested in-game yet.",
+   "files": [
+    {
+     "path": "packs/de/Wolfpack_Data/Language/Official/English.xml",
+     "size": 1595,
+     "sha256": "cb4abe4bd1a328de32850e2dadab9b998bfefca3b21d66666816197c6f34d8dd"
+    },
+    {
+     "path": "packs/de/Wolfpack_Data/Languages/Community German.lang",
+     "size": 21432,
+     "sha256": "2d2d1a661790ca17fff72746f8ceb1d6adaf333db65864741b4dbc931710c51c"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "el",
+   "name": "Greek",
+   "native_name": "Ελληνικά",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/el/Wolfpack_Data/Languages/Community Greek.lang",
+     "size": 27670,
+     "sha256": "6657f799eb0411b2bd4e51ceb712eb2e44020ccb3fbe1946c6805e721f004cfc"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "en",
+   "name": "English (Official)",
+   "native_name": "English",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "original",
+   "notes": "Unmodified original files of the game. Install this pack to revert any translation.",
+   "files": [
+    {
+     "path": "packs/en/Wolfpack_Data/Language/Official/English.xml",
+     "size": 1625,
+     "sha256": "87f9b8dc1eb54dddf1614c97fc90a5ac5d330aaae56b081532cfa8d03891d969"
+    },
+    {
+     "path": "packs/en/Wolfpack_Data/Languages/Official English.lang",
+     "size": 28225,
+     "sha256": "14e73a2fb85a7e127310352f06da0ac364a706eca5ae951f6da24c8581b9d498"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "es",
+   "name": "Spanish",
+   "native_name": "Español",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/es/Wolfpack_Data/Languages/Community Spanish.lang",
+     "size": 21984,
+     "sha256": "53b4b45c336f9864faeccf334c2a1a58a35d07ca550243110e0d09b6c404f8c3"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "fr",
+   "name": "French",
+   "native_name": "Français",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "files": [
+    {
+     "path": "packs/fr/Wolfpack_Data/Language/Official/English.xml",
+     "size": 1790,
+     "sha256": "e23ad82208258392df05e83c800f0dc69fbcc71497095db99d151a3995d84e72"
+    },
+    {
+     "path": "packs/fr/Wolfpack_Data/Languages/Community French.lang",
+     "size": 22199,
+     "sha256": "36de9a4717bb5d99c2dace29155a39b2229cfa4f77d57a74bee9a4fdefb0b24f"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "it",
+   "name": "Italian",
+   "native_name": "Italiano",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/it/Wolfpack_Data/Languages/Community Italian.lang",
+     "size": 20458,
+     "sha256": "a3be98523f81ad0be3d5c1bc9cd54c2131a5a7210d02dbb7503184dbd6a74f51"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "ja",
+   "name": "Japanese",
+   "native_name": "日本語",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/ja/Wolfpack_Data/Languages/Community Japanese.lang",
+     "size": 22753,
+     "sha256": "814f6b76b027bcef5b53389825d3aa28e5f8f0f71671b7a20bdb957a5105f2e4"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "ka",
+   "name": "Georgian",
+   "native_name": "ქართული",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "files": [
+    {
+     "path": "packs/ka/Wolfpack_Data/Language/Official/English.xml",
+     "size": 2920,
+     "sha256": "375fb3bd661670ee9c3c2012395d21e804ce3f13b1c4421dd00b522547af6771"
+    },
+    {
+     "path": "packs/ka/Wolfpack_Data/Languages/Community Georgian.lang",
+     "size": 29766,
+     "sha256": "c506ea659f531c6db0f5cdbade1d56eaffb981c3b969dbf57f17d9cc6b5287eb"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "ko",
+   "name": "Korean",
+   "native_name": "한국어",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/ko/Wolfpack_Data/Languages/Community Korean.lang",
+     "size": 21255,
+     "sha256": "2438c77ca461293c46442626c55927759e904abfdfea087e84efdd8f3fad6961"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "nl",
+   "name": "Dutch",
+   "native_name": "Nederlands",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/nl/Wolfpack_Data/Languages/Community Dutch.lang",
+     "size": 21018,
+     "sha256": "5b26609312576e4e344c321fd1ade3af3beea892163733881712b87e18b094be"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "pl",
+   "name": "Polish",
+   "native_name": "Polski",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/pl/Wolfpack_Data/Languages/Community Polish.lang",
+     "size": 21015,
+     "sha256": "4e9f03e9651cd71b9f17d040270fa31071e3b01e06b020789534ae1a2e62468a"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "pt-BR",
+   "name": "Portuguese (Brazil)",
+   "native_name": "Português (Brasil)",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/pt-BR/Wolfpack_Data/Languages/Community Portuguese (Brazil).lang",
+     "size": 21764,
+     "sha256": "61cb275710fed1c6a1831330b3e44d9acf679cfd3c0a64028a937ca4a222fc02"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "ru",
+   "name": "Russian",
+   "native_name": "Русский",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/ru/Wolfpack_Data/Languages/Community Russian.lang",
+     "size": 26470,
+     "sha256": "a28128f1bbe46a6afdc719fcdd511c077dfd20e786d832412d62dcc61e50debe"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "tr",
+   "name": "Turkish",
+   "native_name": "Türkçe",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "files": [
+    {
+     "path": "packs/tr/Wolfpack_Data/Languages/Community Turkish.lang",
+     "size": 21621,
+     "sha256": "1af4e8cccd325e5e281962cc0d5044e45b39369c2239155c2c24419e9905e10c"
+    }
+   ],
+   "addon_files": []
+  },
+  {
+   "code": "zh-Hans",
+   "name": "Chinese (Simplified)",
+   "native_name": "简体中文",
+   "pack_version": "1.0.0",
+   "game_version": "0.26R6",
+   "status": "needs-review",
+   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "files": [
+    {
+     "path": "packs/zh-Hans/Wolfpack_Data/Language/Official/English.xml",
+     "size": 1604,
+     "sha256": "f67c3270c738e5194a4f3c3388ba3432529f810ee94802d326f515ae31a5350b"
+    },
+    {
+     "path": "packs/zh-Hans/Wolfpack_Data/Languages/Community Chinese (Simplified).lang",
+     "size": 20523,
+     "sha256": "21cde13a5893c1faba28bea1f53769d46f4f71c64d1122946940feeb0e1fbaaf"
+    }
+   ],
+   "addon_files": []
+  }
+ ]
+}
