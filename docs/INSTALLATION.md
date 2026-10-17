@@ -5,6 +5,9 @@
 3. Extract the zip into that folder. It contains a `Wolfpack_Data` folder. Confirm merging and **overwrite** existing files (this replaces `Language/Official/English.xml`; Steam's *Verify integrity of game files* restores the original).
 4. Start the game and choose the language under **Settings, Language**.
 
+## Optional: add-on for hard-coded texts
+Packs with an `..._autotranslator-addon.zip` also translate texts that are hard-coded in the game. It needs [BepInEx 6 (IL2CPP)](https://github.com/BepInEx/BepInEx) and [XUnity.AutoTranslator](https://github.com/bbepis/XUnity.AutoTranslator) (IL2CPP build), which you install first. Then extract the add-on zip into the game's main folder (next to `Wolfpack.exe`). To remove it, delete the `BepInEx/Translation/<code>` folder.
+
 ## Reverting to the original
 Install the `en` pack (`Wolfpack-L10n_en_...zip`) the same way. It contains the unmodified `Official English.lang` and `English.xml`, so it overwrites the translated tooltips. Then select *Official English* in the language settings. Steam's *Verify integrity of game files* does the same.
 

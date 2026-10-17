@@ -1,0 +1,5 @@
+# Texts that are hard-coded in the game and therefore missing from the .lang file.
+# Format, one entry per line:  English text=Translation
+# Lines starting with # are comments. Use \n for line breaks. Regex entries start with r:
+# Find candidates with:  python tools/find_strings.py "<game>/Wolfpack_Data"
+# Only write your own translations. Do not copy files from other projects without their permission.

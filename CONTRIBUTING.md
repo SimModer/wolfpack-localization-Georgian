@@ -5,6 +5,7 @@
 ```
 packs/<code>/            one folder per language
   pack.json              metadata (status, game version, authors)
+  addons/                optional BepInEx/AutoTranslator texts (own work only)
   Wolfpack_Data/         copied 1:1 into the game folder
     Languages/*.lang     main UI texts (JSON, numeric keys)
     Language/Official/English.xml   control tooltips (optional)

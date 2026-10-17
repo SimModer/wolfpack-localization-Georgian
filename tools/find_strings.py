@@ -1,6 +1,6 @@
 """List hard-coded UI strings from the game that are NOT in the .lang file.
 
-These cannot be translated through the language packs.
+These can only be translated through the optional AutoTranslator add-on.
 Reads Wolfpack_Data/il2cpp_data/Metadata/global-metadata.dat.
 Usage: python tools/find_strings.py "<path to Wolfpack_Data>" [out.txt]
 """
@@ -24,6 +24,10 @@ def main():
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "untranslated_candidates.txt"
     _, ref = load_lang(REFERENCE_LANG)
     known = set(ref.values())
+    for f in PACKS.glob("*/addons/autotranslator/BepInEx/Translation/*/Text/*.txt"):
+        for line in f.read_text(encoding="utf-8-sig").splitlines():
+            if "=" in line and not line.startswith("#"):
+                known.add(line.split("=", 1)[0].strip())
     noise = re.compile(r"[{}<>_/\=%]|Exception|http|\.cs|serializ|Unity|assembly", re.I)
     found = sorted({s.strip() for s in literals(data / "il2cpp_data/Metadata/global-metadata.dat")
                     if re.search(r"[A-Za-z]{3,} [A-Za-z]{2,}", s) and len(s) < 120

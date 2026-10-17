@@ -52,6 +52,18 @@ def check_pack(pack, ref):
                     errors.append(f"English.xml: unknown <{t}>")
         except ET.ParseError as e:
             errors.append(f"English.xml: {e}")
+    for txt in pack.glob("addons/autotranslator/BepInEx/Translation/*/Text/*.txt"):
+        seen = set()
+        for n, line in enumerate(txt.read_text(encoding="utf-8-sig").splitlines(), 1):
+            if not line.strip() or line.startswith("#"):
+                continue
+            if "=" not in line:
+                errors.append(f"{txt.name}:{n}: missing '='")
+                continue
+            src = line.split("=", 1)[0]
+            if src in seen:
+                warnings.append(f"{txt.name}:{n}: duplicate source text")
+            seen.add(src)
     return errors, warnings
 
 
