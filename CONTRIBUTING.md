@@ -28,6 +28,7 @@ See [templates/new-language/README.md](templates/new-language/README.md). Run `p
 See [docs/GAME-UPDATES.md](docs/GAME-UPDATES.md).
 
 ## Rules
+- Credit yourself in `pack.json` -> `authors`. Write `@handle` for a GitHub account (the tool links it), otherwise a plain name. Everybody who contributes to a pack is listed there and shown in the tool.
 - Never change the numeric `key`s, only the `value`s.
 - Keep placeholders and tags (`{0}`, `<b>`, `%s`).
 - UTF-8, LF line endings.

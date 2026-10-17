@@ -6,6 +6,8 @@
   "game_version": "0.26R6",
   "status": "original",
   "tooltips_xml": true,
-  "authors": ["Usurpator (original game files)"],
+  "authors": [
+    "Usurpator (original game files)"
+  ],
   "notes": "Unmodified original files of the game. Install this pack to revert any translation."
 }

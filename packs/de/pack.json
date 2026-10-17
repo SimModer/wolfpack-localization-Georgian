@@ -7,7 +7,7 @@
   "status": "partial",
   "tooltips_xml": true,
   "authors": [
-    "Community"
+    "@Apade1"
   ],
   "notes": "Menu texts (320/320) and tooltips (31/31) are translated. Hard-coded in-game texts (crew messages, mission results, ...) are still English. Not tested in-game yet."
 }

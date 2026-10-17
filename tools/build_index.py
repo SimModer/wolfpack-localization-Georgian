@@ -26,7 +26,7 @@ def build():
         addon = pack / "addons" / "autotranslator"
         extras = [entry(p) for p in sorted(addon.rglob("*")) if p.is_file() and p.name != ".gitkeep"] if addon.exists() else []
         packs.append({**{k: meta[k] for k in ("code", "name", "native_name", "pack_version", "game_version", "status", "notes")},
-                      "files": files, "addon_files": extras})
+                      "authors": meta.get("authors", []), "files": files, "addon_files": extras})
     return {"schema": 1, "game_version": ref["game_version"],
             "reference": [entry(REFERENCE_LANG), entry(REFERENCE_XML)], "packs": packs}
 

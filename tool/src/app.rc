@@ -2,6 +2,7 @@
 
 
 1 ICON "app.ico"
+#include "flags.rc"
 
 
 VS_VERSION_INFO VERSIONINFO

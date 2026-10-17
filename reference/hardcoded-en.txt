@@ -1,0 +1,238 @@
+# English texts that are hard-coded in the game (not part of the .lang file).
+# They can only be translated at runtime (BepInEx + XUnity.AutoTranslator, see docs/HARDCODED-TEXTS.md).
+# One text per line, the two characters backslash-n mark a line break. Every line was checked against the local game files
+# (Wolfpack_Data/*.assets, levelN, il2cpp metadata) of game version 0.26R6.
+Confirm
+Apply
+Manage
+Placeholder
+Placeholder description.
+Players
+Submarine
+Creating lobby...
+Loading models and game...
+Loading...
+Loading languages...
+Loading uboat iconography...
+Loading icons...
+Loading ranks...
+Starting game...
+Players in this session
+Host
+A Long Player Name
+Click to enter a title for your lobby...
+Click to enter a description for your lobby...
+Click to enter a password for your lobby...
+That server requires a password, please submit the correct password below:
+Abort the game?
+You are about to abandon your crew members!\nAre you sure?
+Passenger
+Sailor
+Machinist
+Helmsman
+Radioman
+Navigator
+Dive Officer
+Torpedoes
+Destroyed
+Realism
+Escorts
+Other
+Force Manual Navigation
+Force Real Morse
+Tonnage Goal
+Time Limit
+Objective Visibility
+Load Mission
+Select Mission
+Mission Title
+Mission Description
+Victory Message
+Loss Message
+Abort Message
+Click to enter a title for your mission...
+Click here to enter a workshop description...
+Click here to add a victory message to your mission...
+Click here to add an abort message to your mission...
+Click here to add a defeat message to your mission...
+Import From Clipboard
+Publish to the Steam Workshop
+Revert
+Reset
+Clear All
+Timed
+Hold left control and left-click to automatically assign a torpedo of this type.
+Hold left shift and left-click to automatically assign all torpedoes of this type.
+Right-click a torpedo to remove it.
+Left-click and drag a torpedo to the desired slot to assign it.
+Mission Aborted
+You Died
+You drowned
+Longitude
+Latitude
+Average Depth
+meters
+Log Book
+Banned Players
+Community Profile
+Steam Profile
+Torpedo room
+Conning tower
+Control room
+Diesel room
+E.engine room
+Select room
+Use ringer
+Receive
+Rudder angle
+Open voice tube.
+Close voice tube.
+Use voice tube whistle
+Voice tube leading to the control room
+Night light switch
+Rotate forward diveplane clockwise
+Rotate forward diveplane counterclockwise
+Rotate aft diveplane clockwise
+Rotate aft diveplane counterclockwise
+Ballast air valve
+Ballast air control
+Negative airflow control
+Negative tank air flow
+Negative tank vent
+Trim tank air valve
+Trim tank air flow
+Trim tank vent
+Turn on bilge pump
+Turn off bilge pump
+Turn on compressor
+Turn off compressor
+Dive alarm
+Forward/Reverse switch
+Motor Series/parallel switch
+Battery Series/parallel switch
+Speed control
+Disable starting resistor
+Enable starting resistor
+Voltage regulator
+Auxillary voltage regulator
+Rectifier
+Dead slow speed ahead
+Slow speed ahead
+Half speed ahead
+Great speed ahead
+Full speed ahead
+Dead slow speed Astern
+Slow speed astern
+Half speed astern
+Full speed astern
+Stop
+Charge batteries
+Increase speed on both engines by 10 rpm
+Decrease speed on both engines by 10 rpm
+Attention
+Dive
+Start diesel engine
+Start electric engine
+Decouple diesel engine
+Engage diesel engine
+Decouple starboard screw
+Engage starboard screw
+Decouple port screw
+Engage port screw
+Throttle
+Starter lever
+Starter air
+Turn on supercharger
+Turn off supercharger
+Air intake valve
+Air exhaust valve
+Engine intake valve
+Message to...
+Message from...
+Encode
+Decode
+Encrypt new message
+Decrypt new message
+Transmitting
+raise direction finder antenna
+lower direction finder antenna
+Rotate direction finder antenna
+Hydrophone direction
+Hydrophone gain
+Directionality
+High pass filter
+Periscope
+Raise periscope
+Lower periscope
+Attack Disc
+Table for calculating target distance using the vertical scale
+Table for calculating attack distances using the horizontal scale
+Angle on bow
+Target speed
+Target range
+Target heading
+Target length
+Torpedo running depth
+Torpedo reload
+Torpedo.
+Open lid
+Close lid
+Forward Torpedo Tubes
+Aft Torpedo Tubes
+forward torpedo reserve
+aft torpedo reserve
+tube 1
+tube 5
+Loading tube 5
+T1 Torpedo
+T2 Torpedo
+TI
+TII
+TV
+g7e, type II
+Type I Steam Torpedo
+Available Torpedoes
+Available TI Torpedoes
+Available TII Torpedoes
+Forward Reserve
+Aft Reserve
+Available Selections
+Speed
+Recognition Manual
+Recognition manual
+Identified Ships
+Background color
+Recognition manual >
+Engine placement
+Superstructure
+Islands
+Masts
+Ship type
+Unspecified
+Amidship
+Aft
+Split
+Composite
+Front
+Mid
+Height in meters
+Length in meters
+Vertical View Angle
+Warships
+Bogue aircraft carrier
+Flower class corvette
+Bittern class sloop
+Tribal class destroyer
+Aircraft
+B-24 Liberator
+Spitfire
+Swordfish
+Wellington
+Merchants
+Open door
+Close door
+Lock door
+Unlock door
+Open hatch
+Close hatch
+Outer hatch

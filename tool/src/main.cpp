@@ -202,6 +202,13 @@ static int selftest(const wchar_t* log) {
                 }
             }
         }
+        {   // only one community language may remain, and .wpl names it
+            int langs = 0;
+            for (auto& e : fs::directory_iterator(tmp / L"Wolfpack_Data" / L"Languages", ec))
+                if (e.path().extension() == L".lang" && e.path().filename().wstring().rfind(L"Community", 0) == 0) ++langs;
+            Wpl w = read_wpl(tmp);
+            check(langs == 1 && w.present && w.pack == idx.packs.back().code, "single install: one community .lang + matching .wpl");
+        }
         fs::remove_all(tmp, ec);
     }
     printf(fail ? "SELFTEST FAILED (%d)\n" : "SELFTEST OK\n", fail);
@@ -253,7 +260,7 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR cmdline, int) {
     float scale = ImGui_ImplWin32_GetDpiScaleForHwnd(hwnd);
     ImFont *semibold = nullptr, *black = nullptr;
     load_fonts(semibold, black);
-    ui_init(semibold, black, hwnd);
+    ui_init(semibold, black, hwnd, g_dev);
 
     bool running = true;
     while (running) {

@@ -4,6 +4,7 @@
 Download `WolfpackL10n.exe` from the [Releases](../../releases) page and start it (portable, no installer). It finds your game, lists all language packs from this repository and installs the one you pick. *Restore original English* undoes it. See [tool/README.md](../tool/README.md).
 
 ## Manual installation
+The tool allows exactly one installed language. If you install by hand, remove the old `Community *.lang` first.
 
 1. Download the zip for your language from the [Releases](../../releases) page (`Wolfpack-L10n_<code>_game-<version>_v<pack>.zip`). Pick the pack whose game version matches yours (shown in the main menu).
 2. Steam: right-click *Wolfpack*, then **Manage, Browse local files**.

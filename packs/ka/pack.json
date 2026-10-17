@@ -7,7 +7,7 @@
   "status": "needs-review",
   "tooltips_xml": true,
   "authors": [
-    "Community"
+    "@SimModer"
   ],
   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries."
 }

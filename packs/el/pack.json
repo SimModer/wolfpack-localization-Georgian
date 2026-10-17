@@ -7,7 +7,7 @@
   "status": "needs-review",
   "tooltips_xml": false,
   "authors": [
-    "Community"
+    "Giorgos Athanasopoulos"
   ],
   "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated."
 }

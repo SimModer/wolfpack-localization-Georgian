@@ -16,7 +16,7 @@ FetchContent_Declare(json
 FetchContent_MakeAvailable(imgui json)
 
 add_executable(WolfpackL10n WIN32
-  src/main.cpp src/ui.cpp src/util.cpp src/http.cpp src/game.cpp src/lang.cpp src/packs.cpp src/app.rc src/app.manifest
+  src/main.cpp src/ui.cpp src/util.cpp src/http.cpp src/game.cpp src/lang.cpp src/packs.cpp src/flags.cpp src/app.rc src/app.manifest
   ${imgui_SOURCE_DIR}/imgui.cpp
   ${imgui_SOURCE_DIR}/imgui_draw.cpp
   ${imgui_SOURCE_DIR}/imgui_tables.cpp
@@ -25,7 +25,7 @@ add_executable(WolfpackL10n WIN32
   ${imgui_SOURCE_DIR}/backends/imgui_impl_win32.cpp
   ${imgui_SOURCE_DIR}/backends/imgui_impl_dx11.cpp)
 
-target_include_directories(WolfpackL10n PRIVATE src ${imgui_SOURCE_DIR} ${imgui_SOURCE_DIR}/backends ${imgui_SOURCE_DIR}/misc/cpp)
+target_include_directories(WolfpackL10n PRIVATE src third_party ${imgui_SOURCE_DIR} ${imgui_SOURCE_DIR}/backends ${imgui_SOURCE_DIR}/misc/cpp)
 target_link_libraries(WolfpackL10n PRIVATE nlohmann_json::nlohmann_json d3d11 dxgi winhttp bcrypt shell32 ole32 dwmapi comdlg32 advapi32)
 target_compile_definitions(WolfpackL10n PRIVATE UNICODE _UNICODE NOMINMAX WIN32_LEAN_AND_MEAN _CRT_SECURE_NO_WARNINGS)
 if(MSVC)

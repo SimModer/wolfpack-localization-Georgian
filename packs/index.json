@@ -22,6 +22,9 @@
    "game_version": "0.26R6",
    "status": "partial",
    "notes": "Menu texts (320/320) and tooltips (31/31) are translated. Hard-coded in-game texts (crew messages, mission results, ...) are still English. Not tested in-game yet.",
+   "authors": [
+    "@Apade1"
+   ],
    "files": [
     {
      "path": "packs/de/Wolfpack_Data/Language/Official/English.xml",
@@ -44,6 +47,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "Giorgos Athanasopoulos"
+   ],
    "files": [
     {
      "path": "packs/el/Wolfpack_Data/Languages/Community Greek.lang",
@@ -61,6 +67,9 @@
    "game_version": "0.26R6",
    "status": "original",
    "notes": "Unmodified original files of the game. Install this pack to revert any translation.",
+   "authors": [
+    "Usurpator (original game files)"
+   ],
    "files": [
     {
      "path": "packs/en/Wolfpack_Data/Language/Official/English.xml",
@@ -83,6 +92,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "@niclqs"
+   ],
    "files": [
     {
      "path": "packs/es/Wolfpack_Data/Languages/Community Spanish.lang",
@@ -100,6 +112,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "authors": [
+    "@niclqs"
+   ],
    "files": [
     {
      "path": "packs/fr/Wolfpack_Data/Language/Official/English.xml",
@@ -122,6 +137,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "@niclqs"
+   ],
    "files": [
     {
      "path": "packs/it/Wolfpack_Data/Languages/Community Italian.lang",
@@ -139,6 +157,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "Erzen"
+   ],
    "files": [
     {
      "path": "packs/ja/Wolfpack_Data/Languages/Community Japanese.lang",
@@ -156,6 +177,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "authors": [
+    "@SimModer"
+   ],
    "files": [
     {
      "path": "packs/ka/Wolfpack_Data/Language/Official/English.xml",
@@ -178,6 +202,10 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "RenardS2",
+    "Manulyori"
+   ],
    "files": [
     {
      "path": "packs/ko/Wolfpack_Data/Languages/Community Korean.lang",
@@ -195,6 +223,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "Valentijn Kilian"
+   ],
    "files": [
     {
      "path": "packs/nl/Wolfpack_Data/Languages/Community Dutch.lang",
@@ -212,6 +243,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "laxentis"
+   ],
    "files": [
     {
      "path": "packs/pl/Wolfpack_Data/Languages/Community Polish.lang",
@@ -229,6 +263,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "wmundstock"
+   ],
    "files": [
     {
      "path": "packs/pt-BR/Wolfpack_Data/Languages/Community Portuguese (Brazil).lang",
@@ -246,6 +283,10 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "Steve",
+    "KindStone"
+   ],
    "files": [
     {
      "path": "packs/ru/Wolfpack_Data/Languages/Community Russian.lang",
@@ -263,6 +304,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated.",
+   "authors": [
+    "Mr-Space"
+   ],
    "files": [
     {
      "path": "packs/tr/Wolfpack_Data/Languages/Community Turkish.lang",
@@ -280,6 +324,9 @@
    "game_version": "0.26R6",
    "status": "needs-review",
    "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries.",
+   "authors": [
+    "@niclqs"
+   ],
    "files": [
     {
      "path": "packs/zh-Hans/Wolfpack_Data/Language/Official/English.xml",
