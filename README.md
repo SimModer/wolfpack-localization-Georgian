@@ -1,47 +1,27 @@
-# Wolfpack Localization Project
+# Wolfpack Localization
 
-> ⚠️ **Important Notice**: This project will be sunset on **June 30, 2026**, and will be continued by the organization **[Westflair Studio](https://github.com/westflair-studio)**.
+Community language packs for the submarine game *Wolfpack* (Usurpator, Steam).
 
----
+**Current game version: 0.26R6** | [Installation](docs/INSTALLATION.md) | [Contributing](CONTRIBUTING.md) | [Game updates](docs/GAME-UPDATES.md)
 
-# 🎮 Wolfpack Localization
+## Language packs (`packs/`)
 
-An open-source project to add localization support for the indie game *Wolfpack* (2026).
+| Code | Language | Status |
+|---|---|---|
+| `de` | Deutsch (historical Kriegsmarine terminology, plus AutoTranslator add-on) | complete |
+| `fr` `zh-Hans` `ka` | Français, 简体中文, ქართული | needs-review (tooltips translated) |
+| `nl` `es` `el` `it` `ja` `ko` `pl` `pt-BR` `ru` `tr` | Dutch, Spanish, Greek, Italian, Japanese, Korean, Polish, Portuguese (BR), Russian, Turkish | needs-review |
 
-This repository includes:
-- Community translations
-- Tools to install language packs
-- Documentation on how to add new languages
+"needs-review": migrated from game version 0.26/0.27 to the current key numbering; three new entries are still English. Help welcome!
 
-## 🌍 Languages Supported
+## Versions
+Every game version lives on its own branch (`version/0.26`, `version/0.27`, `version/0.26R6`); `main` is the newest.
 
-- English (Official)
-- Community translations for various languages
+## Start a new language
+Copy [`templates/new-language`](templates/new-language) to `packs/<code>`, translate, run `python tools/validate.py`, open a PR.
 
-## 🔄 How to Contribute
+## Deutsch
+Anleitung: [docs/INSTALLATION.md](docs/INSTALLATION.md). ZIP aus den Releases in den Wolfpack-Ordner entpacken (Dateien überschreiben). Für fest einprogrammierte Texte zusätzlich das AutoTranslator-Add-on installieren.
 
-We welcome all contributions! If you'd like to create a translation:
-1. Fork this repository
-2. Add your `.lang` file in the appropriate folder  
-3. Submit a pull request
-
-# 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🧑‍💻 Development Team
-
-This project was developed by the community and will be continued by **Westflair Studio** starting June 30, 2026.
-
-### 🌐 GitHub Organizations
-- [Westflair Studio](https://github.com/westflair-studio)
-
-## ⚙️ Future Plans
-
-The project will continue with:
-- More community translations
-- Improved installer tools
-- Automated build system
-- new structure
+## License
+MIT, see [LICENSE](LICENSE). Credits: [CREDITS.md](CREDITS.md).

@@ -1,0 +1,31 @@
+name: Translation error
+description: A wrong, missing or badly fitting translation
+labels: [translation]
+body:
+  - type: input
+    id: lang
+    attributes:
+      label: Language pack
+      placeholder: de
+    validations:
+      required: true
+  - type: input
+    id: key
+    attributes:
+      label: Key / location in the game
+      description: Key number from the .lang file or where you saw the text
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested text
+  - type: input
+    id: version
+    attributes:
+      label: Game version
+      placeholder: 0.26R6

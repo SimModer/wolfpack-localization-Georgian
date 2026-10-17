@@ -1,0 +1,13 @@
+{
+  "code": "ru",
+  "name": "Russian",
+  "native_name": "Русский",
+  "pack_version": "1.0.0",
+  "game_version": "0.26R6",
+  "status": "needs-review",
+  "tooltips_xml": false,
+  "authors": [
+    "Community"
+  ],
+  "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated."
+}

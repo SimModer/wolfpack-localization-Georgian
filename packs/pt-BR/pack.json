@@ -1,0 +1,13 @@
+{
+  "code": "pt-BR",
+  "name": "Portuguese (Brazil)",
+  "native_name": "Português (Brasil)",
+  "pack_version": "1.0.0",
+  "game_version": "0.26R6",
+  "status": "needs-review",
+  "tooltips_xml": false,
+  "authors": [
+    "Community"
+  ],
+  "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are not translated."
+}

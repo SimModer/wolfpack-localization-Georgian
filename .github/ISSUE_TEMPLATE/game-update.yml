@@ -1,0 +1,18 @@
+name: Game update outdates a pack
+description: The game was updated and a language pack no longer matches
+labels: [game-update]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: New game version
+      placeholder: 0.27
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens?
+      description: Wrong texts, empty texts, game does not start, ...
+    validations:
+      required: true

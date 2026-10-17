@@ -1,0 +1,13 @@
+{
+  "code": "de",
+  "name": "German",
+  "native_name": "Deutsch",
+  "pack_version": "1.0.0",
+  "game_version": "0.26R6",
+  "status": "complete",
+  "tooltips_xml": true,
+  "authors": [
+    "Community"
+  ],
+  "notes": "Fully translated for the current game version."
+}

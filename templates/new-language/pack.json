@@ -1,0 +1,11 @@
+{
+  "code": "xx",
+  "name": "YourLanguage (English name)",
+  "native_name": "YourLanguage (native name)",
+  "pack_version": "0.1.0",
+  "game_version": "0.26R6",
+  "status": "needs-review",
+  "tooltips_xml": true,
+  "authors": ["your GitHub name"],
+  "notes": ""
+}
