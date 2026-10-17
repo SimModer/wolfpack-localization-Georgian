@@ -1,3 +1,4 @@
 dist/
 untranslated_candidates.txt
 __pycache__/
+tool/build/
