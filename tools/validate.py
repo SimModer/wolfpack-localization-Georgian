@@ -6,6 +6,7 @@ Exit code 1 if any error was found (warnings do not fail).
 import json
 import re
 import sys
+import unicodedata
 import xml.etree.ElementTree as ET
 
 from common import *
@@ -18,11 +19,27 @@ def check_pack(pack, ref):
     if f is None:
         return ["no .lang file in Wolfpack_Data/Languages"], warnings
     try:
+        data = load_lang_full(f)
         header, entries = load_lang(f)
     except Exception as e:
         return [f"{f.name}: invalid JSON ({e})"], warnings
     if not header.strip():
         errors.append("empty header")
+    # all sections must exist with the same keys as the reference, otherwise the game hangs on start
+    full_ref = load_lang_full(REFERENCE_LANG)
+    for sec in SECTIONS[1:]:
+        if sec not in data:
+            errors.append(f"missing section '{sec}' (the game hangs on 'Loading languages')")
+            continue
+        keys = {p["key"] for p in data[sec]}
+        ref_keys = {p["key"] for p in full_ref[sec]}
+        if keys != ref_keys:
+            errors.append(f"{sec}: keys differ from the reference (missing {sorted(ref_keys - keys)}, unknown {sorted(keys - ref_keys)})")
+    for sec in SECTIONS:
+        for p in data.get(sec, []):
+            bad = [hex(ord(c)) for c in p["value"] if unicodedata.category(c) in ("Cc", "Cf", "Co", "Cn", "Zl", "Zp")]
+            if bad:
+                errors.append(f"{sec} key {p['key']}: invisible/control characters {bad}")
     for k in ref:
         if k not in entries:
             errors.append(f"missing key {k}")

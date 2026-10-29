@@ -503,8 +503,9 @@ struct XRow {
 static struct Editor {
     bool open = false;
     std::string code, name, native, author, filter;
-    bool only_untranslated = false, with_xml = true, view_xml = false;
-    std::vector<Row> rows;
+    bool only_untranslated = false, with_xml = true;
+    int view = 0;  // 0 strings, 1 tooltips, 2 units & morse
+    std::vector<Row> rows, srows, mrows;  // pairs, suffixPairs, morsePairs
     std::vector<XRow> xrows;
     std::string status;
     bool status_bad = false;
@@ -520,6 +521,8 @@ static void ed_blank() {
     ed = Editor();
     ed.open = true;
     for (auto& e : g_ref.entries) ed.rows.push_back({e.key, e.value, ""});
+    for (auto& e : g_ref.suffix) ed.srows.push_back({e.key, e.value, ""});
+    for (auto& e : g_ref.morse) ed.mrows.push_back({e.key, e.value, ""});
     for (auto& e : g_refxml.entries) ed.xrows.push_back({e.tag, e.text, ""});
 }
 
@@ -529,6 +532,13 @@ static void ed_fill(const LangFile* lf, const XmlFile* xf) {
     if (lf) for (auto& e : lf->entries) lv[e.key] = e.value;
     if (xf) for (auto& e : xf->entries) xv[e.tag] = e.text;
     for (auto& r : ed.rows) if (lv.count(r.key)) r.tr = lv[r.key];
+    if (lf) {
+        std::map<int, std::string> sv, mv;
+        for (auto& e : lf->suffix) sv[e.key] = e.value;
+        for (auto& e : lf->morse) mv[e.key] = e.value;
+        for (auto& r : ed.srows) if (sv.count(r.key)) r.tr = sv[r.key];
+        for (auto& r : ed.mrows) if (mv.count(r.key)) r.tr = mv[r.key];
+    }
     for (auto& r : ed.xrows) if (xv.count(r.tag)) r.tr = xv[r.tag];
     ed.with_xml = xf != nullptr;
     if (lf) ed.native = lf->header;
@@ -570,6 +580,8 @@ static LangFile ed_lang() {
     LangFile lf;
     lf.header = ed.native.empty() ? ed.name : ed.native;
     for (auto& r : ed.rows) lf.entries.push_back({r.key, r.tr.empty() ? r.en : r.tr});
+    for (auto& r : ed.srows) lf.suffix.push_back({r.key, r.tr.empty() ? r.en : r.tr});
+    for (auto& r : ed.mrows) lf.morse.push_back({r.key, r.tr.empty() ? r.en : r.tr});
     return lf;
 }
 
@@ -1105,7 +1117,7 @@ static void page_editor() {
     ImGui::BeginChild("tbl", ImVec2(0, -footer), ImGuiChildFlags_None);
     card_bg(ImGui::GetContentRegionAvail(), 12);
     const float row_h = px(40);
-    if (!ed.view_xml) {
+    if (ed.view == 0) {
         if (ImGui::BeginTable("rows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
             ImGui::TableSetupScrollFreeze(0, 1);
             ImGui::TableSetupColumn("Key", ImGuiTableColumnFlags_WidthFixed, px(64));
@@ -1135,7 +1147,7 @@ static void page_editor() {
             }
             ImGui::EndTable();
         }
-    } else if (ImGui::BeginTable("xrows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
+    } else if (ed.view == 1 && ImGui::BeginTable("xrows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
         ImGui::TableSetupScrollFreeze(0, 1);
         ImGui::TableSetupColumn("Tooltip", ImGuiTableColumnFlags_WidthFixed, px(230));
         ImGui::TableSetupColumn("English", ImGuiTableColumnFlags_WidthStretch, 1.f);
@@ -1159,6 +1171,35 @@ static void page_editor() {
             ImGui::PopID();
         }
         ImGui::EndTable();
+    } else if (ed.view == 2 && ImGui::BeginTable("srows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
+        // unit suffixes (" kts", " meters") and morse/radio phrases - both are required by the game
+        ImGui::TableSetupScrollFreeze(0, 1);
+        ImGui::TableSetupColumn("Entry", ImGuiTableColumnFlags_WidthFixed, px(140));
+        ImGui::TableSetupColumn("English", ImGuiTableColumnFlags_WidthStretch, 1.f);
+        ImGui::TableSetupColumn("Translation", ImGuiTableColumnFlags_WidthStretch, 1.4f);
+        ImGui::TableHeadersRow();
+        for (int part = 0; part < 2; ++part) {
+            auto& list = part == 0 ? ed.srows : ed.mrows;
+            for (int i = 0; i < (int)list.size(); ++i) {
+                Row& r = list[i];
+                std::string name = (part == 0 ? "Unit " : "Morse ") + std::to_string(r.key);
+                if (!match(r.en, r.tr, r.untranslated(), name)) continue;
+                ImGui::TableNextRow(0, row_h);
+                if (r.untranslated()) ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, U(kAccent, 0.05f));
+                ImGui::PushID(part * 1000 + i + 9000);
+                ImGui::TableSetColumnIndex(0);
+                ImGui::AlignTextToFramePadding();
+                ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%s", name.c_str());
+                ImGui::TableSetColumnIndex(1);
+                ImGui::AlignTextToFramePadding();
+                ImGui::TextUnformatted(r.en.c_str());
+                ImGui::TableSetColumnIndex(2);
+                ImGui::SetNextItemWidth(-1);
+                ImGui::InputTextWithHint("##s", r.en.c_str(), &r.tr);
+                ImGui::PopID();
+            }
+        }
+        ImGui::EndTable();
     }
     ImGui::EndChild();
 
@@ -1173,10 +1214,14 @@ static void page_editor() {
         ImGui::SameLine();
         if (btn("Open export folder", Ghost, ImVec2(0, bh))) open_folder(ed.exported);
     }
-    if (!ed.xrows.empty()) {
-        float rw = px(150) + px(250) + px(12);
+    {   // view switch: strings / tooltips / units & morse
+        float vw = px(132), rw = vw * 3 + px(12) * 2 + px(250) + px(12);
         ImGui::SameLine(ImGui::GetContentRegionMax().x - rw);
-        if (btn(ed.view_xml ? "Show strings" : "Edit tooltips", Secondary, ImVec2(px(150), bh))) ed.view_xml = !ed.view_xml;
+        static const char* views[] = {"Strings", "Tooltips", "Units & Morse"};
+        for (int v = 0; v < 3; ++v) {
+            if (v) ImGui::SameLine(0, px(12));
+            if (btn(views[v], ed.view == v ? Primary : Secondary, ImVec2(vw, bh), v != 1 || !ed.xrows.empty())) ed.view = v;
+        }
         ImGui::SameLine(0, px(12));
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (bh - ImGui::GetFontSize()) * 0.5f));
         ImGui::Checkbox("Include tooltips (English.xml)", &ed.with_xml);
@@ -1545,7 +1590,7 @@ static void footer(float W, float H) {
     ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
     float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
     float x = px(28);
-    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.1", px(1.4f));
+    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.2", px(1.4f));
 
     float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
     float rx = W - px(28) - rw;

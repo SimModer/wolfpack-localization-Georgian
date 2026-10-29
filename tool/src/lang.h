@@ -6,12 +6,17 @@ struct LangEntry {
     int key = 0;
     std::string value;
 };
+// A .lang file: header + three key/value lists. All three must be present, otherwise the game
+// hangs on "Loading languages" (NullReferenceException in Language.Generate).
 struct LangFile {
     std::string header;
-    std::vector<LangEntry> entries;
+    std::vector<LangEntry> entries;  // "pairs": UI texts
+    std::vector<LangEntry> suffix;   // "suffixPairs": unit suffixes (" kts", " meters", ...)
+    std::vector<LangEntry> morse;    // "morsePairs": radio/morse phrases
 };
 
 bool parse_lang(const std::string& text, LangFile& out, std::string& err);
+// Same format as the game writes: header, pairs, suffixPairs, morsePairs, 4-space indent, no trailing newline.
 std::string dump_lang(const LangFile& f);
 
 // Control tooltips (Language/Official/English.xml): flat list of <tag>text</tag> below the root element.

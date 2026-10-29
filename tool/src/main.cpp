@@ -193,6 +193,9 @@ static int selftest(const wchar_t* log) {
                     LangFile lf2; std::string e2;
                     bool rt = pok && parse_lang(dump_lang(lf), lf2, e2) && lf2.entries.size() == lf.entries.size() && lf2.header == lf.header;
                     check(rt && lf.entries.size() == 320, ("lang parse/dump " + p.code).c_str());
+                    // the game needs suffixPairs + morsePairs, and the tool must write byte-identical files
+                    check(lf.suffix.size() == 7 && lf.morse.size() == 12, ("lang has suffixPairs + morsePairs " + p.code).c_str());
+                    check(dump_lang(lf) == std::string(data.begin(), data.end()), ("lang written in game format " + p.code).c_str());
                 } else if (f.path.find("English.xml") != std::string::npos && read_file(tmp / u8_path(install_rel(p, f)), data)) {
                     XmlFile xf; std::string e;
                     bool pok = parse_xml(std::string(data.begin(), data.end()), xf, e);

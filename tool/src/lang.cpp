@@ -9,8 +9,14 @@ bool parse_lang(const std::string& text, LangFile& out, std::string& err) {
         size_t skip = (text.size() >= 3 && (unsigned char)text[0] == 0xEF && (unsigned char)text[1] == 0xBB && (unsigned char)text[2] == 0xBF) ? 3 : 0;
         json j = json::parse(text.begin() + skip, text.end());
         out.header = j.at("header").get<std::string>();
-        out.entries.clear();
-        for (auto& p : j.at("pairs")) out.entries.push_back({p.at("key").get<int>(), p.at("value").get<std::string>()});
+        auto read = [&](const char* name, std::vector<LangEntry>& dst) {
+            dst.clear();
+            if (j.contains(name))
+                for (auto& p : j.at(name)) dst.push_back({p.at("key").get<int>(), p.at("value").get<std::string>()});
+        };
+        read("pairs", out.entries);
+        read("suffixPairs", out.suffix);
+        read("morsePairs", out.morse);
         return true;
     } catch (const std::exception& e) {
         err = e.what();
@@ -19,10 +25,22 @@ bool parse_lang(const std::string& text, LangFile& out, std::string& err) {
 }
 
 std::string dump_lang(const LangFile& f) {
-    json pairs = json::array();
-    for (auto& e : f.entries) pairs.push_back({{"key", e.key}, {"value", e.value}});
-    json j = {{"header", f.header}, {"pairs", pairs}};
-    return j.dump(2, ' ', false) + "\n";
+    auto list = [](const std::vector<LangEntry>& v) {
+        nlohmann::ordered_json a = nlohmann::ordered_json::array();
+        for (auto& e : v) {
+            nlohmann::ordered_json p;
+            p["key"] = e.key;
+            p["value"] = e.value;
+            a.push_back(p);
+        }
+        return a;
+    };
+    nlohmann::ordered_json j;
+    j["header"] = f.header;
+    j["pairs"] = list(f.entries);
+    j["suffixPairs"] = list(f.suffix);
+    j["morsePairs"] = list(f.morse);
+    return j.dump(4, ' ', false);
 }
 
 static std::string unescape(const std::string& s) {

@@ -33,8 +33,8 @@
     },
     {
      "path": "packs/de/Wolfpack_Data/Languages/Community German.lang",
-     "size": 21432,
-     "sha256": "2d2d1a661790ca17fff72746f8ceb1d6adaf333db65864741b4dbc931710c51c"
+     "size": 29320,
+     "sha256": "a6e3b99fd88ea7548c96efef70f7e7a9bd3c7a14ee32f7eeefca1e8d15941a21"
     }
    ],
    "addon_files": [
@@ -179,8 +179,8 @@
    "files": [
     {
      "path": "packs/el/Wolfpack_Data/Languages/Community Greek.lang",
-     "size": 27670,
-     "sha256": "6657f799eb0411b2bd4e51ceb712eb2e44020ccb3fbe1946c6805e721f004cfc"
+     "size": 35654,
+     "sha256": "489104eb640eed06e63004a1474cd407675b37f8e704ea26f315aa2176e220ad"
     }
    ],
    "addon_files": []
@@ -224,8 +224,8 @@
    "files": [
     {
      "path": "packs/es/Wolfpack_Data/Languages/Community Spanish.lang",
-     "size": 21984,
-     "sha256": "53b4b45c336f9864faeccf334c2a1a58a35d07ca550243110e0d09b6c404f8c3"
+     "size": 29870,
+     "sha256": "e28c9eb2b6dece88cf0c5e0044f5d84033d99a004f3790c425983eeba11affdb"
     }
    ],
    "addon_files": []
@@ -249,8 +249,8 @@
     },
     {
      "path": "packs/fr/Wolfpack_Data/Languages/Community French.lang",
-     "size": 22199,
-     "sha256": "36de9a4717bb5d99c2dace29155a39b2229cfa4f77d57a74bee9a4fdefb0b24f"
+     "size": 30086,
+     "sha256": "43363eed3cb7866c66ecba45aca9b09dd7fbeddcdf4bf7798badb9c5b170f2b7"
     }
    ],
    "addon_files": []
@@ -269,8 +269,8 @@
    "files": [
     {
      "path": "packs/it/Wolfpack_Data/Languages/Community Italian.lang",
-     "size": 20458,
-     "sha256": "a3be98523f81ad0be3d5c1bc9cd54c2131a5a7210d02dbb7503184dbd6a74f51"
+     "size": 28322,
+     "sha256": "c3bd0901792ed7229940d73e9dda6c856a5d0e0dfedbb4fc2d941a8258d8a89c"
     }
    ],
    "addon_files": []
@@ -289,8 +289,8 @@
    "files": [
     {
      "path": "packs/ja/Wolfpack_Data/Languages/Community Japanese.lang",
-     "size": 22753,
-     "sha256": "814f6b76b027bcef5b53389825d3aa28e5f8f0f71671b7a20bdb957a5105f2e4"
+     "size": 30712,
+     "sha256": "3c51e6d4b4e414d24359d5002e91a9eddbee4ddf154cb537af65cf165d22a3e9"
     }
    ],
    "addon_files": []
@@ -314,8 +314,8 @@
     },
     {
      "path": "packs/ka/Wolfpack_Data/Languages/Community Georgian.lang",
-     "size": 29766,
-     "sha256": "c506ea659f531c6db0f5cdbade1d56eaffb981c3b969dbf57f17d9cc6b5287eb"
+     "size": 37938,
+     "sha256": "0bd595d330aed92efd738d31e723f1dc207b7392e51822ee41d7187474147482"
     }
    ],
    "addon_files": []
@@ -335,8 +335,8 @@
    "files": [
     {
      "path": "packs/ko/Wolfpack_Data/Languages/Community Korean.lang",
-     "size": 21255,
-     "sha256": "2438c77ca461293c46442626c55927759e904abfdfea087e84efdd8f3fad6961"
+     "size": 29095,
+     "sha256": "802739baf5e5a690234781ca016011886dc957c7b94a578e1d1be2401218a41d"
     }
    ],
    "addon_files": []
@@ -355,8 +355,8 @@
    "files": [
     {
      "path": "packs/nl/Wolfpack_Data/Languages/Community Dutch.lang",
-     "size": 21018,
-     "sha256": "5b26609312576e4e344c321fd1ade3af3beea892163733881712b87e18b094be"
+     "size": 28884,
+     "sha256": "508a4aad36fa5e4c7399cc966bcf8181ea249ab7659462fa116aba74351b2f08"
     }
    ],
    "addon_files": []
@@ -375,8 +375,8 @@
    "files": [
     {
      "path": "packs/pl/Wolfpack_Data/Languages/Community Polish.lang",
-     "size": 21015,
-     "sha256": "4e9f03e9651cd71b9f17d040270fa31071e3b01e06b020789534ae1a2e62468a"
+     "size": 28903,
+     "sha256": "2bc0a2bd695bc8d60293af034f7db00ba1266ab0182ff0ffa07915fd6028a130"
     }
    ],
    "addon_files": []
@@ -395,8 +395,8 @@
    "files": [
     {
      "path": "packs/pt-BR/Wolfpack_Data/Languages/Community Portuguese (Brazil).lang",
-     "size": 21764,
-     "sha256": "61cb275710fed1c6a1831330b3e44d9acf679cfd3c0a64028a937ca4a222fc02"
+     "size": 29641,
+     "sha256": "12bad5b998730749a0368b4732a89822c57834f9799b7c7af4428d3c0b84b06c"
     }
    ],
    "addon_files": []
@@ -416,8 +416,8 @@
    "files": [
     {
      "path": "packs/ru/Wolfpack_Data/Languages/Community Russian.lang",
-     "size": 26470,
-     "sha256": "a28128f1bbe46a6afdc719fcdd511c077dfd20e786d832412d62dcc61e50debe"
+     "size": 34482,
+     "sha256": "caeb07c28212d5580255521bcbf37ac702f6ef789953f0c9dbd982f15a2aa689"
     }
    ],
    "addon_files": []
@@ -436,8 +436,8 @@
    "files": [
     {
      "path": "packs/tr/Wolfpack_Data/Languages/Community Turkish.lang",
-     "size": 21621,
-     "sha256": "1af4e8cccd325e5e281962cc0d5044e45b39369c2239155c2c24419e9905e10c"
+     "size": 29490,
+     "sha256": "aa1bb84c92b2b3518a13ae8e913ff25c790f605d2532cd5f76dd2ed1614169fe"
     }
    ],
    "addon_files": []
@@ -461,8 +461,8 @@
     },
     {
      "path": "packs/zh-Hans/Wolfpack_Data/Languages/Community Chinese (Simplified).lang",
-     "size": 20523,
-     "sha256": "21cde13a5893c1faba28bea1f53769d46f4f71c64d1122946940feeb0e1fbaaf"
+     "size": 28392,
+     "sha256": "667cb959b8cb1d06f0f42df41af376a321bb019e43cf44c0ed170c7b70401469"
     }
    ],
    "addon_files": []

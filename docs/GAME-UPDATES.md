@@ -5,7 +5,7 @@
 3. Copy `Wolfpack_Data/Languages/Official English.lang` to `reference/English.lang` and, if it changed, the official `English.xml` to `reference/English.xml`. Update `reference/VERSION.json`.
 4. **Check whether keys were inserted in the middle.** The numbering shifts when the developers add an entry (this happened with `Very Large` at key 163). Existing packs must then be re-keyed by matching the English text of the old and the new file; a plain `sync.py` would put translations on the wrong keys.
 4b. Also copy both reference files to `packs/en/Wolfpack_Data/...` (only the newest version is kept; older ones are in the version branches).
-5. `python tools/sync.py` adds missing keys (English text as placeholder) to every pack.
+5. `python tools/sync.py` adds missing keys (English text as placeholder) to every pack, in all three lists (`pairs`, `suffixPairs`, `morsePairs`).
 6. `python tools/validate.py`, `python tools/build_index.py`, translate the new entries, bump `game_version` / `pack_version` in each `pack.json`.
 7. `python tools/build.py`, tag `v<pack-version>` and attach `dist/*.zip` to a release.
 
