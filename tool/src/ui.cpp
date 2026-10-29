@@ -13,6 +13,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "bepinex.h"
 #include "flags.h"
 #include "game.h"
 #include "http.h"
@@ -416,7 +417,40 @@ static std::string local_hash(const fs::path& f) {
 // A pack counts as installed when its language file exists. It has an update when a language file differs
 // from the repository (e.g. after a merged pull request). The tooltip file English.xml is one shared slot
 // in the game, so it only counts when the installed copy matches no pack at all (stale).
+static BepInExState g_bep;       // BepInEx in the game folder
+static Task g_bep_task;           // install running
+static std::string g_bep_msg;     // last BepInEx result (guarded by g_data)
+static bool g_bep_msg_bad = false;
+static bool g_bep_confirm = false;
+
+static void bep_install_async() {
+    if (g_bep_task.running.exchange(true)) return;
+    g_bep_task.set(0.f, "");
+    fs::path root = g_root;
+    std::thread([root] {
+        BepInExResult r = bepinex_install(root, [](float p, const std::string& m) { g_bep_task.set(p, m); });
+        {
+            std::lock_guard<std::mutex> l(g_data);
+            g_bep_msg = r.ok ? "BepInEx installed. Start the game once - the first start sets BepInEx up and takes a while." : "ERROR: " + r.error;
+            g_bep_msg_bad = !r.ok;
+            if (r.need_admin) g_need_admin = true;
+        }
+        g_installed_dirty = true;
+        g_bep_task.running = false;
+    }).detach();
+}
+
+static void bep_uninstall() {
+    BepInExResult r = bepinex_uninstall(g_root);
+    std::lock_guard<std::mutex> l(g_data);
+    g_bep_msg = r.ok ? "BepInEx removed (including its plugins and settings)." : "ERROR: " + r.error;
+    g_bep_msg_bad = !r.ok;
+    if (r.need_admin) g_need_admin = true;
+    g_installed_dirty = true;
+}
+
 static void refresh_installed() {
+    g_bep = bepinex_state(g_root);
     g_installed.clear();
     g_state.clear();
     g_wpl = Wpl();
@@ -918,16 +952,29 @@ static void page_install() {
             callout(w.c_str(), kWarn, nullptr, inner);
         }
         bool can_addon = !p.addon_files.empty();
-        bool bepinex = !g_root.empty() && fs::exists(g_root / L"BepInEx" / L"core");
+        bool bepinex = !g_root.empty() && g_bep.installed;
         if (can_addon) {
-            ImGui::BeginDisabled(!bepinex);
-            ImGui::Checkbox("Install the add-on for hard-coded texts", &g_with_addon);
-            ImGui::EndDisabled();
-            if (!bepinex) {
+            bool locked = g_root.empty() || g_game_running || g_install_task.running;
+            if (g_bep_task.running) {
+                progress_bar(g_bep_task.progress);
+                ImGui::TextColored(kMuted, "%s", g_bep_task.get().c_str());
+            } else if (!bepinex) {
                 ImGui::AlignTextToFramePadding();
-                ImGui::TextColored(kMuted, "Needs BepInEx 6 (IL2CPP).");
+                ImGui::TextColored(kMuted, "Add-on needs BepInEx 6.");
                 ImGui::SameLine();
-                if (btn("Get BepInEx", Ghost, ImVec2(0, px(28)))) open_url("https://github.com/BepInEx/BepInEx");
+                if (btn("Install BepInEx", Secondary, ImVec2(0, px(30)), !locked)) bep_install_async();
+            } else {
+                ImGui::Checkbox("Install the add-on for hard-coded texts", &g_with_addon);
+                ImGui::AlignTextToFramePadding();
+                ImGui::TextColored(kMuted, "BepInEx %s installed.", g_bep.version.empty() ? "6" : g_bep.version.c_str());
+                ImGui::SameLine();
+                if (btn("Uninstall", Ghost, ImVec2(0, px(28)), !locked)) g_bep_confirm = true;
+            }
+            std::lock_guard<std::mutex> l(g_data);
+            if (!g_bep_msg.empty()) {
+                ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + inner);
+                ImGui::TextColored(g_bep_msg_bad ? kBad : kGood, "%s", g_bep_msg.c_str());
+                ImGui::PopTextWrapPos();
             }
         }
 
@@ -1414,7 +1461,8 @@ static void page_dashboard() {
         ImVec4 cc = g_game_ver.empty() || idx_game.empty() ? kMuted : g_game_ver == idx_game ? kAccent : kWarn;
         kv_row("Compatibility", cmp, cc, inner);
     }
-    kv_row("Translated", std::to_string(std::count_if(packs.begin(), packs.end(), [](const Pack& p) { return p.status == "complete" || p.status == "original"; })) + " of " + std::to_string(packs.size()) + " complete", kText, inner);
+    kv_row("BepInEx (add-ons)", g_root.empty() ? "-" : g_bep.installed ? (g_bep.version.empty() ? std::string("Installed") : g_bep.version) : std::string("Not installed"),
+           g_bep.installed ? kAccent : kMuted, inner);
     kv_row("Last check", last_check.empty() ? "-" : last_check, kText, inner);
     ImGui::PopItemWidth();
     ImGui::SetCursorPosY(cards_h - px(54));
@@ -1590,7 +1638,7 @@ static void footer(float W, float H) {
     ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
     float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
     float x = px(28);
-    stext(dl, ImVec2(x, ty), U(kMuted), "V1.0.2", px(1.4f));
+    stext(dl, ImVec2(x, ty), U(kMuted), "V1.1.0", px(1.4f));
 
     float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
     float rx = W - px(28) - rw;
@@ -1702,6 +1750,32 @@ bool ui_frame(float scale) {
     ImGui::EndChild();
 
     footer(W, H);
+
+    if (g_bep_confirm) {
+        ImGui::OpenPopup("##bep_uninstall");
+        g_bep_confirm = false;
+    }
+    ImGui::SetNextWindowPos(ImVec2(W * 0.5f, H * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+    ImGui::SetNextWindowSize(ImVec2(px(460), 0));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(px(24), px(22)));
+    ImGui::PushStyleColor(ImGuiCol_ModalWindowDimBg, ImVec4(0, 0, 0, 0.65f));
+    if (ImGui::BeginPopupModal("##bep_uninstall", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
+        eyebrow("BepInEx");
+        heading("UNINSTALL?", 1.5f);
+        ImGui::PushTextWrapPos(px(460) - px(24));
+        ImGui::TextColored(kMuted, "This removes the BepInEx folder from the game, including all BepInEx plugins, their settings and the add-on texts. Language packs stay installed.");
+        ImGui::PopTextWrapPos();
+        ImGui::Dummy(ImVec2(0, px(6)));
+        if (btn("Uninstall", Amber, ImVec2(px(160), px(40)))) {
+            bep_uninstall();
+            ImGui::CloseCurrentPopup();
+        }
+        ImGui::SameLine(0, px(12));
+        if (btn("Cancel", Secondary, ImVec2(px(160), px(40)))) ImGui::CloseCurrentPopup();
+        ImGui::EndPopup();
+    }
+    ImGui::PopStyleColor();
+    ImGui::PopStyleVar();
     ImGui::End();
     return true;
 }

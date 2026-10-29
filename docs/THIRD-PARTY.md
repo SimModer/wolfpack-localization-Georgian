@@ -3,7 +3,7 @@
 | Component | Where | License |
 |---|---|---|
 | [XUnity.AutoTranslator](https://github.com/bbepis/XUnity.AutoTranslator) and ResourceRedirector (DLLs, readme) | `packs/de/addons/autotranslator/BepInEx/plugins` | MIT, see below |
-| [BepInEx 6 (IL2CPP)](https://github.com/BepInEx/BepInEx) | **not** included, must be installed by the player first | LGPL-2.1 |
+| [BepInEx 6 (IL2CPP)](https://github.com/BepInEx/BepInEx) | **not** included in the repository; the tool downloads the official release `6.0.0-pre.2` on request (SHA-256 pinned) | LGPL-2.1 |
 | German AutoTranslator texts, texture `fish_1` and config | `packs/de/addons/autotranslator` | taken over from [Apade1/Wolfpack-German-Localization](https://github.com/Apade1/Wolfpack-German-Localization) with the permission of the repository owner; the texture is not modified |
 | [Dear ImGui](https://github.com/ocornut/imgui), [nlohmann/json](https://github.com/nlohmann/json) | built into the tool | MIT |
 | [stb_image](https://github.com/nothings/stb) | `tool/third_party` | public domain / MIT |

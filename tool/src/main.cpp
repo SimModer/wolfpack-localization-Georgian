@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cstdio>
 
+#include "bepinex.h"
 #include "game.h"
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -212,6 +213,21 @@ static int selftest(const wchar_t* log) {
             Wpl w = read_wpl(tmp);
             check(langs == 1 && w.present && w.pack == idx.packs.back().code, "single install: one community .lang + matching .wpl");
         }
+        fs::remove_all(tmp, ec);
+    }
+    if (GetEnvironmentVariableA("WOLFPACK_TEST_BEPINEX", nullptr, 0) > 0) {  // downloads 34 MB, so only on request
+        std::error_code ec;
+        fs::path tmp = fs::temp_directory_path() / L"wolfpack_l10n_bepinex_test";
+        fs::remove_all(tmp, ec);
+        fs::create_directories(tmp, ec);
+        BepInExResult r = bepinex_install(tmp, [](float, const std::string&) {});
+        BepInExState s = bepinex_state(tmp);
+        check(r.ok && s.installed && s.by_tool && s.version == bepinex_version(), ("bepinex install " + r.error).c_str());
+        r = bepinex_uninstall(tmp);
+        size_t left = 0;
+        for (auto& e : fs::directory_iterator(tmp, ec)) { (void)e; ++left; }
+        check(r.ok && !bepinex_state(tmp).installed && left == 0, "bepinex uninstall removes every file");
+        for (auto& e : fs::directory_iterator(tmp, ec)) printf("    left: %s\n", path_u8(e.path().filename()).c_str());
         fs::remove_all(tmp, ec);
     }
     printf(fail ? "SELFTEST FAILED (%d)\n" : "SELFTEST OK\n", fail);
