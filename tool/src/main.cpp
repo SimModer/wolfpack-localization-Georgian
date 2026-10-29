@@ -231,6 +231,11 @@ static int selftest(const wchar_t* log) {
                     for (size_t i = 0; same && i < at.size(); ++i) same = at[i].src == again[i].src && at[i].dst == again[i].dst;
                     check(same, ("add-on texts round trip " + p.code).c_str());
                 }
+        check(at_key("a=b\r\nc") == "a\\=b\\nc", "add-on key escaping");
+        check(at_config("de", true).find("Endpoint=Passthrough") != std::string::npos &&
+                  at_config("de", true).find("FoundTexts.txt") != std::string::npos &&
+                  at_config("de").find("Endpoint=NullTranslator") != std::string::npos,
+              "add-on collect config");
     }
     if (GetEnvironmentVariableA("WOLFPACK_TEST_BEPINEX", nullptr, 0) > 0) {  // downloads 34 MB, so only on request
         std::error_code ec;

@@ -7,5 +7,8 @@ Some texts of Wolfpack are not read from `Languages/*.lang` but are written dire
 ## Where the list comes from
 The candidates were collected from the file of the community project [Apade1/Wolfpack-German-Localization](https://github.com/Apade1/Wolfpack-German-Localization) (English side only) and each text was verified in our own game files. The German texts, the texture and the plugin files in the add-on were taken over from that repository (see `docs/THIRD-PARTY.md`). Texts that are produced dynamically or only exist in the tooltips file are not listed.
 
+## Finding more texts
+The list is not complete. In the language tool (Editor, view *BepInEx*) a missing text can be added by hand (*Add text*), or collected while playing: tick *Collect new texts*, press *Test in game* and play. The AutoTranslator then uses its `Passthrough` endpoint and writes every text it sees to `BepInEx/Translation/<lang>/FoundTexts.txt`. Close the game and press *Import found*; texts the game already translates through the `.lang` file and texts already in the list are skipped. This mode is for translators only, normal installs keep `Endpoint=NullTranslator`.
+
 ## Not changed
 Textures (images such as the `fish_1` sign) are not modified or redistributed.

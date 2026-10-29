@@ -15,5 +15,8 @@ std::string dump_at(const std::vector<AtEntry>& entries);
 std::vector<std::string> parse_hardcoded(const std::string& text);
 // escapes '=' that is not escaped yet
 std::string at_escape(const std::string& s);
-// minimal AutoTranslator config for a language code (offline, no online translator)
-std::string at_config(const std::string& code);
+// minimal AutoTranslator config for a language code (offline, no online translator).
+// collect: every text the plugin sees is written to Translation/<code>/FoundTexts.txt
+std::string at_config(const std::string& code, bool collect = false);
+// texts in the format of the AutoTranslator files: '=' and line breaks escaped
+std::string at_key(const std::string& s);
