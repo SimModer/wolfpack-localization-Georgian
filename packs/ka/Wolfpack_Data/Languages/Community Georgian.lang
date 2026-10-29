@@ -1,5 +1,5 @@
 {
-    "header": "Georgian",
+    "header": "ქართული",
     "pairs": [
         {
             "key": -1,
@@ -31,7 +31,7 @@
         },
         {
             "key": 25,
-            "value": "ავტორები"
+            "value": "ტიტრები"
         },
         {
             "key": 26,
@@ -659,7 +659,7 @@
         },
         {
             "key": 163,
-            "value": "Very Large"
+            "value": "ყველაზე დიდი"
         },
         {
             "key": 164,
@@ -675,7 +675,7 @@
         },
         {
             "key": 167,
-            "value": "დააჭირეთ Steam Workshop-ზე მისიების სანახავად!"
+            "value": "დააჭირეთ აქ, Steam Workshop-ზე მისიების სანახავად!"
         },
         {
             "key": 168,
@@ -819,19 +819,19 @@
         },
         {
             "key": 203,
-            "value": "Lower Forward Diveplanes"
+            "value": "წინა სიღრმის საჭეების დაწევა"
         },
         {
             "key": 204,
-            "value": "Raise Forward Diveplanes"
+            "value": "წინა სიღრმის საჭეების აწევა"
         },
         {
             "key": 205,
-            "value": "Lower Aft Diveplanes"
+            "value": "უკანა სიღრმის საჭეების დაწევა"
         },
         {
             "key": 206,
-            "value": "Raise Aft Diveplanes"
+            "value": "უკანა სიღრმის საჭეების აწევა"
         },
         {
             "key": 207,
@@ -851,11 +851,11 @@
         },
         {
             "key": 211,
-            "value": "Center Forward Diveplane"
+            "value": "წინა სიღრმის საჭის ცენტრირება"
         },
         {
             "key": 212,
-            "value": "Center Aft Diveplane"
+            "value": "უკანა სიღრმის საჭეების ცენტრირება"
         },
         {
             "key": 213,
@@ -1111,11 +1111,11 @@
         },
         {
             "key": 277,
-            "value": "End Game (victory)"
+            "value": "თამაშის დასასრული (გამარჯვება)"
         },
         {
             "key": 276,
-            "value": "Abort Game"
+            "value": "თამაშის გაუქმება"
         },
         {
             "key": 278,
@@ -1191,7 +1191,7 @@
         },
         {
             "key": 296,
-            "value": "გაშიფრული შეტყობინება"
+            "value": "დეკოდირებული შეტყობინება"
         },
         {
             "key": 297,
@@ -1223,7 +1223,7 @@
         },
         {
             "key": 304,
-            "value": "მაუწყებლობა"
+            "value": "Broadcast"
         },
         {
             "key": 305,
@@ -1347,7 +1347,7 @@
         },
         {
             "key": 7,
-            "value": "კი"
+            "value": "დიახ"
         },
         {
             "key": 8,
