@@ -555,6 +555,7 @@ static struct Editor {
     int view = 0;  // 0 strings, 1 tooltips, 2 units & morse
     std::vector<Row> rows, srows, mrows;  // pairs, suffixPairs, morsePairs
     std::vector<XRow> xrows;
+    std::string add_en, add_tr;  // BepInEx view: new text seen in the game
     std::vector<XRow> hrows;  // BepInEx add-on: tag = "" for texts from the reference list, "custom" for extra/regex lines
     std::string status;
     bool status_bad = false;
@@ -1193,6 +1194,35 @@ static void page_editor() {
         float W = ImGui::GetContentRegionAvail().x;
         float right = px(176) + px(190) + px(170) + gap * 4;  // checkbox + counter + progress
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(px(12), (row_h - ImGui::GetFontSize()) * 0.5f));
+        if (ed.view == 3) {  // search + add a text you saw in the game that is not in the list yet
+            const float bw = px(140);
+            float iw = W - bw - gap * 3;
+            ImGui::SetNextItemWidth(iw * 0.30f);
+            ImGui::InputTextWithHint("##flt", "Search", &ed.filter);
+            ImGui::SameLine(0, gap);
+            ImGui::SetNextItemWidth(iw * 0.40f);
+            bool enter = ImGui::InputTextWithHint("##add_en", "New: English text as in the game (r: = regex)", &ed.add_en, ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::SameLine(0, gap);
+            ImGui::SetNextItemWidth(iw * 0.30f);
+            enter |= ImGui::InputTextWithHint("##add_tr", "Translation", &ed.add_tr, ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::SameLine(0, gap);
+            if ((btn("Add text", Primary, ImVec2(bw, row_h), !ed.add_en.empty()) || enter) && !ed.add_en.empty()) {
+                std::string src = at_escape(ed.add_en);
+                bool found = false;
+                for (auto& r : ed.hrows)
+                    if (r.en == src) {
+                        if (!ed.add_tr.empty()) r.tr = ed.add_tr;
+                        found = true;
+                    }
+                if (!found) ed.hrows.push_back({"custom", src, ed.add_tr});
+                ed.status = found ? "This text is already in the list (search shows it)." : "Added as custom text at the end of the list. Export or test in game to use it.";
+                ed.status_bad = false;
+                ed.filter = found ? ed.add_en : "";
+                ed.add_en.clear();
+                ed.add_tr.clear();
+            }
+            ImGui::PopStyleVar();
+        } else {
         ImGui::SetNextItemWidth(std::max(px(200), W - right));
         ImGui::InputTextWithHint("##flt", "Search key, English or translation", &ed.filter);
         ImGui::SameLine(0, gap);
@@ -1209,6 +1239,7 @@ static void page_editor() {
         dl->AddRectFilled(ImVec2(p.x, by), ImVec2(p.x + bw * f, by + px(4)), U(kAccent));
         ImGui::Dummy(ImVec2(bw, row_h));
         ImGui::PopStyleVar();
+        }
     }
 
     std::string f = lower(ed.filter);
@@ -1221,7 +1252,7 @@ static void page_editor() {
     for (int i = 0; i < (int)ed.rows.size(); ++i)
         if (match(ed.rows[i].en, ed.rows[i].tr, ed.rows[i].untranslated(), std::to_string(ed.rows[i].key))) idx.push_back(i);
 
-    float footer = px(56) + (ed.status.empty() ? 0 : px(70));
+    float footer = px(56) + (ed.status.empty() ? 0 : px(40));
     ImGui::BeginChild("tbl", ImVec2(0, -footer), ImGuiChildFlags_None);
     card_bg(ImGui::GetContentRegionAvail(), 12);
     const float row_h = px(40);
@@ -1282,13 +1313,14 @@ static void page_editor() {
     } else if (ed.view == 3 && ImGui::BeginTable("hrows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
         // hard-coded texts, translated at runtime by the BepInEx add-on (XUnity.AutoTranslator)
         ImGui::TableSetupScrollFreeze(0, 1);
-        ImGui::TableSetupColumn("#", ImGuiTableColumnFlags_WidthFixed, px(64));
+        ImGui::TableSetupColumn("#", ImGuiTableColumnFlags_WidthFixed, px(88));
         ImGui::TableSetupColumn("English (in-game text)", ImGuiTableColumnFlags_WidthStretch, 1.f);
         ImGui::TableSetupColumn("Translation", ImGuiTableColumnFlags_WidthStretch, 1.4f);
         ImGui::TableHeadersRow();
         std::vector<int> hidx;
         for (int i = 0; i < (int)ed.hrows.size(); ++i)
             if (match(ed.hrows[i].en, ed.hrows[i].tr, ed.hrows[i].untranslated(), ed.hrows[i].tag)) hidx.push_back(i);
+        int remove = -1;
         ImGuiListClipper clip;
         clip.Begin((int)hidx.size(), row_h);
         while (clip.Step()) {
@@ -1299,8 +1331,11 @@ static void page_editor() {
                 ImGui::PushID(hidx[n] + 20000);
                 ImGui::TableSetColumnIndex(0);
                 ImGui::AlignTextToFramePadding();
-                if (r.tag == "custom") ImGui::TextColored(kInfo, "custom");
-                else ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%d", hidx[n] + 1);
+                if (r.tag == "custom") {  // own entries can be removed again
+                    if (btn("Remove", Ghost, ImVec2(px(80), px(30)))) remove = hidx[n];
+                } else {
+                    ImGui::TextColored(r.untranslated() ? kAccent : kMuted, "%d", hidx[n] + 1);
+                }
                 ImGui::TableSetColumnIndex(1);
                 ImGui::AlignTextToFramePadding();
                 ImGui::TextUnformatted(r.en.c_str());
@@ -1312,6 +1347,7 @@ static void page_editor() {
             }
         }
         ImGui::EndTable();
+        if (remove >= 0) ed.hrows.erase(ed.hrows.begin() + remove);
     } else if (ed.view == 2 && ImGui::BeginTable("srows", 3, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_PadOuterX)) {
         // unit suffixes (" kts", " meters") and morse/radio phrases - both are required by the game
         ImGui::TableSetupScrollFreeze(0, 1);
@@ -1344,7 +1380,19 @@ static void page_editor() {
     }
     ImGui::EndChild();
 
-    if (!ed.status.empty()) callout(ed.status.c_str(), ed.status_bad ? kBad : kGood);
+    if (!ed.status.empty()) {  // one line, so the table keeps its space
+        ImVec4 c = ed.status_bad ? kBad : kGood;
+        ImVec2 p = ImGui::GetCursorScreenPos();
+        float w = ImGui::GetContentRegionAvail().x, h = px(30);
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), U(c, 0.08f));
+        dl->AddRectFilled(p, ImVec2(p.x + px(3), p.y + h), U(c));
+        dl->PushClipRect(p, ImVec2(p.x + w - px(8), p.y + h), true);
+        dl->AddText(ImVec2(p.x + px(14), p.y + (h - ImGui::GetTextLineHeight()) * 0.5f), U(kText), ed.status.c_str());
+        dl->PopClipRect();
+        if (ImGui::IsMouseHoveringRect(p, ImVec2(p.x + w, p.y + h))) ImGui::SetTooltip("%s", ed.status.c_str());
+        ImGui::Dummy(ImVec2(w, h + px(4)));
+    }
 
     // ---- one action row: buttons on the left, tooltip options on the right
     const float bh = px(42);

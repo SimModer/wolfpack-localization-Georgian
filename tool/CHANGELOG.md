@@ -2,6 +2,8 @@
 
 ## 1.2.0 (2026-10-29)
 - **Editor: new view "BepInEx"** for the hard-coded in-game texts (234 texts from `reference/hardcoded-en.txt`). Existing add-on translations (e.g. German) are loaded, extra and regex lines are kept as *custom*.
+- **Add text:** saw an English text in the game that is not in the list? Type it in the BepInEx view, add a translation and press *Add text* (also works with `r:` regular expressions). Own entries can be removed again.
+- Editor messages are shown as a single line, so the table keeps its space.
 - *Export for GitHub* writes the add-on (`addons/autotranslator`: texts + config) next to the language files; *Test in game* installs it too when BepInEx is installed.
 - The AutoTranslator plugins are shared: add-ons of new languages only need their texts, the tool installs the plugins.
 
