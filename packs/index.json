@@ -437,11 +437,11 @@
   {
    "code": "ka",
    "name": "Georgian",
-   "native_name": "Georgian",
-   "pack_version": "0.1.0",
+   "native_name": "ქართული",
+   "pack_version": "1.1.0",
    "game_version": "0.26R6",
    "status": "partial",
-   "notes": "",
+   "notes": "Menus, tooltips and hard-coded texts (BepInEx add-on) translated; a few texts stay English on purpose.",
    "authors": [
     "@SimModer"
    ],

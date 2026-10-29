@@ -1,13 +1,13 @@
 {
+  "code": "ka",
+  "name": "Georgian",
+  "native_name": "ქართული",
+  "pack_version": "1.1.0",
+  "game_version": "0.26R6",
+  "status": "partial",
+  "tooltips_xml": true,
   "authors": [
     "@SimModer"
   ],
-  "code": "ka",
-  "game_version": "0.26R6",
-  "name": "Georgian",
-  "native_name": "Georgian",
-  "notes": "",
-  "pack_version": "0.1.0",
-  "status": "partial",
-  "tooltips_xml": true
+  "notes": "Menus, tooltips and hard-coded texts (BepInEx add-on) translated; a few texts stay English on purpose."
 }
