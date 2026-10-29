@@ -273,6 +273,9 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR cmdline, int) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = nullptr;  // portable: never write files next to the exe
+#ifdef NDEBUG
+    io.ConfigDebugHighlightIdConflicts = false;  // developer warning, never show it to players
+#endif
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_dev, g_ctx);

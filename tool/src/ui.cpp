@@ -1549,7 +1549,9 @@ static void page_changelog() {
         if (!c.url.empty()) {   // READ MORE button, right aligned on the entry
             bool is_pr = c.url.find("/pull/") != std::string::npos;
             ImGui::SetCursorScreenPos(ImVec2(p.x + (w - px(24) * 2) - px(150), p.y + px(2)));
+            ImGui::PushID((int)i);  // the same label repeats for every entry
             if (btn(is_pr ? "View pull request" : "Read more", Ghost, ImVec2(px(150), px(32)))) open_url(c.url.c_str());
+            ImGui::PopID();
             ImGui::SetCursorScreenPos(ImVec2(p.x, y1));
         }
         dl->AddLine(ImVec2(p.x + px(6), p.y + px(14)), ImVec2(p.x + px(6), y1 + px(8)), U(kBorder), px(1.5f));
