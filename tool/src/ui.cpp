@@ -551,6 +551,7 @@ struct XRow {
 static struct Editor {
     bool open = false;
     std::string code, name, native, author, filter;
+    Pack base;  // the pack opened from GitHub: its pack.json is kept on export
     bool only_untranslated = false, with_xml = true, collect = false;  // collect: test in game writes the texts it sees to FoundTexts.txt
     int view = 0;  // 0 strings, 1 tooltips, 2 units & morse
     std::vector<Row> rows, srows, mrows;  // pairs, suffixPairs, morsePairs
@@ -640,6 +641,7 @@ static void ed_open_pack_async(Pack pack) {
         ed_fill(has_l ? &lf : nullptr, has_x ? &xf : nullptr);
         ed_fill_addon(at);
         ed.code = pack.code;
+        ed.base = pack;
         ed.name = pack.name;
         if (ed.native.empty()) ed.native = pack.native_name;
         g_open_task.running = false;
@@ -707,6 +709,20 @@ static void ed_export() {
         nlohmann::json meta = {{"code", ed.code}, {"name", ed.name}, {"native_name", ed.native.empty() ? ed.name : ed.native},
                                {"pack_version", "0.1.0"}, {"game_version", gv}, {"status", "needs-review"},
                                {"tooltips_xml", ed.with_xml}, {"authors", {ed.author.empty() ? "your GitHub name" : ed.author}}, {"notes", ""}};
+        if (ed.base.code == ed.code) {  // update of an existing pack: keep its pack.json, raise the minor version
+            const Pack& b = ed.base;
+            int ma = 0, mi = 0;
+            sscanf_s(b.pack_version.c_str(), "%d.%d", &ma, &mi);
+            meta["native_name"] = b.native_name.empty() ? meta["native_name"] : nlohmann::json(b.native_name);
+            meta["pack_version"] = std::to_string(ma) + "." + std::to_string(mi + 1) + ".0";
+            meta["status"] = b.status.empty() ? "needs-review" : b.status;
+            meta["notes"] = b.notes;
+            nlohmann::json authors = b.authors;
+            std::string me = ed.author;
+            if (!me.empty() && me[0] != '@' && me.find(' ') == std::string::npos) me = "@" + me;
+            if (!me.empty() && std::find(b.authors.begin(), b.authors.end(), me) == b.authors.end()) authors.push_back(me);
+            if (!authors.empty()) meta["authors"] = authors;
+        }
         std::string m = meta.dump(2, ' ', false) + "\n";
         ok = write_file_atomic(dir / L"pack.json", m.data(), m.size(), err);
     }

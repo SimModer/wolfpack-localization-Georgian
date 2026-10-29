@@ -1,5 +1,8 @@
 # Wolfpack Language Tool - Changelog
 
+## 1.2.1 (unreleased)
+- *Export for GitHub* of an opened pack keeps its `pack.json` (name shown in the tool, status, notes, authors) and raises the version (e.g. 1.0.0 -> 1.1.0) instead of resetting it to 0.1.0. Your GitHub name is added to the authors.
+
 ## 1.2.0 (2026-10-29)
 - **Editor: new view "BepInEx"** for the hard-coded in-game texts (234 texts from `reference/hardcoded-en.txt`). Existing add-on translations (e.g. German) are loaded, extra and regex lines are kept as *custom*.
 - **Add text:** saw an English text in the game that is not in the list? Type it in the BepInEx view, add a translation and press *Add text* (also works with `r:` regular expressions). Own entries can be removed again.
