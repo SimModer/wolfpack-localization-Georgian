@@ -1,13 +1,13 @@
 {
-  "code": "ka",
-  "name": "Georgian",
-  "native_name": "ქართული",
-  "pack_version": "1.0.0",
-  "game_version": "0.26R6",
-  "status": "needs-review",
-  "tooltips_xml": true,
   "authors": [
     "@SimModer"
   ],
-  "notes": "Migrated from older game version. Entries 'Very Large', 'Abort Game' and 'End Game (victory)' are still English; tooltips (English.xml) are translated but may lack newer entries."
+  "code": "ka",
+  "game_version": "0.26R6",
+  "name": "Georgian",
+  "native_name": "Georgian",
+  "notes": "",
+  "pack_version": "0.1.0",
+  "status": "partial",
+  "tooltips_xml": true
 }
