@@ -9,6 +9,7 @@ struct PackFile {
     std::string path;  // repo-relative, e.g. packs/de/Wolfpack_Data/Languages/Community German.lang
     size_t size = 0;
     std::string sha256;
+    std::string dest;  // shared add-on files only: path inside the game folder
 };
 
 struct Pack {
@@ -24,6 +25,8 @@ struct Pack {
 struct Index {
     std::string game_version;
     std::vector<PackFile> reference;  // English.lang, English.xml
+    PackFile hardcoded;               // reference/hardcoded-en.txt (texts for the BepInEx add-on), path empty if missing
+    std::vector<PackFile> addon_shared;  // XUnity.AutoTranslator plugins, installed with every add-on that has none of its own
     std::vector<Pack> packs;
 };
 
@@ -63,4 +66,5 @@ InstallResult apply_install(const fs::path& game_root, const std::string& pack_c
                             const std::string& game_version, const std::vector<FileBlob>& files,
                             const std::vector<std::string>& legacy_cleanup, const ProgressFn& progress);
 InstallResult install_pack(const Pack& p, const fs::path& game_root, bool with_addon, const ProgressFn& progress,
-                           const PackFile* default_xml = nullptr, const std::vector<std::string>& legacy_cleanup = {});
+                           const PackFile* default_xml = nullptr, const std::vector<std::string>& legacy_cleanup = {},
+                           const std::vector<PackFile>* addon_shared = nullptr);

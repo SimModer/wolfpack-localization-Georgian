@@ -16,7 +16,7 @@ FetchContent_Declare(json
 FetchContent_MakeAvailable(imgui json)
 
 add_executable(WolfpackL10n WIN32
-  src/main.cpp src/ui.cpp src/util.cpp src/http.cpp src/game.cpp src/lang.cpp src/packs.cpp src/flags.cpp src/bepinex.cpp src/app.rc src/app.manifest
+  src/main.cpp src/ui.cpp src/util.cpp src/http.cpp src/game.cpp src/lang.cpp src/packs.cpp src/flags.cpp src/bepinex.cpp src/addon.cpp src/app.rc src/app.manifest
   ${imgui_SOURCE_DIR}/imgui.cpp
   ${imgui_SOURCE_DIR}/imgui_draw.cpp
   ${imgui_SOURCE_DIR}/imgui_tables.cpp

@@ -1,5 +1,10 @@
 # Wolfpack Language Tool - Changelog
 
+## 1.2.0 (2026-10-29)
+- **Editor: new view "BepInEx"** for the hard-coded in-game texts (234 texts from `reference/hardcoded-en.txt`). Existing add-on translations (e.g. German) are loaded, extra and regex lines are kept as *custom*.
+- *Export for GitHub* writes the add-on (`addons/autotranslator`: texts + config) next to the language files; *Test in game* installs it too when BepInEx is installed.
+- The AutoTranslator plugins are shared: add-ons of new languages only need their texts, the tool installs the plugins.
+
 ## 1.1.1 (2026-10-29)
 - Languages page: the update hint no longer pushes *Restore original English* out of the window (updates are shown on the card and offered on the dashboard).
 - Update button on the dashboard: the "!" icon no longer touches the text.

@@ -27,8 +27,15 @@ def build():
         extras = [entry(p) for p in sorted(addon.rglob("*"), key=lambda q: q.as_posix()) if p.is_file() and p.name != ".gitkeep"] if addon.exists() else []
         packs.append({**{k: meta[k] for k in ("code", "name", "native_name", "pack_version", "game_version", "status", "notes")},
                       "authors": meta.get("authors", []), "files": files, "addon_files": extras})
+    # The XUnity.AutoTranslator plugins live once (in the German add-on); the tool installs them for every
+    # pack whose add-on has no own plugins folder. "dest" is the path inside the game folder.
+    plugins = PACKS / "de" / "addons" / "autotranslator"
+    shared = [{**entry(p), "dest": p.relative_to(plugins).as_posix()}
+              for p in sorted((plugins / "BepInEx" / "plugins").rglob("*"), key=lambda q: q.as_posix()) if p.is_file()]
     return {"schema": 1, "game_version": ref["game_version"],
-            "reference": [entry(REFERENCE_LANG), entry(REFERENCE_XML)], "packs": packs}
+            "reference": [entry(REFERENCE_LANG), entry(REFERENCE_XML)],
+            "hardcoded": entry(ROOT / "reference" / "hardcoded-en.txt"),
+            "addon_shared": shared, "packs": packs}
 
 
 def main():

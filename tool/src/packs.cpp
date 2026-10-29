@@ -58,7 +58,7 @@ std::vector<std::string> Pack::warnings(const std::string& installed) const {
 }
 
 static void read_files(const json& arr, std::vector<PackFile>& out) {
-    for (auto& f : arr) out.push_back({f.at("path"), f.at("size"), f.at("sha256")});
+    for (auto& f : arr) out.push_back({f.at("path"), f.at("size"), f.at("sha256"), f.value("dest", "")});
 }
 
 bool fetch_index(Index& out, std::string& err) {
@@ -69,6 +69,12 @@ bool fetch_index(Index& out, std::string& err) {
         out = {};
         out.game_version = j.at("game_version");
         read_files(j.at("reference"), out.reference);
+        if (j.contains("hardcoded")) {
+            std::vector<PackFile> h;
+            read_files(json::array({j["hardcoded"]}), h);
+            out.hardcoded = h[0];
+        }
+        read_files(j.value("addon_shared", json::array()), out.addon_shared);
         for (auto& p : j.at("packs")) {
             Pack k;
             k.code = p.at("code");
@@ -179,12 +185,19 @@ InstallResult apply_install(const fs::path& root, const std::string& code, const
 }
 
 InstallResult install_pack(const Pack& p, const fs::path& root, bool with_addon, const ProgressFn& progress, const PackFile* default_xml,
-                           const std::vector<std::string>& legacy_cleanup) {
+                           const std::vector<std::string>& legacy_cleanup, const std::vector<PackFile>* addon_shared) {
     InstallResult res;
     std::vector<std::pair<const PackFile*, std::string>> todo;  // file, path relative to the game folder
     for (auto& f : p.files) todo.push_back({&f, install_rel(p, f)});
-    if (with_addon)
-        for (auto& f : p.addon_files) todo.push_back({&f, install_rel(p, f)});
+    if (with_addon) {
+        bool own_plugins = false;
+        for (auto& f : p.addon_files) {
+            todo.push_back({&f, install_rel(p, f)});
+            own_plugins |= f.path.find("/BepInEx/plugins/") != std::string::npos;
+        }
+        if (!own_plugins && addon_shared)
+            for (auto& f : *addon_shared) todo.push_back({&f, f.dest});
+    }
     if (default_xml && !p.has_xml()) todo.push_back({default_xml, "Wolfpack_Data/Language/Official/English.xml"});
 
     // Download everything first so a broken connection never leaves half a pack in the game folder.

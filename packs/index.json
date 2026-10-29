@@ -13,6 +13,145 @@
    "sha256": "87f9b8dc1eb54dddf1614c97fc90a5ac5d330aaae56b081532cfa8d03891d969"
   }
  ],
+ "hardcoded": {
+  "path": "reference/hardcoded-en.txt",
+  "size": 4762,
+  "sha256": "b7d14f1962f870aacc23cac90cf14cd3f4d372542f883466ac856c9b36f70adb"
+ },
+ "addon_shared": [
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/README (AutoTranslator).md",
+   "size": 156802,
+   "sha256": "9d729bbcc58290f4c472d016d6aa3f5ca31a084745182c8553b4e2e154558645",
+   "dest": "BepInEx/plugins/README (AutoTranslator).md"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/ExIni.dll",
+   "size": 13312,
+   "sha256": "c073db2220667e6bbbfff64e13ed4f7e744af4b554c408f13ea80bfdffd859d0",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/ExIni.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BaiduTranslate.dll",
+   "size": 11264,
+   "sha256": "390376beb1c5cbfaad429611a71aa9e1a86a1694fec5f04e7826b3d0b4692ada",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/BaiduTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslate.dll",
+   "size": 13824,
+   "sha256": "9bf6c0f597bca57c942c297950c63ebbe6b570642aa7143268cc304f8e422e6c",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslateLegitimate.dll",
+   "size": 9728,
+   "sha256": "2ac477f17ce9c72963dd09e95d71df4cf1ee17118b6c37fb78de899c0568ed01",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/BingTranslateLegitimate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/CustomTranslate.dll",
+   "size": 6656,
+   "sha256": "fd1434da32a40d403d9460c8a97efc16068eed25cb22c015d9592faf2d5a5d38",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/CustomTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/DeepLTranslate.dll",
+   "size": 9728,
+   "sha256": "d437d9cd1a761f22f93256ffdb0a78d586a7f2060ca4a282d1a3220f4a41adbf",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/DeepLTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslate.dll",
+   "size": 25600,
+   "sha256": "0d3c23f98d5f288b799a2f48fc6661cba0898ab996675eb3ee38d3cd45e3d605",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateCompat.dll",
+   "size": 8192,
+   "sha256": "7ce7c9837ee368b023197343e1cba62318b3afa43830d35ce25f4218e38af760",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateCompat.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateLegitimate.dll",
+   "size": 9728,
+   "sha256": "ca3b96027f04a475d2896f993a17b9026df943ce66f53053160cb3866fe3701b",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/GoogleTranslateLegitimate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/LecPowerTranslator15.dll",
+   "size": 7168,
+   "sha256": "6b85714d9a8856691e9849e692f982d0377b09a0654d1b5b2b6a49ed6b5eb832",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/LecPowerTranslator15.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/LingoCloudTranslate.dll",
+   "size": 8192,
+   "sha256": "66684c7d536cb53ba7a86e68ace0bcd3e3cfce689333020282fe9f88cfa7cc80",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/LingoCloudTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/PapagoTranslate.dll",
+   "size": 12800,
+   "sha256": "01f4488ec58e7f712e39509202964f1f49dc12f4f87cb0edd6a24f7564e890d9",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/PapagoTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/WatsonTranslate.dll",
+   "size": 9216,
+   "sha256": "6701e19016483c57c55a82227951b00fd4b85d47a5d7db00b6a2eabad4cddb47",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/WatsonTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/YandexTranslate.dll",
+   "size": 9728,
+   "sha256": "4f522e353253bbdfd1fa4eee17b2bb3da9301625263331fae7fed25f0872c56b",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/YandexTranslate.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/Translators/ezTransXP.dll",
+   "size": 6144,
+   "sha256": "6f8f9089bbd10e18bfa1475eca149df88d26f595a6fa696db6fde752e1ec2b41",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/Translators/ezTransXP.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.BepInEx-IL2CPP.dll",
+   "size": 7168,
+   "sha256": "0c302c744bcf0f24b2346bf8fdd6c0137db1b2a3379affe8c1f0b77a4f5a7b03",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.BepInEx-IL2CPP.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.Core.dll",
+   "size": 644096,
+   "sha256": "6a04943e4aba902e1642625e784f1be536cb7e641923d6e04fefa2ef59299149",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.Core.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.ExtProtocol.dll",
+   "size": 10752,
+   "sha256": "e502c355f34de51e3fa3d3b08c95cbbda4a2ac044bf8aebf5c4b6ecf81efff8f",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/XUnity.AutoTranslator.Plugin.ExtProtocol.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.AutoTranslator/XUnity.Common.dll",
+   "size": 96768,
+   "sha256": "f9ee09a28054ac2aac715939ad6e71c2e1dd5a5bcef398766805782a4b7e7d3a",
+   "dest": "BepInEx/plugins/XUnity.AutoTranslator/XUnity.Common.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.BepInEx-IL2CPP.dll",
+   "size": 7168,
+   "sha256": "d021d4eee106b98ffafc91b88aef70b7c6ee540a41cf686a0e2e6e44579b9b23",
+   "dest": "BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.BepInEx-IL2CPP.dll"
+  },
+  {
+   "path": "packs/de/addons/autotranslator/BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.dll",
+   "size": 65536,
+   "sha256": "29dfc65c8b83b623b6f74c3f359609ceb184f668dc24052b0a7c53a06bdc43d2",
+   "dest": "BepInEx/plugins/XUnity.ResourceRedirector/XUnity.ResourceRedirector.dll"
+  }
+ ],
  "packs": [
   {
    "code": "de",
