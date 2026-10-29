@@ -837,17 +837,8 @@ static void page_install() {
         g_queue.erase(g_queue.begin());
         install_async(next, false);
     }
-    {
-        std::string names;
-        std::vector<Pack> outdated;
-        for (auto& q : packs)
-            if (g_state.count(q.code) && g_state[q.code] == 2) {
-                outdated.push_back(q);
-                names += (names.empty() ? "" : ", ") + q.native_name;
-            }
-        if (!outdated.empty() && g_queue.empty() && callout(("Updates available for: " + names + ". The files in your game folder differ from the repository.").c_str(), kAccent, (g_install_task.running || g_game_running) ? nullptr : "Update all"))
-            g_queue = outdated;
-    }
+    // updates are shown on the card ("update available") and offered on the dashboard; no banner here,
+    // it would push the detail actions out of the 720 px window
 
     ImVec2 avail = ImGui::GetContentRegionAvail();
     float detail_w = px(340), gap = px(16);
@@ -1307,7 +1298,7 @@ static void banner(const char* title, const char* subtitle, ImVec4 c, const char
     dl->AddText(ImVec2(p.x + px(24), p.y + px(40)), U(kMuted), subtitle);
     if (button) {
         ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.86f);
-        float bw = stext(dl, ImVec2(0, 0), 0, upper(button), px(1.2f), false) + px(36) + px(36);
+        float bw = stext(dl, ImVec2(0, 0), 0, upper(button), px(1.2f), false) + px(36) + px(52);
         ImGui::PopFont();
         ImGui::SetCursorScreenPos(ImVec2(p.x + w - bw - px(14), p.y + (h - px(44)) * 0.5f));
         // small "!" square like a status icon inside the button
@@ -1640,7 +1631,7 @@ static void footer(float W, float H) {
     ImGui::PushFont(g_bold, ImGui::GetStyle().FontSizeBase * 0.68f);
     float ty = H - h + (h - ImGui::GetTextLineHeight()) * 0.5f;
     float x = px(28);
-    stext(dl, ImVec2(x, ty), U(kMuted), "V1.1.0", px(1.4f));
+    stext(dl, ImVec2(x, ty), U(kMuted), "V1.1.1", px(1.4f));
 
     float rw = stext(dl, ImVec2(0, 0), 0, "REPOSITORY", px(1.4f), false);
     float rx = W - px(28) - rw;

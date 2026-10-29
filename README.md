@@ -18,6 +18,10 @@ Community language packs for the submarine game *Wolfpack* (Usurpator, Steam).
 ## Installer & editor tool
 The [Wolfpack Language Tool](tool/README.md) (portable `.exe`, see Releases) installs packs and lets you create or edit translations. Its source code is in `tool/` under the PolyForm Noncommercial License.
 
+| Dashboard | Languages | Editor |
+|---|---|---|
+| ![Dashboard](docs/images/dashboard.png) | ![Languages](docs/images/languages.png) | ![Editor](docs/images/editor.png) |
+
 ## Versions
 Every game version lives on its own branch (`version/0.26`, `version/0.27`, `version/0.26R6`); `main` is the newest.
 

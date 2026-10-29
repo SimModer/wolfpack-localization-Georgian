@@ -1,5 +1,9 @@
 # Wolfpack Language Tool - Changelog
 
+## 1.1.1 (2026-10-29)
+- Languages page: the update hint no longer pushes *Restore original English* out of the window (updates are shown on the card and offered on the dashboard).
+- Update button on the dashboard: the "!" icon no longer touches the text.
+
 ## 1.1.0 (2026-10-29)
 - **Fix for "game hangs on Loading languages" ([#30](https://github.com/niclqs/wolfpack-localization/issues/30)):** all language packs were missing the `suffixPairs` and `morsePairs` lists. The packs on GitHub are fixed; open the tool and press **Update** if you installed a pack before.
 - The editor keeps and translates **Units & Morse** (unit suffixes such as " kts" and radio phrases) and writes files exactly in the game's own format. Exports and *Test in game* of older versions produced broken files.
